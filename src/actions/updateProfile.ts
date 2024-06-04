@@ -1,6 +1,6 @@
 "use server";
 
-import { UpdateProfileValues, updateProfileSchema } from "@/lib/validation";
+import { UpdateProfileValues, updateProfileSchema } from "@/schemas/index";
 
 export async function updateProfile(values: UpdateProfileValues) {
   // TODO: Get the currently authenticated user
