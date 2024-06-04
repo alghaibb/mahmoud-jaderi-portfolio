@@ -28,7 +28,7 @@ export default function UserButton({ user }: UserButtonProps) {
             alt="User profile picture"
             width={50}
             height={50}
-            className="aspect-square rounded-full bg-background object-cover"
+            className="object-cover rounded-full aspect-square bg-background"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -38,14 +38,14 @@ export default function UserButton({ user }: UserButtonProps) {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href="/settings">
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="w-4 h-4 mr-2" />
               <span>Settings</span>
             </Link>
           </DropdownMenuItem>
           {/* TODO: Show this only for admins */}
           {/* <DropdownMenuItem asChild>
                 <Link href="/admin">
-                  <Lock className="mr-2 h-4 w-4" />
+                  <Lock className="w-4 h-4 mr-2" />
                   Admin
                 </Link>
               </DropdownMenuItem> */}
@@ -53,8 +53,8 @@ export default function UserButton({ user }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           {/* TODO: Add a logout functionality */}
-          <button className="flex w-full items-center">
-            <LogOut className="mr-2 h-4 w-4" /> Sign Out
+          <button className="flex items-center w-full">
+            <LogOut className="w-4 h-4 mr-2" /> Sign Out
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
