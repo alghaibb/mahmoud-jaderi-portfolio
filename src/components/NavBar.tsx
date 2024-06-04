@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function NavBar() {
+export default function Navbar() {
   // TODO: Show the currently logged-in user
 
   return (
