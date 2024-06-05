@@ -74,7 +74,7 @@ const ForgotPasswordForm = () => {
                 )}
               />
             </div>
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Forgot Password"}
             </Button>
           </form>
@@ -82,7 +82,9 @@ const ForgotPasswordForm = () => {
         <p className="mt-4 text-sm ">
           Remember your password?{" "}
           <Link href="/login">
-            <span className="underline">Login</span>
+            <Button variant="link" className="px-0">
+              Login
+            </Button>
           </Link>
         </p>
       </CardContent>

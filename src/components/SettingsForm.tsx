@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,21 +11,22 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { UpdateProfileValues, updateProfileSchema } from "@/schemas/index";
+import { updateProfileSchema } from "@/schemas/index";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "@/actions/updateProfile";
 
 export default function SettingsPage() {
   const { toast } = useToast();
 
-  const form = useForm<UpdateProfileValues>({
+  const form = useForm({
     resolver: zodResolver(updateProfileSchema),
     // TODO: Add default value from current user
     defaultValues: { name: "" },
   });
 
-  async function onSubmit(data: UpdateProfileValues) {
+  const onSubmit = async (data: z.infer<typeof updateProfileSchema>) => {
     try {
       await updateProfile(data);
       toast({ description: "Profile updated." });
@@ -36,11 +36,11 @@ export default function SettingsPage() {
         description: "An error occurred. Please try again.",
       });
     }
-  }
+  };
 
   return (
     <section className="px-3 py-10">
-      <section className="mx-auto space-y-6 max-w-7xl">
+      <section className="mx-auto max-w-7xl space-y-6">
         <h1 className="text-3xl font-bold">Settings</h1>
         <Form {...form}>
           <form
@@ -54,9 +54,8 @@ export default function SettingsPage() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter a username" {...field} />
+                    <Input {...field} />
                   </FormControl>
-                  <FormDescription>Your public username</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

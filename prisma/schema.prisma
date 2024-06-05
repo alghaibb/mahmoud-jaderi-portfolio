@@ -13,11 +13,11 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String    @unique
+  password      String
   emailVerified DateTime?
   image         String?
   role          String?
   accounts      Account[]
-  sessions      Session[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,18 +47,6 @@ model Account {
   @@map("accounts")
 }
 
-model Session {
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("sessions")
-}
-
 model VerificationToken {
   identifier String
   token      String
@@ -71,6 +59,8 @@ model VerificationToken {
 model ResetPasswordToken {
   identifier String
   token      String
+  createdAt  DateTime  @default(now())
+  resetAt    DateTime?
   expires    DateTime
 
   @@id([identifier, token])

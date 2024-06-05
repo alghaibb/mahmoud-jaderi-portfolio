@@ -1,11 +1,12 @@
 "use server";
 
-import { UpdateProfileValues, updateProfileSchema } from "@/schemas/index";
+import { z } from "zod";
+import { updateProfileSchema } from "@/schemas/index";
 
-export async function updateProfile(values: UpdateProfileValues) {
+export async function updateProfile(data: z.infer<typeof updateProfileSchema>) {
   // TODO: Get the currently authenticated user
 
-  const { name } = updateProfileSchema.parse(values);
+  const { name } = updateProfileSchema.parse(data);
 
   // TODO: Update user
 }
