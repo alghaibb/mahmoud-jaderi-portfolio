@@ -28,6 +28,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CreateAccountFormSchema } from "@/schemas";
+import { createAccount } from "@/actions/auth/create-account";
 
 const CreateAccountForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +46,20 @@ const CreateAccountForm = () => {
   const { handleSubmit } = form;
 
   const onSubmit = async (data: z.infer<typeof CreateAccountFormSchema>) => {
-    console.log("Created User:", data);
+    setLoading(true);
+    try {
+      const res = await createAccount(data);
+      if (res.success) {
+        alert(res.success);
+        console.log("User created:", data);
+      } else {
+        alert(res.error);
+      }
+    } catch (error) {
+      console.error("Error creating account:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -145,7 +159,7 @@ const CreateAccountForm = () => {
                 )}
               />
             </div>
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Create Account"}
             </Button>
           </form>
@@ -153,7 +167,9 @@ const CreateAccountForm = () => {
         <p className="mt-4 text-sm">
           Already with us?{" "}
           <Link href="/login">
-            <span className="underline">Login</span>
+            <Button variant="link" className="px-0">
+              Login
+            </Button>
           </Link>
         </p>
       </CardContent>

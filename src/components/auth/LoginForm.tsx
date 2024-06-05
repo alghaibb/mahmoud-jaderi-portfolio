@@ -101,12 +101,12 @@ const LoginForm = () => {
               />
               <Link href="/forgot-password">
                 {" "}
-                <p className="flex items-center mt-4 text-sm underline">
+                <Button variant="link" className="px-0">
                   Forgot password?
-                </p>
+                </Button>
               </Link>
             </div>
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Login"}
             </Button>
           </form>
@@ -114,7 +114,9 @@ const LoginForm = () => {
         <p className="mt-4 text-sm ">
           Don&apos;t have an account?{" "}
           <Link href="/create-account">
-            <span className="underline">Create An Account</span>
+            <Button variant="link" className="px-0">
+              Create An Account
+            </Button>
           </Link>
         </p>
       </CardContent>

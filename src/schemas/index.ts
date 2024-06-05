@@ -20,6 +20,12 @@ export const CreateAccountFormSchema = z.object({
   path: ["confirmPassword"],
 });
 
+// Verify email form schema
+export const VerifyEmailFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email" }),
+  OTP: z.string().regex(/^\d{6}$/, { message: "Token must be a 6-digit number" }),
+});
+
 // Login form schema
 export const LoginFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
