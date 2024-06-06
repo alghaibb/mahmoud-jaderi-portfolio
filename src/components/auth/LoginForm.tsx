@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { FaEyeSlash, FaEye } from "react-icons/fa";
@@ -28,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoginFormSchema } from "@/schemas";
+import { login } from "@/actions/auth/login";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,11 +41,24 @@ const LoginForm = () => {
       password: "",
     },
   });
+  const router = useRouter();
 
   const { handleSubmit } = form;
 
   const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
-    console.log("Logged in user:", data);
+    setLoading(true);
+    try {
+      const res = await login(data);
+      if (res && res.error) {
+        alert(res.error);
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error logging in user:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
