@@ -115,9 +115,9 @@ const PasswordResetForm = () => {
                 )}
               />
               <Link href="/">
-                <p className="mt-4 flex items-center text-sm underline">
+                <Button variant="link" className="px-0">
                   Back to home
-                </p>
+                </Button>
               </Link>
             </div>
             <Button type="submit" className="mt-4 w-full" disabled={loading}>

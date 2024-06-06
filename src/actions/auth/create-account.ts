@@ -57,7 +57,7 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
     await sendVerificationEmail(lowerCaseEmail, verificationCode);
 
     // If all goes well, return success message
-    return { success: "Account successfuly created, check your email to verify your account." };
+    return { success: "Account successfuly created, check your email to verify your account" };
 
   } catch (error) {
     console.error("Error:", error);

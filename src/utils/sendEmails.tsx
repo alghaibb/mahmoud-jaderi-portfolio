@@ -1,9 +1,10 @@
 import prisma from "@/lib/prisma";
-import VerifyEmail from "@/components/emails/VerifyEmail";
+import { VerifyEmail, ForgotPassword } from "@/components/emails";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Sends a verification email to the user
 export const sendVerificationEmail = async (
   email: string,
   verificationCode: string,
@@ -27,6 +28,34 @@ export const sendVerificationEmail = async (
         verificationCode={verificationCode}
         verificationLink={verificationLink}
         name={userName}
+      />
+    ),
+  });
+};
+
+// Sends a password reset email to the user
+export const sendPasswordResetEmail = async (
+  email: string,
+  resetPasswordToken: string,
+) => {
+  const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${resetPasswordToken}`;
+
+  // Get users name from database
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { name: true },
+  });
+
+  const userName = user?.name || "User";
+
+  await resend.emails.send({
+    from: "noreply@codewithmj.com",
+    to: email,
+    subject: "Reset your password",
+    react: (
+      <ForgotPassword
+        usersName={userName}
+        resetPasswordLink={resetPasswordLink}
       />
     ),
   });
