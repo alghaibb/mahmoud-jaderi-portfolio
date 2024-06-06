@@ -22,7 +22,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/app/loading";
+import LoadingSpinner from "@/components/loading";
+import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -32,6 +33,8 @@ import { createAccount } from "@/actions/auth/create-account";
 
 const CreateAccountForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(CreateAccountFormSchema),
@@ -45,15 +48,21 @@ const CreateAccountForm = () => {
 
   const { handleSubmit } = form;
 
+  const clearMessages = () => {
+    setSuccess(null);
+    setError(null);
+  };
+
   const onSubmit = async (data: z.infer<typeof CreateAccountFormSchema>) => {
     setLoading(true);
+    clearMessages();
     try {
       const res = await createAccount(data);
-      if (res.success) {
-        alert(res.success);
-        console.log("User created:", data);
-      } else {
-        alert(res.error);
+      if (res && res.error) {
+        setError(res.error);
+      } else if (res && res.success) {
+        setSuccess(res.success);
+        form.reset();
       }
     } catch (error) {
       console.error("Error creating account:", error);
@@ -75,6 +84,20 @@ const CreateAccountForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {success && (
+          <CustomMessage
+            type="success"
+            message={success}
+            onClose={() => setSuccess(null)}
+          />
+        )}
+        {error && (
+          <CustomMessage
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">

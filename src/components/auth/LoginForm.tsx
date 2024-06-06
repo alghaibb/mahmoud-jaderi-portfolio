@@ -23,7 +23,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/app/loading";
+import LoadingSpinner from "@/components/loading";
+import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,6 +35,7 @@ import { login } from "@/actions/auth/login";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const form = useForm({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -47,12 +49,14 @@ const LoginForm = () => {
 
   const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
     setLoading(true);
+    setError(null);
     try {
       const res = await login(data);
       if (res && res.error) {
-        alert(res.error);
+        setError(res.error);
       } else {
         router.push("/");
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Error logging in user:", error);
@@ -72,6 +76,13 @@ const LoginForm = () => {
         <CardDescription>Enter your details below to login</CardDescription>
       </CardHeader>
       <CardContent>
+        {error && (
+          <CustomMessage
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
@@ -121,7 +132,7 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Login"}
             </Button>
           </form>

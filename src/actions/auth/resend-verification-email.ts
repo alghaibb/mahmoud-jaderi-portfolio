@@ -28,6 +28,11 @@ export const resendVerificationEmail = async (data: { email: string }) => {
     return { error: "User not found" };
   }
 
+  // Check if user is already verified
+  if (user.emailVerified) {
+    return { message: "User is already verified" };
+  }
+
   // Invalidate existing verification tokens when resending new one
   await prisma.verificationToken.deleteMany({
     where: { identifier: email },

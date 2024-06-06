@@ -36,5 +36,5 @@ export const VerifyEmailToken = async ({ email, OTP }: { email: string, OTP: str
   // Delete verification token from database
   await deleteVerificationToken(existingVerificationToken.identifier, OTP);
 
-  return { success: "Account verified", };
+  return { success: "Account successfuly verified", };
 };

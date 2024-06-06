@@ -35,7 +35,8 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import LoadingSpinner from "@/app/loading";
+import LoadingSpinner from "@/components/loading";
+import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -48,7 +49,11 @@ import Link from "next/link";
 
 const VerifyAccountForm = () => {
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [resendSuccess, setResendSuccess] = useState<string | null>(null);
+  const [resendError, setResendError] = useState<string | null>(null);
+  const [resendInfo, setResendInfo] = useState<string | null>(null);
   const [resending, setResending] = useState(false);
 
   const form = useForm({
@@ -61,15 +66,24 @@ const VerifyAccountForm = () => {
 
   const { handleSubmit } = form;
 
+  const clearMessages = () => {
+    setSuccess(null);
+    setError(null);
+    setResendSuccess(null);
+    setResendError(null);
+    setResendInfo(null);
+  };
+
   const onSubmit = async (data: z.infer<typeof VerifyEmailFormSchema>) => {
     setLoading(true);
+    clearMessages();
     try {
       const res = await VerifyEmailToken(data);
       if (res.success) {
-        setSuccessMessage(res.success);
-        console.log("Account verified:", data);
-      } else {
-        alert(res.error);
+        setSuccess(res.success);
+        form.reset();
+      } else if (res.error) {
+        setError(res.error);
       }
     } catch (error) {
       console.error("Error verifying account:", error);
@@ -80,12 +94,16 @@ const VerifyAccountForm = () => {
 
   const resendOTP = async (email: string) => {
     setResending(true);
+    clearMessages();
     try {
       const res = await resendVerificationEmail({ email });
       if (res.success) {
-        alert(res.success);
-      } else {
-        alert(res.error);
+        setResendSuccess(res.success);
+        form.reset();
+      } else if (res.error) {
+        setResendError(res.error);
+      } else if (res.message) {
+        setResendInfo(res.message);
       }
     } catch (error) {
       console.error("Error resending OTP:", error);
@@ -103,6 +121,20 @@ const VerifyAccountForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {success && (
+          <CustomMessage
+            type="success"
+            message={success}
+            onClose={() => setSuccess(null)}
+          />
+        )}
+        {error && (
+          <CustomMessage
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
         <Form {...form}>
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <FormField
@@ -145,23 +177,11 @@ const VerifyAccountForm = () => {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Verify"}
             </Button>
-            {successMessage && (
-              <div className="mt-4 text-sm">
-                <p className="bg-emerald-200 px-2 py-2 text-lg">
-                  {successMessage}
-                </p>
-                <Link href="/login">
-                  <Button variant="link" className="px-0">
-                    Login here
-                  </Button>
-                </Link>
-              </div>
-            )}
           </form>
         </Form>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="link" className="mt-4 px-0 text-sm">
+            <Button variant="link" className="px-0 mt-4 text-sm">
               <span className="flex flex-row items-center gap-x-1.5">
                 OTP expired? Click here to resend the email
               </span>
@@ -170,6 +190,27 @@ const VerifyAccountForm = () => {
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Resend OTP</DialogTitle>
+              {resendSuccess && (
+                <CustomMessage
+                  type="success"
+                  message={resendSuccess}
+                  onClose={() => setResendSuccess(null)}
+                />
+              )}
+              {resendError && (
+                <CustomMessage
+                  type="error"
+                  message={resendError}
+                  onClose={() => setResendError(null)}
+                />
+              )}
+              {resendInfo && (
+                <CustomMessage
+                  type="info"
+                  message={resendInfo}
+                  onClose={() => setResendInfo(null)}
+                />
+              )}
               <DialogDescription>
                 Enter your email to resend the OTP
               </DialogDescription>

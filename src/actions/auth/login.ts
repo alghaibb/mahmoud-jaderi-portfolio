@@ -52,10 +52,9 @@ export const login = async (data: z.infer<typeof LoginFormSchema>) => {
         case "CredentialsSignin":
           return { error: "Invalid credentials" };
         default:
-          return { error: "Please confirm yours email address" };
+          return { error: "Please confirm your email address" };
       }
     }
-
     throw error;
   }
 
