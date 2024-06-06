@@ -6,6 +6,7 @@ import { z } from "zod";
 import { CreateAccountFormSchema } from "@/schemas/index";
 import { generateVerificationCode } from "@/utils/token";
 import { sendVerificationEmail } from "@/utils/sendEmails";
+import { getUserByEmail } from "@/utils/user";
 
 export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema>) => {
   try {
@@ -26,11 +27,7 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+    const existingUser = await getUserByEmail(email);
 
     // If user exists, return error
     if (existingUser) {
@@ -52,9 +49,6 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
         password: hashedPassword,
       },
     });
-
-    // Log the newly created user (for debugging purposes)
-    console.log("New user created:", newUser);
 
     // Generate email verification token
     const verificationCode = await generateVerificationCode(lowerCaseEmail);
