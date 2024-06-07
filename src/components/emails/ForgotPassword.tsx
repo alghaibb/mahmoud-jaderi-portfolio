@@ -24,7 +24,7 @@ export default function ForgotPassword({
   return (
     <Html>
       <Head />
-      <Preview>Dropbox reset your password</Preview>
+      <Preview>Reset your password</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section>

@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma";
 import crypto from "crypto";
-import { getUserByEmail } from "./user";
 
 // Function to generate a 6-digit numeric OTP
 const generateNumericOTP = (): string => {
@@ -63,13 +62,13 @@ export const deleteVerificationToken = async (email: string, token: string) => {
 };
 
 // Generate password reset token 
-export const generatePasswordResetToken = async (): Promise<string> => {
+export const generatePasswordResetToken = async (email: string): Promise<string> => {
   const resetToken = crypto.randomBytes(32).toString("hex");
   const expires = new Date().getTime() + 1000 * 60 * 10;
 
   await prisma.resetPasswordToken.create({
     data: {
-      identifier: resetToken,
+      identifier: email,
       token: resetToken,
       expires: new Date(expires),
     },
