@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 import { FaEyeSlash, FaEye } from "react-icons/fa";
@@ -23,14 +24,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/loading";
+import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { PasswordResetFormSchema } from "@/schemas";
+import { resetPassword } from "@/actions/auth/reset-password";
 
 const PasswordResetForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(PasswordResetFormSchema),
@@ -39,11 +44,32 @@ const PasswordResetForm = () => {
       confirmPassword: "",
     },
   });
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
 
   const { handleSubmit } = form;
 
+  const clearMessages = () => {
+    setError(null);
+    setSuccess(null);
+  };
+
   const onSubmit = async (data: z.infer<typeof PasswordResetFormSchema>) => {
-    console.log("New password:", data);
+    setLoading(true);
+    clearMessages();
+    try {
+      const res = await resetPassword(token as string, data.password);
+      if (res.error) {
+        setError(res.error);
+      } else if (res.success) {
+        setSuccess(res.success);
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Error resetting password:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -55,6 +81,20 @@ const PasswordResetForm = () => {
       <CardHeader className="space-y-4">
         <CardTitle className="md:text-4xl">Reset Password</CardTitle>
         <CardDescription>Enter your new password</CardDescription>
+        {success && (
+          <CustomMessage
+            type="success"
+            message={success}
+            onClose={() => setSuccess(null)}
+          />
+        )}
+        {error && (
+          <CustomMessage
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -114,11 +154,18 @@ const PasswordResetForm = () => {
                   </FormItem>
                 )}
               />
-              <Link href="/">
-                <Button variant="link" className="px-0">
-                  Back to home
-                </Button>
-              </Link>
+              <div className="flex items-center justify-between">
+                <Link href="/login">
+                  <Button variant="link" className="px-0">
+                    Back to login
+                  </Button>
+                </Link>
+                <Link href="/forgot-password">
+                  <Button variant="link" className="px-0">
+                    Back to forgot password
+                  </Button>
+                </Link>
+              </div>
             </div>
             <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Reset Password"}
