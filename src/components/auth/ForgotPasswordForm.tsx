@@ -21,14 +21,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/loading";
+import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ForgotPasswordFormSchema } from "@/schemas";
+import { forgotPassword } from "@/actions/auth/forgot-password";
 
 const ForgotPasswordForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(ForgotPasswordFormSchema),
@@ -39,12 +42,27 @@ const ForgotPasswordForm = () => {
 
   const { handleSubmit } = form;
 
-  const onSubmit = async (data: z.infer<typeof ForgotPasswordFormSchema>) => {
-    console.log("Email entered:", data);
+  const clearMessages = () => {
+    setSuccess(null);
+    setError(null);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const onSubmit = async (data: z.infer<typeof ForgotPasswordFormSchema>) => {
+    setLoading(true);
+    clearMessages();
+    try {
+      const res = await forgotPassword(data);
+      if (res.error) {
+        setError(res.error);
+      } else if (res.success) {
+        setSuccess(res.success);
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Error creating account:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,6 +73,20 @@ const ForgotPasswordForm = () => {
           Enter your email and you will recieve an email with instructions on
           how to reset your password
         </CardDescription>
+        {success && (
+          <CustomMessage
+            type="success"
+            message={success}
+            onClose={() => setSuccess(null)}
+          />
+        )}
+        {error && (
+          <CustomMessage
+            type="error"
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
       </CardHeader>
       <CardContent>
         <Form {...form}>
