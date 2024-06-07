@@ -29,6 +29,12 @@ export const resetPassword = async (token: string, password: string) => {
       return { error: "User not found" };
     }
 
+    // Check if the new password is the same as the old password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (passwordMatch) {
+      return { error: "New password cannot be the same as the old password" };
+    }
+
     // Hash and salt the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -38,6 +44,7 @@ export const resetPassword = async (token: string, password: string) => {
       where: { email: resetPasswordToken.identifier },
       data: {
         password: hashedPassword,
+        updatedAt: new Date().toISOString(),
       },
     });
 
