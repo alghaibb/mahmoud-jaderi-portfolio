@@ -1,5 +1,6 @@
 "use server";
 
+import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { ForgotPasswordFormSchema } from "@/schemas";
 import { getUserByEmail } from "@/utils/user";
@@ -27,8 +28,13 @@ export const forgotPassword = async (data: z.infer<typeof ForgotPasswordFormSche
       return { error: "User not found" };
     }
 
+    // Invalidate all the existing password reset tokens
+    await prisma.resetPasswordToken.deleteMany({
+      where: { identifier: email },
+    });
+
     // Generate a password reset token
-    const resetToken = await generatePasswordResetToken();
+    const resetToken = await generatePasswordResetToken(email);
 
     // Send the password reset email to the user
     await sendPasswordResetEmail(email, resetToken);
