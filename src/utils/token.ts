@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
-import crypto from "crypto";
+import crypto, { randomInt } from "crypto";
 
 // Function to generate a 6-digit numeric OTP
 const generateNumericOTP = (): string => {
-  const otp = Math.floor(100000 + Math.random() * 900000); // Generates a number between 100000 and 999999
+  const otp = randomInt(100000, 999999);
   return otp.toString();
 };
 

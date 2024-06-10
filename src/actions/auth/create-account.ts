@@ -37,9 +37,11 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
     // Lowercase email
     const lowerCaseEmail = email.toLowerCase();
 
-    // Hash salt password
-    const hashedPassword = await bcrypt.genSalt(10)
-      .then(salt => bcrypt.hash(password, salt));
+    // Generate salt
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash password with salt
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create user
     const newUser = await prisma.user.create({
@@ -47,6 +49,7 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
         name,
         email: lowerCaseEmail,
         password: hashedPassword,
+        salt: salt,
       },
     });
 
