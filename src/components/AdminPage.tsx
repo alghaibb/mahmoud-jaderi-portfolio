@@ -1,22 +1,15 @@
 import { Metadata } from "next";
-import { auth } from "@/auth";
-import { getUserByEmail } from "@/utils/user";
+import { checkAdminAccess } from "@/utils/admin";
 
 export const metadata: Metadata = {
   title: "Admin",
 };
 
 export default async function AdminPage() {
-  const session = await auth();
-  const user = await getUserByEmail(session?.user.email ?? "");
+  const { hasAccess, component } = await checkAdminAccess();
 
-  if (!user || user.role !== "ADMIN") {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen mt-6 space-y-4 text-center">
-        <h1 className="text-4xl font-bold uppercase">Access Denied</h1>
-        <p className="text-muted-foreground">You shall not pass!</p>
-      </div>
-    );
+  if (!hasAccess) {
+    return component;
   }
 
   return (
