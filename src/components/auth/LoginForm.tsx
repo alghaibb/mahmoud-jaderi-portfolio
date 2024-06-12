@@ -23,7 +23,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/components/loading";
+import LoadingSpinner from "@/components/Loading";
 import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";

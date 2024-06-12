@@ -35,7 +35,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import LoadingSpinner from "@/components/loading";
+import LoadingSpinner from "@/components/Loading";
 import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -181,7 +181,7 @@ const VerifyAccountForm = () => {
         </Form>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="link" className="px-0 mt-4 text-sm">
+            <Button variant="link" className="mt-4 px-0 text-sm">
               <span className="flex flex-row items-center gap-x-1.5">
                 OTP expired? Click here to resend the email
               </span>

@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/components/loading";
+import LoadingSpinner from "@/components/Loading";
 import CustomMessage from "../CustomMessage";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -182,7 +182,7 @@ const CreateAccountForm = () => {
                 )}
               />
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Create Account"}
             </Button>
           </form>
