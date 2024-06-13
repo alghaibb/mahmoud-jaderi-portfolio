@@ -67,20 +67,28 @@ const Intro = () => {
             <span>Download CV</span> <MdOutlineCloudDownload />
           </Button>
         </Link>
-        <Link
-          href="https://www.linkedin.com/in/mahmoud-jaderi-150316290/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaLinkedin />
-        </Link>
-        <Link
-          href="https://github.com/alghaibb/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaGithub />
-        </Link>
+        <div className="flex gap-2 mt-1">
+          <Link
+            href="https://www.linkedin.com/in/mahmoud-jaderi-150316290/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin
+              size={24}
+              className="transition hover:scale-110 focus:scale-110 active:scale-105"
+            />
+          </Link>
+          <Link
+            href="https://github.com/alghaibb/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGithub
+              size={24}
+              className="transition hover:scale-110 focus:scale-110 active:scale-105"
+            />
+          </Link>
+        </div>
       </motion.div>
     </section>
   );
