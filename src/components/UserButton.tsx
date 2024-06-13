@@ -13,7 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+
 import { checkAdminAccess } from "@/utils/admin";
+import { signOut } from "@/auth";
 
 interface UserButtonProps {
   user: User;
@@ -21,6 +23,11 @@ interface UserButtonProps {
 
 export default async function UserButton({ user }: UserButtonProps) {
   const { hasAccess } = await checkAdminAccess();
+
+  const handleLogout = async () => {
+    await signOut();
+    window.location.href = "/login";
+  };
 
   if (!hasAccess) {
     return null;
@@ -44,27 +51,37 @@ export default async function UserButton({ user }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/settings">
-              <Settings className="w-4 h-4 mr-2" />
-              <span>Settings</span>
+            <Link href="/profile">
+              <Settings className="w-4 h-4 mr-2 cursor-pointer" />
+              <span className="cursor-pointer">Profile</span>
             </Link>
           </DropdownMenuItem>
-          {/* TODO: Show this only for admins */}
           <DropdownMenuItem asChild>
             {hasAccess && (
               <Link href="/admin">
-                <Lock className="w-4 h-4 mr-2" />
-                Admin
+                <Lock className="w-4 h-4 mr-2 cursor-pointer" />
+                <span className="cursor-pointer">Admin</span>
               </Link>
             )}
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          {/* TODO: Add a logout functionality */}
-          <button className="flex items-center w-full">
-            <LogOut className="w-4 h-4 mr-2" /> Sign Out
-          </button>
+          <form
+            action={async () => {
+              "use server";
+              await signOut({ redirectTo: "/login" });
+            }}
+          >
+            <Button
+              type="submit"
+              size="sm"
+              className="flex items-center px-0 mt-0 border-t rounded-none border-muted-foreground/30"
+              variant="ghost"
+            >
+              <LogOut className="w-4 h-4 mr-2" /> Logout
+            </Button>
+          </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
