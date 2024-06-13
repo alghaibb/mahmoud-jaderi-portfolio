@@ -1,5 +1,5 @@
 import avatarPlaceholder from "@/assets/images/avatar_placeholder.png";
-import { LogOut, Settings } from "lucide-react";
+import { LogOut, Settings, Lock } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,12 +13,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { checkAdminAccess } from "@/utils/admin";
 
 interface UserButtonProps {
   user: User;
 }
 
-export default function UserButton({ user }: UserButtonProps) {
+export default async function UserButton({ user }: UserButtonProps) {
+  const { hasAccess } = await checkAdminAccess();
+
+  if (!hasAccess) {
+    return null;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,12 +50,14 @@ export default function UserButton({ user }: UserButtonProps) {
             </Link>
           </DropdownMenuItem>
           {/* TODO: Show this only for admins */}
-          {/* <DropdownMenuItem asChild>
-                <Link href="/admin">
-                  <Lock className="w-4 h-4 mr-2" />
-                  Admin
-                </Link>
-              </DropdownMenuItem> */}
+          <DropdownMenuItem asChild>
+            {hasAccess && (
+              <Link href="/admin">
+                <Lock className="w-4 h-4 mr-2" />
+                Admin
+              </Link>
+            )}
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

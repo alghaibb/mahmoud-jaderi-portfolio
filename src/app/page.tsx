@@ -1,5 +1,3 @@
-import LogoutButton from "../components/LogoutButton";
-
 export default function Home() {
   return (
     <section className="relative flex flex-col items-center justify-center px-5 mx-auto overflow-hidden sm:px-10">
