@@ -135,7 +135,7 @@ const LoginForm = () => {
           Don&apos;t have an account?{" "}
           <Link href="/create-account">
             <Button variant="link" className="px-0">
-              Create An Account
+              Sign Up
             </Button>
           </Link>
         </p>

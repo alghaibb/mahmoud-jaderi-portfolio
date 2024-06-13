@@ -145,12 +145,12 @@ const PasswordResetForm = () => {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <Link href="/login">
                   <Button variant="link" className="px-0">
-                    Back to login
+                    Return to Login
                   </Button>
                 </Link>
                 <Link href="/forgot-password">
                   <Button variant="link" className="px-0">
-                    Back to forgot password
+                    Return to Forgot Password
                   </Button>
                 </Link>
               </div>

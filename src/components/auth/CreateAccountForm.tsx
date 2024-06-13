@@ -176,7 +176,7 @@ const CreateAccountForm = () => {
           </form>
         </Form>
         <p className="mt-4 text-sm">
-          Already with us?{" "}
+          Already have an account?{" "}
           <Link href="/login">
             <Button variant="link" className="px-0">
               Login

@@ -103,7 +103,7 @@ const ForgotPasswordForm = () => {
           Remember your password?{" "}
           <Link href="/login">
             <Button variant="link" className="px-0">
-              Login
+              Return to Login
             </Button>
           </Link>
         </p>
