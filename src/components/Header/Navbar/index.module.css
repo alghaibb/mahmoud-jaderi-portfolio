@@ -1,5 +1,10 @@
 .navItem {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   transition: color 0.2s ease-in-out;
   @apply text-primary/85;
 }
@@ -16,10 +21,14 @@
   transition: width 0.2s ease-in-out;
 }
 
-.navItem:hover {
-  @apply text-primary;
-}
-
 .navItem:hover::after {
   width: 100%;
+}
+
+.active::after {
+  width: 100%;
+}
+
+.active {
+  @apply text-primary;
 }

@@ -1,21 +1,41 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { navbarLinks } from "@/constants";
 
 import styles from "./index.module.css";
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const [activeLink, setActiveLink] = useState<string>("");
+
+  useEffect(() => {
+    setActiveLink(pathname);
+  }, [pathname]);
+
   return (
-    <nav className="flex items-center justify-center w-full p-4">
-      <ul className="flex items-center space-x-4">
-        {navbarLinks.map((link) => (
-          <li key={link.name}>
-            <a href={link.link} className={styles.navItem}>
-              {link.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <>
+      <nav className="items-center justify-center hidden md:flex">
+        <ul className="flex flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-stone-500 sm:flex-nowrap sm:gap-5">
+          {navbarLinks.map((link) => (
+            <li key={link.link} className="flex items-center justify-center">
+              <Link href={link.link}>
+                <span
+                  className={`${styles.navItem} ${
+                    activeLink === link.link ? styles.active : ""
+                  } flex w-full items-center justify-center duration-200 ease-in-out hover:text-primary`}
+                  onClick={() => setActiveLink(link.link)}
+                >
+                  {link.name}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 };
 
