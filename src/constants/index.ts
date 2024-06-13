@@ -10,7 +10,7 @@ export const navbarLinks = [
   { name: "Skills", link: "#skills" },
   { name: "Experience", link: "#experience" },
   { name: "Contact", link: "#contact" },
-]
+] as const;
 
 export const experience = [
   {
@@ -20,7 +20,7 @@ export const experience = [
     icon: React.createElement(LuGraduationCap),
     date: "Aug 2023 - Feb 2024"
   }
-]
+] as const;
 
 export const projects = [
   {
@@ -35,7 +35,7 @@ export const projects = [
     tags: ["React", "Vite", "GraphQL", "MongoDB", "Sanity CMS", "TypeScript", "Tailwind CSS", "Zod", "Stripe"],
     imageUrl: AlHaya,
   }
-]
+] as const;
 
 export const skills = [
   "HTML",
@@ -59,5 +59,5 @@ export const skills = [
   "Redux",
   "Git",
   "Apollo",
-];
+] as const;
 

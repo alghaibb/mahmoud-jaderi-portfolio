@@ -33,15 +33,21 @@ const Intro = () => {
         </div>
       </div>
       <motion.h1
-        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] tracking-wider sm:text-4xl"
+        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] tracking-wider sm:text-3xl"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I&apos;m Mahmoud.</span> I&apos;m a{" "}
-        <span className="font-bold">full-stack developer</span> based in{" "}
-        <span className="font-bold">Australia</span>. I enjoy building{" "}
-        <span className="italic">web applications.</span> My primary focus is{" "}
-        <span className="underline">React (Next.js)</span>
+        <span>
+          Hello, my name is <span className="font-bold">Mahmoud</span>.
+        </span>
+        <br />I am a <span className="font-bold">full-stack web developer</span>{" "}
+        based in <span className="font-bold">Melbourne, Australia</span>.
+        <br />I specialize in developing{" "}
+        <span className="italic">modern web applications</span> and take great
+        pleasure in building efficient and web apps.
+        <br />
+        My primary expertise lies in{" "}
+        <span className="font-bold underline">React (Next.js)</span>.
       </motion.h1>
       <motion.div
         className="flex flex-col items-center justify-center gap-4 px-4 font-medium sm:flex-row"

@@ -19,35 +19,37 @@ const About = () => {
       <p className="mb-3">
         After completing a{" "}
         <span className="font-medium">
-          6-month full-stack web development bootcamp
+          comprehensive 6-month full-stack web development bootcamp
         </span>
-        , I decided to pursue my passion for programming.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
+        , I decided to fully embrace my passion for programming.{" "}
+        <span className="italic">
+          The aspect of programming that I find most rewarding
+        </span>{" "}
+        is the problem-solving. I derive great satisfaction from finding
+        solutions to complex problems. My core technical stack includes{" "}
         <span className="font-medium">
           React, Next.js, Node.js, and MongoDB
         </span>
-        . I am also familiar with{" "}
+        . Additionally, I possess a solid understanding of{" "}
         <span className="font-medium">
           TypeScript, Prisma, GraphQL, and RESTful APIs
         </span>
-        . I am always looking to learn new technologies. I am currently looking
-        for a <span className="font-medium">full-time position</span> as a
-        software developer.
+        . I am continually seeking to expand my knowledge and proficiency in new
+        technologies. I am currently pursuing a{" "}
+        <span className="font-medium">full-time position</span> as a software
+        developer.
       </p>
 
       <p>
         <span className="italic">
-          <strong>When I&apos;m not coding</strong>
+          <strong>Outside of coding</strong>
         </span>
-        , I enjoy playing video games, watching movies, and learning to make my
-        own video games. I am currently learning about{" "}
+        , I enjoy playing video games, watching movies, and learning how to
+        develop my own video games. I am currently gaining expertise in{" "}
         <span className="font-medium">
           <strong>Unreal Engine 5 and C++</strong>
         </span>
-        . I just finished a C++ course on Udemy by Stephen Ulibarri called{" "}
+        . I recently completed a C++ course on Udemy by Stephen Ulibarri, titled{" "}
         <span className="font-medium">
           <strong>C++ Fundamentals: Game Programming For Beginners</strong>
         </span>
@@ -61,10 +63,10 @@ const About = () => {
         >
           here
         </Link>
-        . I&apos;m currently learning his{" "}
+        . Currently, I am enrolled in another course by Stephen Ulibarri,{" "}
         <span className="font-medium">
           <strong>
-            Unreal Engine 5 C++ The Ultimate Game Developer Course
+            Unreal Engine 5 C++: The Ultimate Game Developer Course
           </strong>
         </span>
         .
