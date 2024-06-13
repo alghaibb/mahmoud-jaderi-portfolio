@@ -28,28 +28,29 @@ const Header = async () => {
             />
           </Link>
           <Navbar />
-          {user ? (
-            <UserButton user={user} />
-          ) : (
-            <Link href="/login">
-              <User className="w-6 h-6 transition duration-200 ease-in-out text-primary/80 hover:text-primary" />
-            </Link>
-          )}
+          <div className="relative">
+            {user ? (
+              <UserButton user={user} />
+            ) : (
+              <Link href="/login">
+                <User className="w-6 h-6 transition duration-200 ease-in-out text-primary/80 hover:text-primary" />
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Mobile Navbar */}
-        <div className="items-center justify-between w-full md:hidden">
+        <div className="flex items-center justify-between w-full md:hidden">
           <MobileNav />
-        </div>
-        {/* Mobile User Icon */}
-        <div className="md:hidden">
-          {user ? (
-            <UserButton user={user} />
-          ) : (
-            <Link href="/login">
-              <User className="w-6 h-6 transition duration-200 ease-in-out text-primary/80 hover:text-primary" />
-            </Link>
-          )}
+          <div className="relative">
+            {user ? (
+              <UserButton user={user} />
+            ) : (
+              <Link href="/login">
+                <User className="w-6 h-6 transition duration-200 ease-in-out text-primary/80 hover:text-primary" />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </header>
