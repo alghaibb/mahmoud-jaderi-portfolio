@@ -1,6 +1,5 @@
 import { auth, signOut } from "../auth";
 import { Button } from "./ui/button";
-
 const LogoutButton = async () => {
   const session = await auth();
   const user = session?.user;
@@ -10,7 +9,7 @@ const LogoutButton = async () => {
       <form
         action={async () => {
           "use server";
-          await signOut();
+          await signOut({ redirectTo: "/login" });
         }}
       >
         {user && <Button type="submit">Logout</Button>}
