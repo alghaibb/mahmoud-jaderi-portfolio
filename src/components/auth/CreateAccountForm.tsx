@@ -84,20 +84,8 @@ const CreateAccountForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {success && (
-          <CustomMessage
-            type="success"
-            message={success}
-            onClose={() => setSuccess(null)}
-          />
-        )}
-        {error && (
-          <CustomMessage
-            type="error"
-            message={error}
-            onClose={() => setError(null)}
-          />
-        )}
+        {success && <CustomMessage type="success" message={success} />}
+        {error && <CustomMessage type="error" message={error} />}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">

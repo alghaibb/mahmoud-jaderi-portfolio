@@ -76,13 +76,7 @@ const LoginForm = () => {
         <CardDescription>Enter your details below to login</CardDescription>
       </CardHeader>
       <CardContent>
-        {error && (
-          <CustomMessage
-            type="error"
-            message={error}
-            onClose={() => setError(null)}
-          />
-        )}
+        {error && <CustomMessage type="error" message={error} />}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">

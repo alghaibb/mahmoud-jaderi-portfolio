@@ -121,20 +121,8 @@ const VerifyAccountForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {success && (
-          <CustomMessage
-            type="success"
-            message={success}
-            onClose={() => setSuccess(null)}
-          />
-        )}
-        {error && (
-          <CustomMessage
-            type="error"
-            message={error}
-            onClose={() => setError(null)}
-          />
-        )}
+        {success && <CustomMessage type="success" message={success} />}
+        {error && <CustomMessage type="error" message={error} />}
         <Form {...form}>
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <FormField
@@ -156,7 +144,12 @@ const VerifyAccountForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <InputOTP maxLength={6} {...field} disabled={loading}>
+                    <InputOTP
+                      maxLength={6}
+                      {...field}
+                      disabled={loading}
+                      className="px-0"
+                    >
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
@@ -179,6 +172,7 @@ const VerifyAccountForm = () => {
             </Button>
           </form>
         </Form>
+
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="link" className="px-0 mt-4 text-sm">
@@ -191,26 +185,12 @@ const VerifyAccountForm = () => {
             <DialogHeader>
               <DialogTitle>Resend OTP</DialogTitle>
               {resendSuccess && (
-                <CustomMessage
-                  type="success"
-                  message={resendSuccess}
-                  onClose={() => setResendSuccess(null)}
-                />
+                <CustomMessage type="success" message={resendSuccess} />
               )}
               {resendError && (
-                <CustomMessage
-                  type="error"
-                  message={resendError}
-                  onClose={() => setResendError(null)}
-                />
+                <CustomMessage type="error" message={resendError} />
               )}
-              {resendInfo && (
-                <CustomMessage
-                  type="info"
-                  message={resendInfo}
-                  onClose={() => setResendInfo(null)}
-                />
-              )}
+              {resendInfo && <CustomMessage type="info" message={resendInfo} />}
               <DialogDescription>
                 Enter your email to resend the OTP
               </DialogDescription>

@@ -3,21 +3,18 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   InformationCircleIcon,
-  XMarkIcon,
 } from "@heroicons/react/20/solid";
 
 interface CustomMessageProps {
   type: "success" | "error" | "info" | "custom";
   message: string;
   customText?: string;
-  onClose?: () => void;
 }
 
 const CustomMessage: FC<CustomMessageProps> = ({
   type,
   message,
   customText,
-  onClose,
 }) => {
   const getStyles = () => {
     switch (type) {
@@ -37,11 +34,11 @@ const CustomMessage: FC<CustomMessageProps> = ({
   const getIcon = () => {
     switch (type) {
       case "success":
-        return <CheckCircleIcon className="mr-2 h-5 w-5" />;
+        return <CheckCircleIcon className="w-5 h-5 mr-2" />;
       case "error":
-        return <XCircleIcon className="mr-2 h-5 w-5" />;
+        return <XCircleIcon className="w-5 h-5 mr-2" />;
       case "info":
-        return <InformationCircleIcon className="mr-2 h-5 w-5" />;
+        return <InformationCircleIcon className="w-5 h-5 mr-2" />;
       case "custom":
         return <span className="font-bold">{customText}</span>;
       default:
@@ -58,12 +55,6 @@ const CustomMessage: FC<CustomMessageProps> = ({
       <div>
         <span className="font-medium">{message}</span>
       </div>
-      <button
-        onClick={onClose}
-        className="absolute right-1 top-1 text-muted-foreground duration-200 hover:text-primary"
-      >
-        <XMarkIcon className="h-5 w-5" />
-      </button>
     </div>
   );
 };

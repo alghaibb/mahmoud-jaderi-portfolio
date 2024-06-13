@@ -73,20 +73,8 @@ const ForgotPasswordForm = () => {
           Enter your email and you will recieve an email with instructions on
           how to reset your password
         </CardDescription>
-        {success && (
-          <CustomMessage
-            type="success"
-            message={success}
-            onClose={() => setSuccess(null)}
-          />
-        )}
-        {error && (
-          <CustomMessage
-            type="error"
-            message={error}
-            onClose={() => setError(null)}
-          />
-        )}
+        {success && <CustomMessage type="success" message={success} />}
+        {error && <CustomMessage type="error" message={error} />}
       </CardHeader>
       <CardContent>
         <Form {...form}>

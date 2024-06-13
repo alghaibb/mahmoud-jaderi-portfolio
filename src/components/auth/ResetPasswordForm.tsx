@@ -81,20 +81,8 @@ const PasswordResetForm = () => {
       <CardHeader className="space-y-4">
         <CardTitle className="md:text-4xl">Reset Password</CardTitle>
         <CardDescription>Enter your new password</CardDescription>
-        {success && (
-          <CustomMessage
-            type="success"
-            message={success}
-            onClose={() => setSuccess(null)}
-          />
-        )}
-        {error && (
-          <CustomMessage
-            type="error"
-            message={error}
-            onClose={() => setError(null)}
-          />
-        )}
+        {success && <CustomMessage type="success" message={success} />}
+        {error && <CustomMessage type="error" message={error} />}
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -154,7 +142,7 @@ const PasswordResetForm = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <Link href="/login">
                   <Button variant="link" className="px-0">
                     Back to login
