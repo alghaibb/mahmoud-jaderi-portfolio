@@ -24,17 +24,12 @@ interface UserButtonProps {
 export default async function UserButton({ user }: UserButtonProps) {
   const { hasAccess } = await checkAdminAccess();
 
-  const handleLogout = async () => {
-    await signOut();
-    window.location.href = "/login";
-  };
-
   if (!hasAccess) {
     return null;
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button size="icon" className="flex-none rounded-full">
           <Image
@@ -56,14 +51,14 @@ export default async function UserButton({ user }: UserButtonProps) {
               <span className="cursor-pointer">Profile</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            {hasAccess && (
+          {hasAccess && (
+            <DropdownMenuItem asChild>
               <Link href="/admin">
                 <Lock className="w-4 h-4 mr-2 cursor-pointer" />
                 <span className="cursor-pointer">Admin</span>
               </Link>
-            )}
-          </DropdownMenuItem>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

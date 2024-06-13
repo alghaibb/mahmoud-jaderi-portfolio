@@ -1,5 +1,5 @@
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
-import LoadingSpinner from "@/components/Loading";
+import LoadingSpinner from "@/components/ui/loading";
 import { Suspense } from "react";
 
 const ResetPasswordPage = () => {

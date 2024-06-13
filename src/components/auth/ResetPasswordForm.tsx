@@ -23,8 +23,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/components/Loading";
-import CustomMessage from "../CustomMessage";
+import LoadingSpinner from "@/components/ui/loading";
+import CustomMessage from "../ui/custom-messages";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -167,7 +167,7 @@ const PasswordResetForm = () => {
                 </Link>
               </div>
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Reset Password"}
             </Button>
           </form>

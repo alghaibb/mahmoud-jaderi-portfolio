@@ -35,8 +35,8 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import LoadingSpinner from "@/components/Loading";
-import CustomMessage from "../CustomMessage";
+import LoadingSpinner from "@/components/ui/loading";
+import CustomMessage from "../ui/custom-messages";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -181,7 +181,7 @@ const VerifyAccountForm = () => {
         </Form>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="link" className="mt-4 px-0 text-sm">
+            <Button variant="link" className="px-0 mt-4 text-sm">
               <span className="flex flex-row items-center gap-x-1.5">
                 OTP expired? Click here to resend the email
               </span>

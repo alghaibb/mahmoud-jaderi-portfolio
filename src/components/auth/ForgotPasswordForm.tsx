@@ -20,8 +20,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import LoadingSpinner from "@/components/Loading";
-import CustomMessage from "../CustomMessage";
+import LoadingSpinner from "@/components/ui/loading";
+import CustomMessage from "../ui/custom-messages";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
