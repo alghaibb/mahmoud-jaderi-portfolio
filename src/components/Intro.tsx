@@ -32,7 +32,7 @@ const Intro = () => {
           </motion.div>
         </div>
       </div>
-      <motion.p
+      <motion.h1
         className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] tracking-wider sm:text-4xl"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ const Intro = () => {
         <span className="font-bold">Australia</span>. I enjoy building{" "}
         <span className="italic">web applications.</span> My primary focus is{" "}
         <span className="underline">React (Next.js)</span>
-      </motion.p>
+      </motion.h1>
       <motion.div
         className="flex flex-col items-center justify-center gap-4 px-4 font-medium sm:flex-row"
         initial={{ opacity: 0, y: 100 }}
