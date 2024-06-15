@@ -2,8 +2,8 @@
 
 import React from "react";
 import SectionHeading from "@/components/ui/section-heading";
-import { projects } from "@/constants/index";
 import Project from "./Project";
+import { projects } from "@/constants/index";
 import { useSectionInView } from "@/hooks/use-selection-in-view";
 
 const Projects = () => {

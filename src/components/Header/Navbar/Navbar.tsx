@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { navbarLinks } from "@/constants";
 
 import styles from "./index.module.css";
@@ -17,7 +16,7 @@ const Navbar = () => {
   }, [pathname]);
 
   return (
-    <nav className="hidden items-center justify-center md:flex">
+    <nav className="items-center justify-center hidden md:flex">
       <ul className="flex flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-stone-500 sm:flex-nowrap sm:gap-10">
         {navbarLinks.map((link) => (
           <li key={link.link} className="flex items-center justify-center">
