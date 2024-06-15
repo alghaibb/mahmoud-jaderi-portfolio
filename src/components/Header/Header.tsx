@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Navbar from "./Navbar/Navbar";
 import UserButton from "../UserButton";
-import Logo from "../../../public/logo.png";
 
 import { auth } from "@/auth";
 import { User } from "lucide-react";
