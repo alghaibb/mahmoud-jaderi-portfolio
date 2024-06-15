@@ -9,23 +9,7 @@
   @apply text-primary/85;
 }
 
-.navItem::after {
-  @apply bg-primary;
-  content: "";
-  display: block;
-  width: 0;
-  height: 2px;
-  bottom: -5px;
-  left: 0;
-  position: absolute;
-  transition: width 0.2s ease-in-out;
-}
-
 .navItem:hover::after {
-  width: 100%;
-}
-
-.active::after {
   width: 100%;
 }
 
