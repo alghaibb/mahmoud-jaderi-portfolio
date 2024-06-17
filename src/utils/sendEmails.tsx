@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { VerifyEmail, ForgotPassword } from "@/components/emails";
 import { Resend } from "resend";
+import ContactEmail from "@/components/emails/ContactForm";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -58,5 +59,20 @@ export const sendPasswordResetEmail = async (
         resetPasswordLink={resetPasswordLink}
       />
     ),
+  });
+};
+
+// Sends contact message from user to my email
+export const sendContactMessage = async (
+  email: string,
+  subject: string,
+  message: string,
+) => {
+  await resend.emails.send({
+    from: email,
+    to: process.env.CONTACT_TO_EMAIL as string,
+    subject: `Message from contact form: ${subject}`,
+    text: message,
+    react: <ContactEmail email={email} subject={subject} message={message} />,
   });
 };

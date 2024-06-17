@@ -3,18 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../public/logo.png";
+import { useRouter } from "next/navigation";
 
 const LogoLink = () => {
-  const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+    router.push("/");
   };
 
   return (
-    <Link href="#" onClick={handleScrollToTop}>
+    <Link href="/" onClick={handleClick}>
       <Image
         src={Logo}
         alt="Logo"

@@ -9,7 +9,7 @@ export const navbarLinks = [
   { name: "Projects", link: "#projects" },
   { name: "Skills", link: "#skills" },
   { name: "Experience", link: "#experience" },
-  { name: "Contact", link: "#contact" },
+  { name: "Contact", link: "/contact" },
 ] as const;
 
 export const experience = [

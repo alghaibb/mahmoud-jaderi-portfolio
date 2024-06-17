@@ -48,7 +48,7 @@ export const PasswordResetFormSchema = z.object({
 
 // Contact form schema
 export const ContactFormSchema = z.object({
-  fullName: z.string().min(3, { message: "Name must be at least 3 characters long" })
+  name: z.string().min(3, { message: "Name must be at least 3 characters long" })
     .regex(/^[a-zA-Z]+ [a-zA-Z]+$/, { message: "Please enter your first and last name" }),
   email: z.string().email({ message: "Please enter a valid email" }),
   subject: z.string().min(5, { message: "Subject must be at least 5 characters long" }),
