@@ -58,14 +58,14 @@ const MobileNav = () => {
               alt="Logo"
               width={40}
               height={40}
-              className="ml-8 cursor-pointer"
+              className="cursor-pointer"
             />
           </Link>
         </div>
       </div>
       {isOpen && (
         <div
-          className={`absolute left-0 right-0 top-[4.5rem] z-20 flex flex-col items-center bg-white shadow-md ${styles["slide-down"]}`}
+          className={`absolute left-0 right-0 top-[4.5rem] z-20 flex flex-col items-center bg-white shadow-md dark:bg-stone-950 dark:text-white ${styles["slide-down"]}`}
         >
           {navbarLinks.map((link) => (
             <Link key={link.link} href={link.link}>
