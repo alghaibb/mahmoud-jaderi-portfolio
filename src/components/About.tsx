@@ -8,7 +8,7 @@ import { useSectionInView } from "@/hooks/use-selection-in-view";
 import SectionHeading from "./ui/section-heading";
 
 const About = () => {
-  const { ref } = useSectionInView("About Me", 0.5);
+  const { ref } = useSectionInView("About", 0.5);
 
   return (
     <motion.section
@@ -59,7 +59,7 @@ const About = () => {
         </span>
         . You can view and download my certificate{" "}
         <Link
-          href="/cpp-udemy-certificate.pdf"
+          href="/cpp-udemy-ceritficate.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-blue-500 underline"

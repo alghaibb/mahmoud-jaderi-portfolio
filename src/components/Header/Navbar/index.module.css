@@ -6,11 +6,7 @@
   height: 100%;
   width: 100%;
   transition: color 0.2s ease-in-out;
-  @apply text-primary/85;
-}
-
-.navItem:hover::after {
-  width: 100%;
+  @apply text-primary/70;
 }
 
 .active {

@@ -12,9 +12,9 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Intro = () => {
   return (
-    <section className="mb-28 max-w-[50rem] text-center sm:mb-0">
+    <section className="mb-28 max-w-[50rem] scroll-mt-[100rem] text-center sm:mb-0">
       <div className="flex items-center justify-center">
-        <div>
+        <div className="relative">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -27,7 +27,7 @@ const Intro = () => {
               height={192}
               quality="95"
               priority={true}
-              className="object-cover border-white rounded-full shadow-md border-1 h-52 w-52"
+              className="border-1 h-52 w-52 rounded-full border-white object-cover shadow-md"
             />
           </motion.div>
         </div>
@@ -56,7 +56,7 @@ const Intro = () => {
         transition={{ delay: 0.1 }}
       >
         <Link href="#contact">
-          <Button className="transition outline-none hover:scale-110 focus:scale-110 active:scale-105">
+          <Button className="outline-none transition hover:scale-110 focus:scale-110 active:scale-105">
             <span>Contact Me</span>
           </Button>
         </Link>
@@ -68,12 +68,12 @@ const Intro = () => {
         >
           <Button
             variant="secondary"
-            className="gap-2 transition outline-none hover:scale-110 focus:scale-110 active:scale-105"
+            className="gap-2 outline-none transition hover:scale-110 focus:scale-110 active:scale-105"
           >
             <span>Download CV</span> <MdOutlineCloudDownload />
           </Button>
         </Link>
-        <div className="flex gap-2 mt-1">
+        <div className="mt-1 flex gap-2">
           <Link
             href="https://www.linkedin.com/in/mahmoud-jaderi-150316290/"
             target="_blank"
