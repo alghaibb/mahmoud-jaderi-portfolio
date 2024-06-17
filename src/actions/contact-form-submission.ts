@@ -2,13 +2,15 @@
 
 import { z } from "zod";
 import { ContactFormSchema } from "@/schemas";
-import { ContactEmail } from "@/components/emails/ContactForm"
+import { sendContactMessage } from "@/utils/sendEmails";
 import prisma from "@/lib/prisma";
 
 export const contactFormSubmission = async (data: z.infer<typeof ContactFormSchema>) => {
   try {
+    // Validate data
     const validatedData = ContactFormSchema.parse(data);
 
+    // Check if data is valid
     if (!validatedData) {
       return { error: "Invalid input data" };
     }
@@ -30,6 +32,7 @@ export const contactFormSubmission = async (data: z.infer<typeof ContactFormSche
 
     const { name, email, subject, message } = validatedData;
 
+    // Save to the database
     await prisma.contactForm.create({
       data: {
         name,
@@ -39,11 +42,8 @@ export const contactFormSubmission = async (data: z.infer<typeof ContactFormSche
       },
     });
 
-    await ContactEmail({
-      email,
-      subject,
-      message,
-    });
+    // Send email using the contact email template
+    await sendContactMessage(email, subject, message);
 
     return {
       success: "Message sent successfully"

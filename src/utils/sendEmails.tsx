@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
-import { VerifyEmail, ForgotPassword } from "@/components/emails";
+import { VerifyEmail, ForgotPassword, ContactEmail } from "@/components/emails";
 import { Resend } from "resend";
-import ContactEmail from "@/components/emails/ContactForm";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -71,8 +70,7 @@ export const sendContactMessage = async (
   await resend.emails.send({
     from: email,
     to: process.env.CONTACT_TO_EMAIL as string,
-    subject: `Message from contact form: ${subject}`,
-    text: message,
+    subject: `Contact form submission: ${subject}`,
     react: <ContactEmail email={email} subject={subject} message={message} />,
   });
 };

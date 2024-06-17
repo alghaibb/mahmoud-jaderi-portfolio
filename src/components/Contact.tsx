@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ContactFormSchema } from "@/schemas";
+import { contactFormSubmission } from "@/actions/contact-form-submission";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,18 +25,13 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loading";
 import CustomMessage from "@/components/ui/custom-messages";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { ContactFormSchema } from "@/schemas";
-import { contactFormSubmission } from "@/actions/contact-form-submission";
 import { Textarea } from "./ui/textarea";
 
 const ContactForm = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
@@ -64,10 +62,13 @@ const ContactForm = () => {
       }
     } catch (error) {
       console.error("Error creating account:", error);
+      setError("Error sending message");
     } finally {
       setLoading(false);
     }
   };
+
+  const email = "mahmoud_jaderi@codewithmj.com";
 
   return (
     <section className="flex items-center justify-center h-screen">
@@ -76,6 +77,15 @@ const ContactForm = () => {
           <CardTitle className="md:text-4xl">Contact Me</CardTitle>
           <CardDescription>
             Have a question or want to work together? Send me a message!
+            <p className="mt-4">
+              You can also reach me at{" "}
+              <a
+                href="mailto: mahmoud_jaderi@codewithmj.com"
+                className="text-blue-500"
+              >
+                mahmoud_jaderi@codewithmj.com
+              </a>
+            </p>
           </CardDescription>
         </CardHeader>
         <CardContent>
