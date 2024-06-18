@@ -68,9 +68,10 @@ export const sendContactMessage = async (
   message: string,
 ) => {
   await resend.emails.send({
-    from: email,
+    from: "noreply@codewithmj.com",
     to: process.env.CONTACT_TO_EMAIL as string,
     subject: `Contact form submission: ${subject}`,
     react: <ContactEmail email={email} subject={subject} message={message} />,
+    reply_to: email,
   });
 };

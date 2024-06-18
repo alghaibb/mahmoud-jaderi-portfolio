@@ -51,7 +51,7 @@ const MobileNav = () => {
     <nav className="w-full md:hidden">
       <div className="relative flex items-center justify-between p-4">
         <Hamburger toggled={isOpen} toggle={handleToggle} size={24} />
-        <div className="absolute transform -translate-x-1/2 left-1/2">
+        <div className="absolute left-1/2 ml-3.5 -translate-x-1/2 transform">
           <Link href="/">
             <Image
               src={Logo}
@@ -70,7 +70,7 @@ const MobileNav = () => {
           {navbarLinks.map((link) => (
             <Link key={link.link} href={link.link}>
               <span
-                className="block w-full p-4 font-medium text-center"
+                className="block w-full p-4 text-center font-medium"
                 onClick={handleClose}
               >
                 {link.name}

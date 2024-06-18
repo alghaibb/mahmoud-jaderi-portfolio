@@ -33,7 +33,9 @@ export const ContactEmail = ({
         <Container style={container}>
           <Section style={{ paddingBottom: "20px" }}>
             <Row>
-              <Text style={heading}>New message from your website</Text>
+              <Text style={heading}>
+                New contact form submission from your website
+              </Text>
               <Text style={paragraph}>
                 <strong>From:</strong> {email}
               </Text>
