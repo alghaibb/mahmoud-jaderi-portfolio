@@ -7,6 +7,7 @@ import { CreateAccountFormSchema } from "@/schemas/index";
 import { generateVerificationCode } from "@/utils/token";
 import { sendVerificationEmail } from "@/utils/sendEmails";
 import { getUserByEmail } from "@/utils/user";
+import { createFirstUser } from "@/hooks/auth/create-first-user";
 
 export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema>) => {
   try {
@@ -43,6 +44,9 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
     // Hash password with salt
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Get user role
+    const role = await createFirstUser();
+
     // Create user
     const newUser = await prisma.user.create({
       data: {
@@ -50,8 +54,11 @@ export const createAccount = async (data: z.infer<typeof CreateAccountFormSchema
         email: lowerCaseEmail,
         password: hashedPassword,
         salt: salt,
+        role: role,
       },
     });
+
+    console.log("New user:", newUser)
 
     // Generate email verification token
     const verificationCode = await generateVerificationCode(lowerCaseEmail);
