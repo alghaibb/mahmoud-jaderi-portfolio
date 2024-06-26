@@ -13,7 +13,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <section className="mx-auto my-10 space-y-3">
+    <section className="mx-auto my-10 h-screen space-y-3">
       <h1 className="text-center text-xl font-bold">Admin Page</h1>
       <p className="text-center">Welcome, admin!</p>
     </section>
