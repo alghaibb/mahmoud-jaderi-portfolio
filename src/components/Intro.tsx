@@ -44,7 +44,7 @@ const Intro = () => {
         based in <span className="font-bold">Melbourne, Australia</span>.
         <br />I specialize in developing{" "}
         <span className="italic">modern web applications</span> and take great
-        pleasure in building efficient and web apps.
+        pleasure in building efficient modern web apps.
         <br />
         My primary expertise lies in{" "}
         <span className="font-bold underline">React (Next.js)</span>.
