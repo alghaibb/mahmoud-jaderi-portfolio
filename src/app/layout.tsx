@@ -5,6 +5,7 @@ import Header from "@/components/Header/Header";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Toaster />
+            <Footer />
           </main>
         </ActiveSectionContextProvider>
       </body>
