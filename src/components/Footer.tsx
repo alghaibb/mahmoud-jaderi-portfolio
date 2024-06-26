@@ -5,7 +5,7 @@ const Footer = () => {
   const year = date.getFullYear();
 
   return (
-    <footer className="mb-10 px-4 text-center text-stone-500">
+    <footer className="mb-10 px-4 py-6 text-center text-stone-500">
       <small>&copy; {year} Mahmoud. All rights reserved.</small>
       <p className="mt-4 text-xs">
         Built with{" "}

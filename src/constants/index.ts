@@ -5,6 +5,7 @@ import { Sumz, AlHaya } from "@/assets/projects/index";
 import { LuGraduationCap } from "react-icons/lu";
 
 export const navbarLinks = [
+  { name: "Home", link: "#home" },
   { name: "About Me", link: "#about" },
   { name: "Projects", link: "#projects" },
   { name: "Skills", link: "#skills" },

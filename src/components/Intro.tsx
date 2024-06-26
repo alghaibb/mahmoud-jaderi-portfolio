@@ -10,9 +10,18 @@ import { Button } from "./ui/button";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import MagicButton from "./ui/MagicButton";
+import { useSectionInView } from "@/hooks/use-selection-in-view";
+import { useActiveSectionContext } from "@/context/active-section-context";
+
 const Intro = () => {
+  const { ref } = useSectionInView("Home", 0.5);
+
   return (
-    <section className="mb-28 max-w-[50rem] scroll-mt-[100rem] text-center sm:mb-0">
+    <section
+      className="mb-28 max-w-[50rem] scroll-mt-[100rem] text-center sm:mb-0"
+      ref={ref}
+      id="home"
+    >
       <div className="flex items-center justify-center">
         {/* <div className="relative">
           <motion.div
