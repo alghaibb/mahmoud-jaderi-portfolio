@@ -6,6 +6,7 @@ import { LoginFormSchema } from "@/schemas";
 import { getUserByEmail } from "@/utils/user";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
+import { redirect } from "next/dist/server/api-utils";
 
 export const login = async (data: z.infer<typeof LoginFormSchema>) => {
   try {
@@ -43,7 +44,7 @@ export const login = async (data: z.infer<typeof LoginFormSchema>) => {
     });
 
     // If all goes well, return success message
-    return { success: "User logged in successfully" };
+    return { success: "User logged in successfully", redirectTo: "/" };
 
   } catch (error) {
     if (error instanceof AuthError) {

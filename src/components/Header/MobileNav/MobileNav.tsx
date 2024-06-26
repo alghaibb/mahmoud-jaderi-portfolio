@@ -51,7 +51,7 @@ const MobileNav = () => {
     <nav className="w-full md:hidden">
       <div className="relative flex items-center justify-between p-4">
         <Hamburger toggled={isOpen} toggle={handleToggle} size={24} />
-        <div className="absolute left-1/2 ml-3.5 -translate-x-1/2 transform">
+        <div className="absolute left-1/2">
           <Link href="/">
             <Image
               src={Logo}

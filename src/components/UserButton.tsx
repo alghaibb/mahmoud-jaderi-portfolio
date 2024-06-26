@@ -37,7 +37,7 @@ export default async function UserButton({ user }: UserButtonProps) {
             alt="User profile picture"
             width={50}
             height={50}
-            className="object-cover rounded-full aspect-square bg-background"
+            className="aspect-square rounded-full bg-background object-cover"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -47,34 +47,29 @@ export default async function UserButton({ user }: UserButtonProps) {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href="/profile">
-              <Settings className="w-4 h-4 mr-2 cursor-pointer" />
+              <Settings className="mr-2 h-4 w-4 cursor-pointer" />
               <span className="cursor-pointer">Profile</span>
             </Link>
           </DropdownMenuItem>
-          {hasAccess && (
-            <DropdownMenuItem asChild>
-              <Link href="/admin">
-                <Lock className="w-4 h-4 mr-2 cursor-pointer" />
-                <span className="cursor-pointer">Admin</span>
-              </Link>
-            </DropdownMenuItem>
-          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <form
             action={async () => {
               "use server";
-              await signOut({ redirectTo: "/login" });
+              await signOut({
+                redirectTo: "/login",
+              });
+              window.location.href = "/login";
             }}
           >
             <Button
               type="submit"
               size="sm"
-              className="flex items-center px-0 mt-0 border-t rounded-none border-muted-foreground/30"
+              className="mt-0 flex items-center rounded-none border-t border-muted-foreground/30 px-0"
               variant="ghost"
             >
-              <LogOut className="w-4 h-4 mr-2" /> Logout
+              <LogOut className="mr-2 h-4 w-4" /> Logout
             </Button>
           </form>
         </DropdownMenuItem>

@@ -18,5 +18,5 @@ export async function checkAdminAccess() {
     };
   }
 
-  return { hasAccess: true };
+  return { hasAccess: true, email: user.email };
 }

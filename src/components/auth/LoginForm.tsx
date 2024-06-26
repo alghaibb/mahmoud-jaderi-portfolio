@@ -126,7 +126,7 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </div>
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Login"}
             </Button>
           </form>
