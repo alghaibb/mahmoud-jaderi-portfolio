@@ -28,12 +28,16 @@ export const projects = [
     description: "Sumz is a web app that uses AI to summarize articles and help you save time.",
     tags: ["React", "Vite", "Tailwind CSS", "Redux"],
     imageUrl: Sumz,
+    githubUrl: "https://github.com/alghaibb/ai-summarizer",
+    liveUrl: "https://ai-summarizer-xi-lilac.vercel.app/",
   },
   {
     title: "Al Haya: E-commerce Website",
     description: "Al Haya is an e-commerce website that sells islamic products.",
     tags: ["React", "Vite", "GraphQL", "MongoDB", "Sanity CMS", "TypeScript", "Tailwind CSS", "Zod", "Stripe"],
     imageUrl: AlHaya,
+    githubUrl: "https://github.com/alghaibb/al-haya",
+    liveUrl: "https://al-haya-73td.vercel.app/",
   }
 ] as const;
 

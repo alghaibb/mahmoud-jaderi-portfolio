@@ -9,11 +9,12 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+import MagicButton from "./ui/MagicButton";
 const Intro = () => {
   return (
     <section className="mb-28 max-w-[50rem] scroll-mt-[100rem] text-center sm:mb-0">
       <div className="flex items-center justify-center">
-        <div className="relative">
+        {/* <div className="relative">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -29,7 +30,7 @@ const Intro = () => {
               className="object-cover border-white rounded-full shadow-md border-1 h-52 w-52"
             />
           </motion.div>
-        </div>
+        </div> */}
       </div>
       <motion.h1
         className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] tracking-wider sm:text-3xl"
@@ -54,10 +55,14 @@ const Intro = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <Link href="#contact">
-          <Button className="transition outline-none hover:scale-110 focus:scale-110 active:scale-105">
+        <Link href="/contact">
+          {/* <Button className="relative inline-flex overflow-hidden outline-none transition hover:scale-110 focus:scale-110 active:scale-105">
             <span>Contact Me</span>
-          </Button>
+          </Button> */}
+          <MagicButton
+            title="Contact Me"
+            otherClasses="transition hover:scale-110 focus:scale-110 active:scale-105"
+          />
         </Link>
         <Link
           href="/mahmoud-jaderi-resume.pdf"
@@ -67,12 +72,12 @@ const Intro = () => {
         >
           <Button
             variant="secondary"
-            className="gap-2 transition outline-none hover:scale-110 focus:scale-110 active:scale-105"
+            className="h-12 gap-2 rounded-full outline-none transition hover:scale-110 focus:scale-110 active:scale-105"
           >
             <span>Download CV</span> <MdOutlineCloudDownload />
           </Button>
         </Link>
-        <div className="flex gap-2 mt-1">
+        <div className="mt-1 flex gap-2">
           <Link
             href="https://www.linkedin.com/in/mahmoud-jaderi-150316290/"
             target="_blank"
