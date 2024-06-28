@@ -7,7 +7,7 @@ import SectionDivider from "@/components/ui/section-divider";
 
 export default function Home() {
   return (
-    <main className="flex max-w-7xl flex-col items-center px-4">
+    <main className="flex flex-col items-center px-4">
       <Intro />
       <SectionDivider />
       <About />

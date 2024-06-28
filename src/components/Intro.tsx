@@ -65,12 +65,12 @@ const Intro = () => {
         transition={{ delay: 0.1 }}
       >
         <Link href="/contact">
-          {/* <Button className="relative inline-flex overflow-hidden outline-none transition hover:scale-110 focus:scale-110 active:scale-105">
+          <Button className="relative block h-12 overflow-hidden rounded-full px-8 outline-none transition hover:scale-110 focus:scale-110 active:scale-105 md:hidden ">
             <span>Contact Me</span>
-          </Button> */}
+          </Button>
           <MagicButton
             title="Contact Me"
-            otherClasses="transition hover:scale-110 focus:scale-110 active:scale-105"
+            otherClasses="transition hover:scale-110 focus:scale-110 active:scale-105 hidden md:block"
           />
         </Link>
         <Link

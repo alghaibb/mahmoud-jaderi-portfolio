@@ -22,7 +22,7 @@ const Header = async () => {
             <LogoLink />
           </div>
           <Navbar />
-          <div className="absolute right-12">
+          <div className="ml-12">
             {user ? (
               <UserButton user={user} />
             ) : (
