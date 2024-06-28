@@ -113,7 +113,7 @@ const VerifyAccountForm = () => {
   };
 
   return (
-    <Card className="md:w-[800px] md:px-0 md:py-0">
+    <Card className="w-80 sm:w-full md:w-[800px] md:px-8 md:py-4 lg:px-16 lg:py-8 xl:px-20 xl:py-10">
       <CardHeader className="space-y-4">
         <CardTitle className="md:text-4xl">Verify Account</CardTitle>
         <CardDescription>
@@ -172,11 +172,10 @@ const VerifyAccountForm = () => {
             </Button>
           </form>
         </Form>
-
         <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="link" className="px-0 mt-4 text-sm">
-              <span className="flex flex-row items-center gap-x-1.5">
+          <DialogTrigger asChild className="w-full sm:w-auto">
+            <Button variant="link" className="mt-4 px-0 text-xs sm:text-sm">
+              <span className="flex flex-row items-start gap-x-1.5">
                 OTP expired? Click here to resend the email
               </span>
             </Button>

@@ -68,25 +68,23 @@ const ContactForm = () => {
     }
   };
 
-  const email = "mahmoud_jaderi@codewithmj.com";
-
   return (
-    <section className="flex items-center justify-center h-screen">
-      <Card className="md:w-[800px] md:px-0 md:py-0">
+    <section className="flex h-screen items-center justify-center px-5 sm:px-4 md:px-8 lg:px-16 xl:px-20">
+      <Card className="w-full sm:w-full md:w-[800px] lg:w-[800px] xl:w-[800px] md:px-0 md:py-0 lg:py-8 xl:py-10">
         <CardHeader className="space-y-4">
           <CardTitle className="md:text-4xl">Contact Me</CardTitle>
           <CardDescription>
             Have a question or want to work together? Send me a message!
-            <p className="mt-4">
-              You can also reach me at{" "}
-              <a
-                href="mailto: mahmoud_jaderi@codewithmj.com"
-                className="text-blue-500"
-              >
-                mahmoud_jaderi@codewithmj.com
-              </a>
-            </p>
           </CardDescription>
+          <p className="mt-4 text-sm">
+            You can also reach me at{" "}
+            <a
+              href="mailto: mahmoud_jaderi@codewithmj.com"
+              className="text-blue-500"
+            >
+              mahmoud_jaderi@codewithmj.com
+            </a>
+          </p>
         </CardHeader>
         <CardContent>
           {success && <CustomMessage type="success" message={success} />}
@@ -147,7 +145,7 @@ const ContactForm = () => {
                   )}
                 />
               </div>
-              <Button type="submit" className="w-full mt-4" disabled={loading}>
+              <Button type="submit" className="mt-4 w-full" disabled={loading}>
                 {loading ? <LoadingSpinner /> : "Send Message"}
               </Button>
             </form>

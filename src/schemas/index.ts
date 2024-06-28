@@ -11,7 +11,7 @@ export const updateProfileSchema = z.object({
 export const CreateAccountFormSchema = z.object({
   name: z.string().min(3,
     { message: "Name must be at least 3 characters long" })
-    .regex(/^[a-zA-Z]+ [a-zA-Z]+$/, { message: "Please enter a valid name" }),
+    .regex(/^[a-zA-Z]+$/, { message: "Please enter a valid name" }),
   email: z.string().email({ message: "Please enter a valid email" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters long" }),
   confirmPassword: z.string(),
@@ -49,7 +49,7 @@ export const PasswordResetFormSchema = z.object({
 // Contact form schema
 export const ContactFormSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters long" })
-    .regex(/^[a-zA-Z]+ [a-zA-Z]+$/, { message: "Please enter your first and last name" }),
+    .regex(/^[a-zA-Z]+$/, { message: "Please enter your first and last name" }),
   email: z.string().email({ message: "Please enter a valid email" }),
   subject: z.string().min(5, { message: "Subject must be at least 5 characters long" }),
   message: z.string().min(10, { message: "Message must be at least 10 characters long" }),
