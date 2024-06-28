@@ -77,7 +77,7 @@ const PasswordResetForm = () => {
   };
 
   return (
-    <Card className="md:w-[800px] md:px-0 md:py-0">
+    <Card className="w-80 sm:w-full md:w-[800px] md:px-8 md:py-4 lg:px-16 lg:py-8 xl:px-20 xl:py-10">
       <CardHeader className="space-y-4">
         <CardTitle className="md:text-4xl">Reset Password</CardTitle>
         <CardDescription>Enter your new password</CardDescription>
@@ -155,7 +155,7 @@ const PasswordResetForm = () => {
                 </Link>
               </div>
             </div>
-            <Button type="submit" className="w-full mt-4" disabled={loading}>
+            <Button type="submit" className="mt-4 w-full" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Reset Password"}
             </Button>
           </form>
