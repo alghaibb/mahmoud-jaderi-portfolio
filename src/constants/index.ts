@@ -1,6 +1,7 @@
 import React from "react";
+import { StaticImageData } from "next/image";
 
-import { Sumz, AlHaya } from "@/assets/projects/index";
+import { Sumz, AlHaya, AuthStarter } from "@/assets/projects/index";
 
 import { LuGraduationCap } from "react-icons/lu";
 
@@ -23,7 +24,16 @@ export const experience = [
   }
 ] as const;
 
-export const projects = [
+export type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  imageUrl: StaticImageData;
+  githubUrl: string;
+  liveUrl?: string;
+};
+
+export const projects: Project[] = [
   {
     title: "Sumz: AI Article Summarizer",
     description: "Sumz is a web app that uses AI to summarize articles and help you save time.",
@@ -39,6 +49,13 @@ export const projects = [
     imageUrl: AlHaya,
     githubUrl: "https://github.com/alghaibb/al-haya",
     liveUrl: "https://al-haya-73td.vercel.app/",
+  },
+  {
+    title: "Next.js Auth Starter",
+    description: "A starter template for Next.js with authentication.",
+    tags: ["Next.js", "Auth.js", "Tailwind CSS", "Zod", "Prisma", "TypeScript", "Shadcn UI", "Server Actions"],
+    imageUrl: AuthStarter,
+    githubUrl: "https://github.com/alghaibb/nextjs-auth-starter",
   }
 ] as const;
 

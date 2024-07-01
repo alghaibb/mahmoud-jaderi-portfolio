@@ -58,16 +58,19 @@ export default function Project({
                 Github
               </Button>
             </Link>
-            <Link href={liveUrl} target="_blank" rel="noopener noreferrer">
-              <Button variant="link" className="px-0">
-                Live
-              </Button>
-            </Link>
+            {liveUrl && (
+              <Link href={liveUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="link" className="px-0">
+                  Live
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
 
         <Image
           src={imageUrl}
+          priority
           alt="Project I worked on"
           quality={95}
           className="absolute -right-40 top-8 hidden w-[28.25rem] rounded-t-lg shadow-2xl transition
