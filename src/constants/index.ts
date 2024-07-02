@@ -18,9 +18,8 @@ export const experience = [
   {
     title: "Coding Bootcamp",
     school: "Monash Univesity",
-    description: "I graduated a 6 month coding bootcamp where I learned the full stack web development.",
+    description: "Graduated from an intensive six-month coding bootcamp, mastering the basics of full-stack web development",
     icon: React.createElement(LuGraduationCap),
-    date: "Aug 2023 - Feb 2024"
   }
 ] as const;
 

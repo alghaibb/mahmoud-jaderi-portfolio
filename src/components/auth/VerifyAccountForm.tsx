@@ -130,11 +130,11 @@ const VerifyAccountForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-primary">Email</FormLabel>
                   <FormControl>
                     <Input type="email" {...field} disabled={loading} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-600" />
                 </FormItem>
               )}
             />
@@ -163,7 +163,7 @@ const VerifyAccountForm = () => {
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-600" />
                 </FormItem>
               )}
             />
@@ -174,7 +174,7 @@ const VerifyAccountForm = () => {
         </Form>
         <Dialog>
           <DialogTrigger asChild className="w-full sm:w-auto">
-            <Button variant="link" className="mt-4 px-0 text-xs sm:text-sm">
+            <Button variant="link" className="px-0 mt-4 text-xs sm:text-sm">
               <span className="flex flex-row items-start gap-x-1.5">
                 OTP expired? Click here to resend the email
               </span>

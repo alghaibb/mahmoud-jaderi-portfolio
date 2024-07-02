@@ -93,7 +93,9 @@ const PasswordResetForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">New Password</FormLabel>
+                    <FormLabel htmlFor="password" className="text-primary">
+                      New Password
+                    </FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
@@ -110,7 +112,7 @@ const PasswordResetForm = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -119,7 +121,7 @@ const PasswordResetForm = () => {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">
+                    <FormLabel htmlFor="password" className="text-primary">
                       Confirm New Password
                     </FormLabel>
                     <FormControl>
@@ -138,7 +140,7 @@ const PasswordResetForm = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -155,7 +157,7 @@ const PasswordResetForm = () => {
                 </Link>
               </div>
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Reset Password"}
             </Button>
           </form>

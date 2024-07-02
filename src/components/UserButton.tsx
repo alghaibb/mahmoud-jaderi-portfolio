@@ -31,13 +31,13 @@ export default async function UserButton({ user }: UserButtonProps) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button size="icon" className="flex-none rounded-full">
+        <Button size="icon" className="mt-1.5 flex-none rounded-full">
           <Image
             src={user.image || avatarPlaceholder}
             alt="User profile picture"
             width={50}
             height={50}
-            className="aspect-square rounded-full bg-background object-cover"
+            className="object-cover rounded-full aspect-square bg-background"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -47,7 +47,7 @@ export default async function UserButton({ user }: UserButtonProps) {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href="/profile">
-              <Settings className="mr-2 h-4 w-4 cursor-pointer" />
+              <Settings className="w-4 h-4 mr-2 cursor-pointer" />
               <span className="cursor-pointer">Profile</span>
             </Link>
           </DropdownMenuItem>
@@ -66,10 +66,10 @@ export default async function UserButton({ user }: UserButtonProps) {
             <Button
               type="submit"
               size="sm"
-              className="mt-0 flex items-center rounded-none border-t border-muted-foreground/30 px-0"
+              className="flex items-center px-0 mt-0 rounded-none"
               variant="ghost"
             >
-              <LogOut className="mr-2 h-4 w-4" /> Logout
+              <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>
           </form>
         </DropdownMenuItem>

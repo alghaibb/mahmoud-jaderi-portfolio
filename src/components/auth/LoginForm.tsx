@@ -85,11 +85,13 @@ const LoginForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email" className="text-primary">
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} type="email" disabled={loading} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -98,7 +100,9 @@ const LoginForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormLabel htmlFor="password" className="text-primary">
+                      Password
+                    </FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
@@ -115,7 +119,7 @@ const LoginForm = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -126,7 +130,7 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Login"}
             </Button>
           </form>

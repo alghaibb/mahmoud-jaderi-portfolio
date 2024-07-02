@@ -65,12 +65,12 @@ const MobileNav = () => {
       </div>
       {isOpen && (
         <div
-          className={`absolute left-0 right-0 top-[4.5rem] z-20 flex flex-col items-center bg-white shadow-md dark:bg-stone-950 dark:text-white ${styles["slide-down"]}`}
+          className={`absolute left-0 right-0 top-[4.5rem] z-20 flex h-[100vh] w-full flex-col items-center bg-white shadow-md dark:bg-stone-950 dark:text-white ${styles["slide-down"]}`}
         >
           {navbarLinks.map((link) => (
             <Link key={link.link} href={link.link}>
               <span
-                className="block w-full p-4 text-center font-medium"
+                className="block w-full p-4 font-medium text-center"
                 onClick={handleClose}
               >
                 {link.name}
