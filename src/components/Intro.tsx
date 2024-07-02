@@ -18,12 +18,12 @@ const Intro = () => {
 
   return (
     <section
-      className="mb-28 max-w-[50rem] scroll-mt-[100rem] text-center sm:mb-0"
+      className="mb-28 max-w-[50rem] scroll-mt-28 text-center sm:mb-0"
       ref={ref}
       id="home"
     >
-      <div className="flex items-center justify-center">
-        {/* <div className="relative">
+      {/* <div className="flex items-center justify-center"> */}
+      {/* <div className="relative">
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -40,7 +40,7 @@ const Intro = () => {
             />
           </motion.div>
         </div> */}
-      </div>
+      {/* </div> */}
       <motion.h1
         className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] tracking-wider sm:text-3xl"
         initial={{ opacity: 0, y: 100 }}
@@ -65,7 +65,7 @@ const Intro = () => {
         transition={{ delay: 0.1 }}
       >
         <Link href="/contact">
-          <Button className="relative block h-12 overflow-hidden rounded-full px-8 outline-none transition hover:scale-110 focus:scale-110 active:scale-105 md:hidden ">
+          <Button className="relative block h-12 px-8 overflow-hidden transition rounded-full outline-none hover:scale-110 focus:scale-110 active:scale-105 md:hidden ">
             <span>Contact Me</span>
           </Button>
           <MagicButton
@@ -81,12 +81,12 @@ const Intro = () => {
         >
           <Button
             variant="secondary"
-            className="h-12 gap-2 rounded-full outline-none transition hover:scale-110 focus:scale-110 active:scale-105"
+            className="h-12 gap-2 transition rounded-full outline-none hover:scale-110 focus:scale-110 active:scale-105"
           >
             <span>Download CV</span> <MdOutlineCloudDownload />
           </Button>
         </Link>
-        <div className="mt-1 flex gap-2">
+        <div className="flex gap-2 mt-1">
           <Link
             href="https://www.linkedin.com/in/mahmoud-jaderi-150316290/"
             target="_blank"

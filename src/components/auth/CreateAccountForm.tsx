@@ -94,11 +94,13 @@ const CreateAccountForm = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="name">Name</FormLabel>
+                    <FormLabel htmlFor="name" className="text-primary">
+                      Name
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} type="name" disabled={loading} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -107,11 +109,13 @@ const CreateAccountForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email" className="text-primary">
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} type="email" disabled={loading} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -120,7 +124,9 @@ const CreateAccountForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormLabel htmlFor="password" className="text-primary">
+                      Password
+                    </FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
@@ -137,7 +143,7 @@ const CreateAccountForm = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
@@ -146,7 +152,7 @@ const CreateAccountForm = () => {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">
+                    <FormLabel htmlFor="password" className="text-primary">
                       Confirm Your Password
                     </FormLabel>
                     <FormControl>
@@ -165,12 +171,12 @@ const CreateAccountForm = () => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Create Account"}
             </Button>
           </form>

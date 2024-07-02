@@ -85,16 +85,18 @@ const ForgotPasswordForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email" className="text-primary">
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input {...field} type="email" disabled={loading} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={loading}>
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <LoadingSpinner /> : "Forgot Password"}
             </Button>
           </form>
