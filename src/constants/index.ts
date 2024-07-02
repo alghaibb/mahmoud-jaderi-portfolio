@@ -4,6 +4,7 @@ import { StaticImageData } from "next/image";
 import { Sumz, AlHaya, AuthStarter } from "@/assets/projects/index";
 
 import { LuGraduationCap } from "react-icons/lu";
+import { date } from "zod";
 
 export const navbarLinks = [
   { name: "Home", link: "#home" },
@@ -20,6 +21,7 @@ export const experience = [
     school: "Monash Univesity",
     description: "Graduated from an intensive six-month coding bootcamp, mastering the basics of full-stack web development",
     icon: React.createElement(LuGraduationCap),
+    date: "",
   }
 ] as const;
 
