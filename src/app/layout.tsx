@@ -28,7 +28,7 @@ export default async function RootLayout({
 }>) {
   const { hasAccess, email } = await checkAdminAccess();
 
-  const adminEmail = email ?? ""; // Ensure email is not undefined
+  const adminEmail = email ?? "";
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -46,6 +46,7 @@ export default async function RootLayout({
           <ActiveSectionContextProvider>
             {hasAccess && <AdminBanner email={adminEmail} />}
             <Header />
+
             {children}
             <Toaster />
             <Footer />
