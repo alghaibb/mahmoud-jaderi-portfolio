@@ -1,11 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  staggerContainer,
-  staggerItem,
-  buttonHover,
-} from "@/lib/animations";
+import { staggerContainer, staggerItem, buttonHover } from "@/lib/animations";
 import { motion } from "motion/react";
 import Link from "next/link";
 
@@ -25,8 +21,9 @@ export default function CTA() {
               Ready to Start Your Next Project?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Let's work together to bring your ideas to life. I'm always
-              excited to take on new challenges and create something amazing.
+              Let&apos;s work together to bring your ideas to life. I&apos;m
+              always excited to take on new challenges and create something
+              amazing.
             </p>
           </motion.div>
 

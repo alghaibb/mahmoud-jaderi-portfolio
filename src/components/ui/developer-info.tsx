@@ -48,7 +48,7 @@ export default function DeveloperInfo({ className = "" }: DeveloperInfoProps) {
             transition={{ delay: 0.5 }}
             className="mt-4 text-xs text-muted-foreground"
           >
-            // Ready to build something amazing together?
+            {/* Ready to build something amazing together? */}
           </motion.div>
         )}
       </div>

@@ -13,10 +13,8 @@ export default function ContactPage() {
     <div className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-16">
-          {/* Server-rendered content */}
           <ContactContent />
 
-          {/* Contact Form Section */}
           <div className="space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold tracking-tight">
@@ -28,7 +26,6 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Client-rendered form */}
             <ContactForm />
           </div>
         </div>

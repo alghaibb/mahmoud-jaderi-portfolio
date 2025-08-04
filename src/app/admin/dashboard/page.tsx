@@ -1,5 +1,5 @@
 import { checkAdminAuth } from "../login/actions";
-import { AdminDashboard } from "./_components/AdminDashboard";
+import { AdminDashboardRefactored } from "./_components/AdminDashboardRefactored";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,9 +11,5 @@ export default async function AdminDashboardPage() {
   // Check authentication
   await checkAdminAuth();
 
-  return (
-    <div className="min-h-screen bg-background">
-      <AdminDashboard />
-    </div>
-  );
+  return <AdminDashboardRefactored />;
 }

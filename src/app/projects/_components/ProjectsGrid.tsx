@@ -43,10 +43,14 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       variants={staggerContainer}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
     >
-      {projects.map((project, index) => (
-        <motion.div key={project.title} variants={staggerItem}>
+      {projects.map((project, _index) => (
+        <motion.div
+          key={project.title}
+          variants={staggerItem}
+          className="h-full"
+        >
           <ProjectCard project={project} />
         </motion.div>
       ))}

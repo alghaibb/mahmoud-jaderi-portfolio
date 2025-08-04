@@ -43,6 +43,14 @@ import {
   Home,
   Filter,
   MoreHorizontal,
+  BarChart3,
+  Activity,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  Download,
+  RefreshCw,
+  Archive,
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
@@ -53,10 +61,24 @@ import {
   getContactMessages,
   replyToMessage,
   updateMessageStatus,
+  getAdminAnalytics,
+  bulkUpdateMessageStatus,
+  deleteMessage,
+  exportMessages,
 } from "../actions";
 
 type ContactMessageWithReplies = ContactMessage & {
   replies: ContactReply[];
+};
+
+type AdminAnalytics = {
+  totalMessages: number;
+  unreadMessages: number;
+  repliedMessages: number;
+  readMessages: number;
+  recentMessages: number;
+  avgResponseTimeHours: number;
+  responseRate: number;
 };
 
 export function AdminDashboard() {
@@ -64,6 +86,7 @@ export function AdminDashboard() {
   const [filteredMessages, setFilteredMessages] = useState<
     ContactMessageWithReplies[]
   >([]);
+  const [analytics, setAnalytics] = useState<AdminAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -72,10 +95,13 @@ export function AdminDashboard() {
   const [replyDialogOpen, setReplyDialogOpen] = useState(false);
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
+  const [selectedMessages, setSelectedMessages] = useState<string[]>([]);
+  const [showBulkActions, setShowBulkActions] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     loadMessages();
+    loadAnalytics();
   }, []);
 
   useEffect(() => {
@@ -91,6 +117,16 @@ export function AdminDashboard() {
       toast.error("Failed to load messages");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadAnalytics = async () => {
+    try {
+      const data = await getAdminAnalytics();
+      setAnalytics(data);
+    } catch (error) {
+      console.error("Error loading analytics:", error);
+      toast.error("Failed to load analytics");
     }
   };
 
@@ -145,6 +181,87 @@ export function AdminDashboard() {
     });
   };
 
+  const handleBulkStatusUpdate = async (status: string) => {
+    if (selectedMessages.length === 0) {
+      toast.error("No messages selected");
+      return;
+    }
+
+    startTransition(async () => {
+      try {
+        await bulkUpdateMessageStatus(selectedMessages, status);
+        await loadMessages();
+        await loadAnalytics();
+        setSelectedMessages([]);
+        setShowBulkActions(false);
+        toast.success(`Updated ${selectedMessages.length} messages`);
+      } catch (error) {
+        console.error("Error bulk updating messages:", error);
+        toast.error("Failed to update messages");
+      }
+    });
+  };
+
+  const handleDeleteMessage = async (messageId: string) => {
+    if (
+      !confirm(
+        "Are you sure you want to delete this message? This action cannot be undone."
+      )
+    ) {
+      return;
+    }
+
+    startTransition(async () => {
+      try {
+        await deleteMessage(messageId);
+        await loadMessages();
+        await loadAnalytics();
+        toast.success("Message deleted successfully");
+      } catch (error) {
+        console.error("Error deleting message:", error);
+        toast.error("Failed to delete message");
+      }
+    });
+  };
+
+  const handleExportMessages = async (format: "csv" | "json") => {
+    try {
+      const result = await exportMessages(format);
+
+      // Create download link
+      const blob = new Blob([result.data], { type: result.contentType });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = result.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success(`Messages exported as ${format.toUpperCase()}`);
+    } catch (error) {
+      console.error("Error exporting messages:", error);
+      toast.error("Failed to export messages");
+    }
+  };
+
+  const toggleMessageSelection = (messageId: string) => {
+    setSelectedMessages((prev) =>
+      prev.includes(messageId)
+        ? prev.filter((id) => id !== messageId)
+        : [...prev, messageId]
+    );
+  };
+
+  const selectAllMessages = () => {
+    if (selectedMessages.length === filteredMessages.length) {
+      setSelectedMessages([]);
+    } else {
+      setSelectedMessages(filteredMessages.map((m) => m.id));
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       UNREAD: { variant: "destructive" as const, label: "Unread" },
@@ -158,10 +275,69 @@ export function AdminDashboard() {
     return <Badge variant={config.variant}>{config.label}</Badge>;
   };
 
-  const stats = {
-    total: messages.length,
-    unread: messages.filter((m) => m.status === "UNREAD").length,
-    replied: messages.filter((m) => m.status === "REPLIED").length,
+  // Enhanced analytics with server data
+  const stats = analytics
+    ? {
+        total: analytics.totalMessages,
+        unread: analytics.unreadMessages,
+        replied: analytics.repliedMessages,
+        read: analytics.readMessages,
+        recent: analytics.recentMessages,
+        responseRate: analytics.responseRate,
+        avgResponseTime:
+          analytics.avgResponseTimeHours > 0
+            ? `${analytics.avgResponseTimeHours}h`
+            : "< 1h",
+      }
+    : {
+        total: messages.length,
+        unread: messages.filter((m) => m.status === "UNREAD").length,
+        replied: messages.filter((m) => m.status === "REPLIED").length,
+        read: messages.filter((m) => m.status === "READ").length,
+        recent: messages.filter((m) => {
+          const messageDate = new Date(m.createdAt);
+          const weekAgo = new Date();
+          weekAgo.setDate(weekAgo.getDate() - 7);
+          return messageDate >= weekAgo;
+        }).length,
+        responseRate:
+          messages.length > 0
+            ? Math.round(
+                (messages.filter((m) => m.status === "REPLIED").length /
+                  messages.length) *
+                  100
+              )
+            : 0,
+        avgResponseTime: "< 24h",
+      };
+
+  const recentActivity = messages
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 5);
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "REPLIED":
+        return CheckCircle;
+      case "UNREAD":
+        return AlertCircle;
+      default:
+        return Clock;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "REPLIED":
+        return "text-green-600 bg-green-50 dark:bg-green-950/50";
+      case "UNREAD":
+        return "text-red-600 bg-red-50 dark:bg-red-950/50";
+      default:
+        return "text-yellow-600 bg-yellow-50 dark:bg-yellow-950/50";
+    }
   };
 
   return (
@@ -216,14 +392,15 @@ export function AdminDashboard() {
       </header>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Stats Cards - Mobile First Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {/* Enhanced Stats Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
           >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -246,8 +423,9 @@ export function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
           >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/30">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/30 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -270,9 +448,9 @@ export function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="sm:col-span-2 lg:col-span-1"
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
           >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/30">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/30 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -284,7 +462,203 @@ export function AdminDashboard() {
                     </p>
                   </div>
                   <div className="h-12 w-12 rounded-lg bg-green-500/10 flex items-center justify-center">
-                    <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
+          >
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/30 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                      This Week
+                    </p>
+                    <p className="text-3xl font-bold text-purple-900 dark:text-purple-100">
+                      {stats.recent}
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                    <Activity className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
+          >
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/50 dark:to-orange-900/30 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                      Response Rate
+                    </p>
+                    <p className="text-3xl font-bold text-orange-900 dark:text-orange-100">
+                      {stats.responseRate}%
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                    <BarChart3 className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="sm:col-span-1 lg:col-span-1 xl:col-span-1"
+          >
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/30 hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-teal-600 dark:text-teal-400">
+                      Avg Response
+                    </p>
+                    <p className="text-2xl font-bold text-teal-900 dark:text-teal-100">
+                      {stats.avgResponseTime}
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-teal-500/10 flex items-center justify-center">
+                    <Clock className="h-6 w-6 text-teal-600 dark:text-teal-400" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        {/* Recent Activity Panel */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-1"
+          >
+            <Card className="border-0 shadow-lg h-full">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Activity className="h-5 w-5 text-primary" />
+                    Recent Activity
+                  </CardTitle>
+                  <Button variant="ghost" size="sm">
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {recentActivity.length > 0 ? (
+                    recentActivity.map((message) => {
+                      const StatusIcon = getStatusIcon(message.status);
+                      return (
+                        <div
+                          key={message.id}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                        >
+                          <div
+                            className={`p-1 rounded-full ${getStatusColor(message.status)}`}
+                          >
+                            <StatusIcon className="h-3 w-3" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium truncate">
+                              {message.name}
+                            </p>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {message.subject || "No subject"}
+                            </p>
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {new Date(message.createdAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p>No recent activity</p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="lg:col-span-2"
+          >
+            <Card className="border-0 shadow-lg h-full">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-primary" />
+                    Quick Actions
+                  </CardTitle>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <Download className="h-4 w-4 mr-2" />
+                      Export
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={loadMessages}>
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      Refresh
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 rounded-lg bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors cursor-pointer">
+                    <MessageSquare className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                    <p className="text-sm font-medium">All Messages</p>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {stats.total}
+                    </p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-950/50 transition-colors cursor-pointer">
+                    <AlertCircle className="h-8 w-8 text-red-600 mx-auto mb-2" />
+                    <p className="text-sm font-medium">Need Reply</p>
+                    <p className="text-2xl font-bold text-red-600">
+                      {stats.unread}
+                    </p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-green-50 dark:bg-green-950/30 hover:bg-green-100 dark:hover:bg-green-950/50 transition-colors cursor-pointer">
+                    <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                    <p className="text-sm font-medium">Completed</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {stats.replied}
+                    </p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-purple-50 dark:bg-purple-950/30 hover:bg-purple-100 dark:hover:bg-purple-950/50 transition-colors cursor-pointer">
+                    <TrendingUp className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                    <p className="text-sm font-medium">This Week</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {stats.recent}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -358,27 +732,52 @@ export function AdminDashboard() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
+                className="group"
               >
-                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-200 group">
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      {/* Header Row */}
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                        <div className="flex items-start space-x-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10">
-                            <Users className="h-5 w-5 text-primary" />
+                <Card className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-background via-background to-muted/10 group-hover:from-primary/5 group-hover:to-primary/10 relative overflow-hidden">
+                  {/* Priority Indicator */}
+                  <div
+                    className={`absolute left-0 top-0 bottom-0 w-1 ${
+                      message.status === "UNREAD"
+                        ? "bg-red-500"
+                        : message.status === "READ"
+                          ? "bg-yellow-500"
+                          : "bg-green-500"
+                    }`}
+                  />
+
+                  <CardContent className="p-6 pl-8">
+                    <div className="space-y-6">
+                      {/* Enhanced Header Row */}
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                        <div className="flex items-start space-x-4">
+                          <div className="relative">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/20 group-hover:from-primary/30 group-hover:to-primary/20 transition-colors">
+                              <Users className="h-6 w-6 text-primary" />
+                            </div>
+                            {message.status === "UNREAD" && (
+                              <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-background animate-pulse" />
+                            )}
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-foreground truncate">
-                              {message.name}
-                            </h3>
-                            <p className="text-sm text-muted-foreground truncate">
-                              {message.email}
-                            </p>
+                          <div className="flex-1 min-w-0 space-y-1">
+                            <div className="flex items-center gap-2">
+                              <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+                                {message.name}
+                              </h3>
+                              {message.status === "REPLIED" && (
+                                <CheckCircle className="h-4 w-4 text-green-500" />
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Mail className="h-4 w-4" />
+                              <span className="font-medium">
+                                {message.email}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           {getStatusBadge(message.status)}
                           <Select
                             value={message.status}
@@ -386,47 +785,91 @@ export function AdminDashboard() {
                               handleStatusUpdate(message.id, value)
                             }
                           >
-                            <SelectTrigger className="w-32 h-8 text-xs">
+                            <SelectTrigger className="w-36 h-9 text-xs border-border/50 hover:border-primary/50 transition-colors">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="UNREAD">Unread</SelectItem>
-                              <SelectItem value="READ">Read</SelectItem>
-                              <SelectItem value="REPLIED">Replied</SelectItem>
-                              <SelectItem value="ARCHIVED">Archived</SelectItem>
+                              <SelectItem value="UNREAD">
+                                <div className="flex items-center gap-2">
+                                  <AlertCircle className="h-4 w-4 text-red-500" />
+                                  Unread
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="READ">
+                                <div className="flex items-center gap-2">
+                                  <Eye className="h-4 w-4 text-yellow-500" />
+                                  Read
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="REPLIED">
+                                <div className="flex items-center gap-2">
+                                  <CheckCircle className="h-4 w-4 text-green-500" />
+                                  Replied
+                                </div>
+                              </SelectItem>
+                              <SelectItem value="ARCHIVED">
+                                <div className="flex items-center gap-2">
+                                  <Archive className="h-4 w-4 text-gray-500" />
+                                  Archived
+                                </div>
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                       </div>
 
-                      {/* Subject */}
+                      {/* Enhanced Subject */}
                       {message.subject && (
-                        <div>
-                          <p className="font-medium text-foreground">
+                        <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
+                          <div className="flex items-center gap-2 mb-2">
+                            <MessageSquare className="h-4 w-4 text-primary" />
+                            <span className="text-xs font-medium text-primary uppercase tracking-wide">
+                              Subject
+                            </span>
+                          </div>
+                          <p className="font-semibold text-foreground text-lg">
                             {message.subject}
                           </p>
                         </div>
                       )}
 
-                      {/* Meta Info */}
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                      {/* Enhanced Meta Info */}
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm">
                         {message.phone && (
-                          <div className="flex items-center space-x-1">
-                            <Phone className="h-4 w-4" />
-                            <span>{message.phone}</span>
+                          <div className="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
+                            <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                            <span className="font-medium text-blue-700 dark:text-blue-300">
+                              {message.phone}
+                            </span>
                           </div>
                         )}
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="h-4 w-4" />
-                          <span>
-                            {new Date(message.createdAt).toLocaleDateString()}
+                        <div className="flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200/50 dark:border-green-800/50">
+                          <Calendar className="h-4 w-4 text-green-600 dark:text-green-400" />
+                          <span className="font-medium text-green-700 dark:text-green-300">
+                            {new Date(message.createdAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                weekday: "short",
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
                           </span>
                         </div>
                       </div>
 
-                      {/* Message Preview */}
-                      <div>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
+                      {/* Enhanced Message Preview */}
+                      <div className="bg-gradient-to-r from-muted/50 to-muted/20 rounded-xl p-4 border border-border/50">
+                        <div className="flex items-center gap-2 mb-3">
+                          <MessageSquare className="h-4 w-4 text-primary" />
+                          <span className="text-xs font-medium text-primary uppercase tracking-wide">
+                            Message
+                          </span>
+                        </div>
+                        <p className="text-foreground leading-relaxed">
                           {message.message}
                         </p>
                       </div>
@@ -456,8 +899,8 @@ export function AdminDashboard() {
                         </div>
                       )}
 
-                      {/* Action Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                      {/* Enhanced Action Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4 border-t border-border/50">
                         <Dialog
                           open={viewDialogOpen}
                           onOpenChange={setViewDialogOpen}
@@ -467,10 +910,12 @@ export function AdminDashboard() {
                               variant="outline"
                               size="sm"
                               onClick={() => setSelectedMessage(message)}
-                              className="flex-1 sm:flex-none"
+                              className="flex-1 sm:flex-none group border-blue-200/50 hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all duration-200"
                             >
-                              <Eye className="h-4 w-4 mr-2" />
-                              View Details
+                              <Eye className="h-4 w-4 mr-2 group-hover:text-blue-600 transition-colors" />
+                              <span className="group-hover:text-blue-600 transition-colors">
+                                View Details
+                              </span>
                             </Button>
                           </DialogTrigger>
                           <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -522,10 +967,10 @@ export function AdminDashboard() {
                             setSelectedMessage(message);
                             setReplyDialogOpen(true);
                           }}
-                          className="flex-1 sm:flex-none"
+                          className="flex-1 sm:flex-none group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
                         >
-                          <Reply className="h-4 w-4 mr-2" />
-                          Reply
+                          <Reply className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
+                          <span>Reply</span>
                         </Button>
                       </div>
                     </div>

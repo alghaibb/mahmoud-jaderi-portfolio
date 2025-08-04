@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { env } from "@/lib/env";
 
 const adminLoginSchema = z.object({
@@ -35,6 +36,7 @@ export async function adminLogin(data: { password: string }) {
 
     redirect("/admin/dashboard");
   } catch (error) {
+    if (isRedirectError(error)) throw error;
     console.error("Admin login error:", error);
     throw error;
   }

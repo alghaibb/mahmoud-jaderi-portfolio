@@ -14,20 +14,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <AnimatedAboutHero />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Background Section */}
         <AnimatedAboutBackground />
-
-        {/* Timeline Section */}
         <AnimatedAboutTimeline />
-
-        {/* Values Section */}
         <AnimatedAboutValues />
-
-        {/* CTA Section */}
         <AnimatedAboutCTA />
       </div>
     </div>

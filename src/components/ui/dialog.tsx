@@ -65,7 +65,7 @@ function DialogContent({
           // Size + scroll
           "w-full max-w-xs sm:max-w-lg max-h-[90vh] overflow-y-auto",
           // Style
-          "bg-background p-6 rounded-lg border shadow-lg duration-200",
+          "bg-background p-6 rounded-lg border border-border shadow-lg duration-200",
           className
         )}
         {...props}

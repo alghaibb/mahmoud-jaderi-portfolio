@@ -31,7 +31,7 @@ export const socialLinks = [
     label: "LinkedIn",
   },
   {
-    href: "mailto:mahmoud_jaderi@codewithmj.com",
+    href: "mailto:mjaderi97@gmail.com",
     icon: Mail,
     label: "Email",
   },
@@ -112,6 +112,7 @@ export const featuredProjects = [
     ],
     category: "Full-Stack",
     featured: true,
+    year: 2025,
   },
   {
     title: "Invoico",
@@ -138,6 +139,7 @@ export const featuredProjects = [
     ],
     category: "Full-Stack",
     featured: true,
+    year: 2025,
   },
   {
     title: "CVisionary",
@@ -162,8 +164,9 @@ export const featuredProjects = [
       "Professional Designs",
       "Mobile Responsive",
     ],
-    category: "AI/ML",
+    category: "Full-Stack",
     featured: true,
+    year: 2025,
   },
   {
     title: "Sumz",
@@ -190,6 +193,7 @@ export const featuredProjects = [
     ],
     category: "AI/ML",
     featured: true,
+    year: 2022,
   },
 ];
 
@@ -238,7 +242,7 @@ export const technologies = [
 
 // Contact Information
 export const contactInfo = {
-  email: "mahmoud_jaderi@codewithmj.com",
+  email: "mjaderi97@gmail.com",
   location: "Remote / Worldwide",
   availability: "Available for new opportunities",
 };
@@ -256,20 +260,23 @@ export const aboutData = {
     location: "Melbourne, Australia",
     experience: "3+ years",
     education: "Web Development Certificate (6-month bootcamp) + Self-taught",
-    motivation: "Started with pre-made templates but wanted full control. Now building complete applications from backend to frontend.",
+    motivation:
+      "Started with pre-made templates but wanted full control. Now building complete applications from backend to frontend.",
   },
 
   // Journey
   journey: {
     current: "Looking for opportunities",
     goal: "Senior Web Developer at a major company or startup founder",
-    aspiration: "To be part of something great and make a name for myself in the industry",
+    aspiration:
+      "To be part of something great and make a name for myself in the industry",
   },
 
   // Technical Expertise
   expertise: {
     strongest: ["React.js", "Next.js", "TypeScript", "Full-Stack Development"],
-    preferred: "Full-stack development - seeing how backend and frontend blend together",
+    preferred:
+      "Full-stack development - seeing how backend and frontend blend together",
     stack: [
       "Next.js (combines backend and frontend seamlessly)",
       "Shadcn UI (highly customizable components)",
@@ -286,22 +293,27 @@ export const aboutData = {
   interests: {
     hobbies: ["Boxing", "MMA events", "Weight lifting", "Training"],
     techRelated: "Staying updated with YouTube videos and documentation",
-    motivation: "The satisfaction of looking at the end project and feeling a sense of pride",
+    motivation:
+      "The satisfaction of looking at the end project and feeling a sense of pride",
     community: "Planning to contribute to open source",
   },
 
   // Work Philosophy
   philosophy: {
-    problemSolving: "Always logging to see what's wrong, then debugging systematically",
-    learning: "Watching YouTube videos for new best practices and reading documentation",
+    problemSolving:
+      "Always logging to see what's wrong, then debugging systematically",
+    learning:
+      "Watching YouTube videos for new best practices and reading documentation",
     values: "Communication is key - it's the foundation of successful projects",
-    methodology: "Sketching and planning with wireframes before building, updating plans as ideas evolve",
+    methodology:
+      "Sketching and planning with wireframes before building, updating plans as ideas evolve",
   },
 
   // Goals & Vision
   goals: {
     projects: "Big-scale projects for major companies",
-    impact: "Creating websites that make users say 'wow, I've never seen this before, this is really cool'",
+    impact:
+      "Creating websites that make users say 'wow, I've never seen this before, this is really cool'",
     vision: "Senior developer on significant projects within 5 years",
     industries: "Open to all industries, focused on impactful work",
   },
@@ -311,7 +323,8 @@ export const aboutData = {
     {
       year: "2021",
       title: "Started Coding Journey",
-      description: "Began exploring web development, starting with pre-made templates",
+      description:
+        "Began exploring web development, starting with pre-made templates",
       icon: Code,
     },
     {
@@ -323,19 +336,22 @@ export const aboutData = {
     {
       year: "2023",
       title: "Full-Stack Projects",
-      description: "Built comprehensive applications with Next.js and modern tech stack",
+      description:
+        "Built comprehensive applications with Next.js and modern tech stack",
       icon: Globe,
     },
     {
       year: "2024",
       title: "Portfolio & Growth",
-      description: "Focusing on professional development and seeking opportunities",
+      description:
+        "Focusing on professional development and seeking opportunities",
       icon: Target,
     },
     {
       year: "2025",
       title: "Professional Development",
-      description: "Building a professional portfolio and seeking new opportunities in the industry",
+      description:
+        "Building a professional portfolio and seeking new opportunities in the industry",
       icon: Target,
     },
   ],
@@ -344,22 +360,26 @@ export const aboutData = {
   values: [
     {
       title: "Quality First",
-      description: "Every project is an opportunity to create something exceptional",
+      description:
+        "Every project is an opportunity to create something exceptional",
       icon: Award,
     },
     {
       title: "Continuous Learning",
-      description: "Always staying updated with the latest technologies and best practices",
+      description:
+        "Always staying updated with the latest technologies and best practices",
       icon: Lightning,
     },
     {
       title: "User-Centric",
-      description: "Building experiences that genuinely impress and delight users",
+      description:
+        "Building experiences that genuinely impress and delight users",
       icon: Heart,
     },
     {
       title: "Reliable & Secure",
-      description: "Creating robust, scalable applications that users can trust",
+      description:
+        "Creating robust, scalable applications that users can trust",
       icon: Shield,
     },
   ],
@@ -377,4 +397,4 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/mahmoud-jaderi-150316290/",
     email: "mailto:mahmoudjaderi@gmail.com",
   },
-}; 
+};

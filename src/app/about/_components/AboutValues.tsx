@@ -9,7 +9,7 @@ export default function AboutValues() {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {aboutData.values.map((value, index) => (
+        {aboutData.values.map((value, _index) => (
           <div
             key={value.title}
             className="p-6 bg-gradient-to-br from-card to-card/50 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow"
@@ -30,4 +30,4 @@ export default function AboutValues() {
       </div>
     </div>
   );
-} 
+}
