@@ -214,7 +214,7 @@ export function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader className="pb-2">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
@@ -234,7 +234,7 @@ export function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader className="pb-2">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
@@ -254,7 +254,7 @@ export function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader className="pb-2">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
@@ -271,7 +271,7 @@ export function AdminDashboard() {
         </div>
 
         {/* Filters */}
-        <Card className="mb-6">
+        <Card className="mb-6 bg-card border-border">
           <CardHeader>
             <CardTitle>Filter Messages</CardTitle>
             <CardDescription>
@@ -311,11 +311,11 @@ export function AdminDashboard() {
         <div className="space-y-4">
           {loading ? (
             <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-border mx-auto"></div>
               <p className="mt-2 text-muted-foreground">Loading messages...</p>
             </div>
           ) : filteredMessages.length === 0 ? (
-            <Card>
+            <Card className="bg-card border-border">
               <CardContent className="p-8 text-center">
                 <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <CardDescription>No messages found</CardDescription>
@@ -329,7 +329,7 @@ export function AdminDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="bg-card border-border">
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                       <div className="flex-1 space-y-3">
@@ -432,7 +432,7 @@ export function AdminDashboard() {
                               View
                             </Button>
                           </ResponsiveModalTrigger>
-                          <ResponsiveModalContent>
+                          <ResponsiveModalContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
                             <ResponsiveModalHeader>
                               <ResponsiveModalTitle>
                                 Message Details
@@ -441,7 +441,7 @@ export function AdminDashboard() {
                                 From {message.name} ({message.email})
                               </ResponsiveModalDescription>
                             </ResponsiveModalHeader>
-                            <div className="space-y-4">
+                            <div className="space-y-4 p-6">
                               <div>
                                 <h4 className="font-medium mb-2">Subject</h4>
                                 <p className="text-sm text-muted-foreground">
@@ -495,17 +495,17 @@ export function AdminDashboard() {
 
       {/* Reply Modal */}
       <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
-        <ResponsiveModalContent className="max-w-2xl">
+        <ResponsiveModalContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
           <ResponsiveModalHeader>
             <ResponsiveModalTitle>Reply to Message</ResponsiveModalTitle>
             <ResponsiveModalDescription>
               Send a reply to {selectedMessage?.name} ({selectedMessage?.email})
             </ResponsiveModalDescription>
           </ResponsiveModalHeader>
-          <div className="space-y-4">
+          <div className="space-y-4 p-6">
             <div>
               <h4 className="font-medium mb-2">Original Message</h4>
-              <div className="bg-muted/50 rounded-lg p-3 text-sm">
+              <div className="bg-muted/50 rounded-lg p-3 text-sm max-h-32 overflow-y-auto">
                 <p className="whitespace-pre-wrap">
                   {selectedMessage?.message}
                 </p>
@@ -517,10 +517,11 @@ export function AdminDashboard() {
                 placeholder="Type your reply..."
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
-                rows={6}
+                rows={4}
+                className="min-h-[100px]"
               />
             </div>
-            <div className="flex justify-end space-x-2">
+            <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -528,6 +529,7 @@ export function AdminDashboard() {
                   setReplyText("");
                   setSelectedMessage(null);
                 }}
+                className="w-full sm:w-auto"
               >
                 Cancel
               </Button>
@@ -536,6 +538,7 @@ export function AdminDashboard() {
                 loading={isPending}
                 loadingText="Sending..."
                 disabled={!replyText.trim()}
+                className="w-full sm:w-auto"
               >
                 Send Reply
               </LoadingButton>
