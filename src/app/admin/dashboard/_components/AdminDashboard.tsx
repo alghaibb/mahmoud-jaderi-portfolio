@@ -19,13 +19,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  ResponsiveModal,
-  ResponsiveModalContent,
-  ResponsiveModalDescription,
-  ResponsiveModalHeader,
-  ResponsiveModalTitle,
-  ResponsiveModalTrigger,
-} from "@/components/ui/responsive-modal";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { LoadingButton } from "@/components/ui/loading-button";
 import {
@@ -41,6 +41,8 @@ import {
   Users,
   TrendingUp,
   Home,
+  Filter,
+  MoreHorizontal,
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
@@ -68,6 +70,7 @@ export function AdminDashboard() {
   const [selectedMessage, setSelectedMessage] =
     useState<ContactMessageWithReplies | null>(null);
   const [replyDialogOpen, setReplyDialogOpen] = useState(false);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [isPending, startTransition] = useTransition();
 
@@ -94,7 +97,6 @@ export function AdminDashboard() {
   const filterMessages = () => {
     let filtered = messages;
 
-    // Search filter
     if (searchTerm) {
       filtered = filtered.filter(
         (message) =>
@@ -105,7 +107,6 @@ export function AdminDashboard() {
       );
     }
 
-    // Status filter
     if (statusFilter !== "all") {
       filtered = filtered.filter((message) => message.status === statusFilter);
     }
@@ -164,23 +165,26 @@ export function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-4">
-          <div className="flex items-center justify-between h-20 py-4">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center">
-                <Shield className="h-5 w-5 text-background" />
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      {/* Modern Header */}
+      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-lg">
+                <Shield className="h-5 w-5 text-primary-foreground" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-                <p className="text-sm text-muted-foreground">
+                <h1 className="text-lg font-semibold tracking-tight">
+                  Admin Dashboard
+                </h1>
+                <p className="text-xs text-muted-foreground">
                   Manage contact messages
                 </p>
               </div>
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-3">
+
+            <div className="flex items-center space-x-2">
               <Button
                 variant="ghost"
                 size="sm"
@@ -197,7 +201,12 @@ export function AdminDashboard() {
                   <Home className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" onClick={() => adminLogout()}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => adminLogout()}
+                className="border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+              >
                 <LogOut className="h-4 w-4 sm:mr-2" />
                 <span className="hidden sm:inline">Logout</span>
               </Button>
@@ -206,26 +215,30 @@ export function AdminDashboard() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Stats Cards - Mobile First Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <Card className="bg-card border-border">
-              <CardHeader className="pb-2">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                      Total Messages
+                    </p>
+                    <p className="text-3xl font-bold text-blue-900 dark:text-blue-100">
+                      {stats.total}
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
                     <MessageSquare className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <div>
-                    <CardTitle className="text-2xl">{stats.total}</CardTitle>
-                    <CardDescription>Total Messages</CardDescription>
-                  </div>
                 </div>
-              </CardHeader>
+              </CardContent>
             </Card>
           </motion.div>
 
@@ -234,18 +247,22 @@ export function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="bg-card border-border">
-              <CardHeader className="pb-2">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/30">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-red-600 dark:text-red-400">
+                      Unread
+                    </p>
+                    <p className="text-3xl font-bold text-red-900 dark:text-red-100">
+                      {stats.unread}
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-red-500/10 flex items-center justify-center">
                     <Mail className="h-6 w-6 text-red-600 dark:text-red-400" />
                   </div>
-                  <div>
-                    <CardTitle className="text-2xl">{stats.unread}</CardTitle>
-                    <CardDescription>Unread</CardDescription>
-                  </div>
                 </div>
-              </CardHeader>
+              </CardContent>
             </Card>
           </motion.div>
 
@@ -253,46 +270,57 @@ export function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className="sm:col-span-2 lg:col-span-1"
           >
-            <Card className="bg-card border-border">
-              <CardHeader className="pb-2">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/30">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-green-600 dark:text-green-400">
+                      Replied
+                    </p>
+                    <p className="text-3xl font-bold text-green-900 dark:text-green-100">
+                      {stats.replied}
+                    </p>
+                  </div>
+                  <div className="h-12 w-12 rounded-lg bg-green-500/10 flex items-center justify-center">
                     <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
-                  <div>
-                    <CardTitle className="text-2xl">{stats.replied}</CardTitle>
-                    <CardDescription>Replied</CardDescription>
-                  </div>
                 </div>
-              </CardHeader>
+              </CardContent>
             </Card>
           </motion.div>
         </div>
 
-        {/* Filters */}
-        <Card className="mb-6 bg-card border-border">
-          <CardHeader>
-            <CardTitle>Filter Messages</CardTitle>
-            <CardDescription>
-              Search and filter your contact messages
-            </CardDescription>
+        {/* Search and Filter - Mobile Optimized */}
+        <Card className="mb-6 border-0 shadow-lg">
+          <CardHeader className="pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <CardTitle className="text-lg">Messages</CardTitle>
+                <CardDescription>
+                  Search and filter your contact messages
+                </CardDescription>
+              </div>
+              <div className="flex items-center gap-2">
+                <Filter className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">Filters</span>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search messages..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
+            <div className="flex flex-col gap-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search messages by name, email, or content..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 h-11 border-0 bg-muted/50 focus:bg-background transition-colors"
+                />
               </div>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="h-11 border-0 bg-muted/50 focus:bg-background transition-colors">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -307,18 +335,20 @@ export function AdminDashboard() {
           </CardContent>
         </Card>
 
-        {/* Messages List */}
+        {/* Messages List - Mobile First Design */}
         <div className="space-y-4">
           {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-border mx-auto"></div>
-              <p className="mt-2 text-muted-foreground">Loading messages...</p>
-            </div>
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-12 text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Loading messages...</p>
+              </CardContent>
+            </Card>
           ) : filteredMessages.length === 0 ? (
-            <Card className="bg-card border-border">
-              <CardContent className="p-8 text-center">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-12 text-center">
                 <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <CardDescription>No messages found</CardDescription>
+                <p className="text-muted-foreground">No messages found</p>
               </CardContent>
             </Card>
           ) : (
@@ -327,153 +357,163 @@ export function AdminDashboard() {
                 key={message.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
               >
-                <Card className="bg-card border-border">
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-200 group">
                   <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                      <div className="flex-1 space-y-3">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
-                              <Users className="h-5 w-5 text-primary" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold">{message.name}</h3>
-                              <p className="text-sm text-muted-foreground">
-                                {message.email}
-                              </p>
-                            </div>
+                    <div className="space-y-4">
+                      {/* Header Row */}
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                        <div className="flex items-start space-x-3">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/10">
+                            <Users className="h-5 w-5 text-primary" />
                           </div>
-                          <div className="flex items-center space-x-2">
-                            {getStatusBadge(message.status)}
-                            <Select
-                              value={message.status}
-                              onValueChange={(value) =>
-                                handleStatusUpdate(message.id, value)
-                              }
-                            >
-                              <SelectTrigger className="w-32">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="UNREAD">Unread</SelectItem>
-                                <SelectItem value="READ">Read</SelectItem>
-                                <SelectItem value="REPLIED">Replied</SelectItem>
-                                <SelectItem value="ARCHIVED">
-                                  Archived
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-
-                        {message.subject && (
-                          <div>
-                            <p className="font-medium">
-                              Subject: {message.subject}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-foreground truncate">
+                              {message.name}
+                            </h3>
+                            <p className="text-sm text-muted-foreground truncate">
+                              {message.email}
                             </p>
                           </div>
-                        )}
-
-                        <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                          {message.phone && (
-                            <div className="flex items-center space-x-1">
-                              <Phone className="h-4 w-4" />
-                              <span>{message.phone}</span>
-                            </div>
-                          )}
-                          <div className="flex items-center space-x-1">
-                            <Calendar className="h-4 w-4" />
-                            <span>
-                              {new Date(message.createdAt).toLocaleDateString()}
-                            </span>
-                          </div>
                         </div>
 
-                        <div>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {message.message}
-                          </p>
+                        <div className="flex items-center gap-2">
+                          {getStatusBadge(message.status)}
+                          <Select
+                            value={message.status}
+                            onValueChange={(value) =>
+                              handleStatusUpdate(message.id, value)
+                            }
+                          >
+                            <SelectTrigger className="w-32 h-8 text-xs">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="UNREAD">Unread</SelectItem>
+                              <SelectItem value="READ">Read</SelectItem>
+                              <SelectItem value="REPLIED">Replied</SelectItem>
+                              <SelectItem value="ARCHIVED">Archived</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-
-                        {message.replies.length > 0 && (
-                          <div className="bg-muted/50 rounded-lg p-3">
-                            <p className="text-sm font-medium mb-2">
-                              Replies ({message.replies.length})
-                            </p>
-                            {message.replies.map((reply, replyIndex) => (
-                              <div
-                                key={reply.id}
-                                className="text-sm text-muted-foreground"
-                              >
-                                <p className="mb-1">
-                                  <span className="font-medium">
-                                    Reply {replyIndex + 1}:
-                                  </span>{" "}
-                                  {reply.message}
-                                </p>
-                                <p className="text-xs">
-                                  {new Date(
-                                    reply.createdAt
-                                  ).toLocaleDateString()}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        )}
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <ResponsiveModal>
-                          <ResponsiveModalTrigger asChild>
-                            <Button variant="outline" size="sm">
+                      {/* Subject */}
+                      {message.subject && (
+                        <div>
+                          <p className="font-medium text-foreground">
+                            {message.subject}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Meta Info */}
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        {message.phone && (
+                          <div className="flex items-center space-x-1">
+                            <Phone className="h-4 w-4" />
+                            <span>{message.phone}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center space-x-1">
+                          <Calendar className="h-4 w-4" />
+                          <span>
+                            {new Date(message.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Message Preview */}
+                      <div>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {message.message}
+                        </p>
+                      </div>
+
+                      {/* Replies */}
+                      {message.replies.length > 0 && (
+                        <div className="bg-muted/30 rounded-lg p-3">
+                          <p className="text-sm font-medium mb-2 text-foreground">
+                            Replies ({message.replies.length})
+                          </p>
+                          {message.replies.map((reply, replyIndex) => (
+                            <div
+                              key={reply.id}
+                              className="text-sm text-muted-foreground"
+                            >
+                              <p className="mb-1">
+                                <span className="font-medium">
+                                  Reply {replyIndex + 1}:
+                                </span>{" "}
+                                {reply.message}
+                              </p>
+                              <p className="text-xs">
+                                {new Date(reply.createdAt).toLocaleDateString()}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                        <Dialog
+                          open={viewDialogOpen}
+                          onOpenChange={setViewDialogOpen}
+                        >
+                          <DialogTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setSelectedMessage(message)}
+                              className="flex-1 sm:flex-none"
+                            >
                               <Eye className="h-4 w-4 mr-2" />
-                              View
+                              View Details
                             </Button>
-                          </ResponsiveModalTrigger>
-                          <ResponsiveModalContent
-                            className="bg-card border-border"
-                            side="top"
-                          >
-                            <ResponsiveModalHeader>
-                              <ResponsiveModalTitle>
-                                Message Details
-                              </ResponsiveModalTitle>
-                              <ResponsiveModalDescription>
-                                From {message.name} ({message.email})
-                              </ResponsiveModalDescription>
-                            </ResponsiveModalHeader>
-                            <div className="space-y-4 p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                            <DialogHeader>
+                              <DialogTitle>Message Details</DialogTitle>
+                              <DialogDescription>
+                                From {selectedMessage?.name} (
+                                {selectedMessage?.email})
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="space-y-4">
                               <div>
                                 <h4 className="font-medium mb-2">Subject</h4>
                                 <p className="text-sm text-muted-foreground">
-                                  {message.subject || "No subject"}
+                                  {selectedMessage?.subject || "No subject"}
                                 </p>
                               </div>
                               <div>
                                 <h4 className="font-medium mb-2">Message</h4>
-                                <p className="text-sm whitespace-pre-wrap break-words overflow-wrap-anywhere">
-                                  {message.message}
+                                <p className="text-sm whitespace-pre-wrap">
+                                  {selectedMessage?.message}
                                 </p>
                               </div>
-                              {message.phone && (
+                              {selectedMessage?.phone && (
                                 <div>
                                   <h4 className="font-medium mb-2">Phone</h4>
                                   <p className="text-sm text-muted-foreground">
-                                    {message.phone}
+                                    {selectedMessage.phone}
                                   </p>
                                 </div>
                               )}
                               <div>
                                 <h4 className="font-medium mb-2">Date</h4>
                                 <p className="text-sm text-muted-foreground">
-                                  {new Date(message.createdAt).toLocaleString()}
+                                  {selectedMessage &&
+                                    new Date(
+                                      selectedMessage.createdAt
+                                    ).toLocaleString()}
                                 </p>
                               </div>
                             </div>
-                          </ResponsiveModalContent>
-                        </ResponsiveModal>
+                          </DialogContent>
+                        </Dialog>
 
                         <Button
                           variant="default"
@@ -482,6 +522,7 @@ export function AdminDashboard() {
                             setSelectedMessage(message);
                             setReplyDialogOpen(true);
                           }}
+                          className="flex-1 sm:flex-none"
                         >
                           <Reply className="h-4 w-4 mr-2" />
                           Reply
@@ -496,20 +537,20 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {/* Reply Modal */}
-      <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
-        <ResponsiveModalContent className="bg-card border-border" side="top">
-          <ResponsiveModalHeader>
-            <ResponsiveModalTitle>Reply to Message</ResponsiveModalTitle>
-            <ResponsiveModalDescription>
+      {/* Reply Dialog */}
+      <Dialog open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Reply to Message</DialogTitle>
+            <DialogDescription>
               Send a reply to {selectedMessage?.name} ({selectedMessage?.email})
-            </ResponsiveModalDescription>
-          </ResponsiveModalHeader>
-          <div className="space-y-4 p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
             <div>
               <h4 className="font-medium mb-2">Original Message</h4>
               <div className="bg-muted/50 rounded-lg p-3 text-sm max-h-32 overflow-y-auto">
-                <p className="whitespace-pre-wrap break-words overflow-wrap-anywhere">
+                <p className="whitespace-pre-wrap">
                   {selectedMessage?.message}
                 </p>
               </div>
@@ -521,7 +562,7 @@ export function AdminDashboard() {
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 rows={4}
-                className="min-h-[100px]"
+                className="min-h-[100px] resize-none"
               />
             </div>
             <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
@@ -532,7 +573,7 @@ export function AdminDashboard() {
                   setReplyText("");
                   setSelectedMessage(null);
                 }}
-                className="w-full sm:w-auto order-2 sm:order-1"
+                className="w-full sm:w-auto"
               >
                 Cancel
               </Button>
@@ -541,14 +582,14 @@ export function AdminDashboard() {
                 loading={isPending}
                 loadingText="Sending..."
                 disabled={!replyText.trim()}
-                className="w-full sm:w-auto order-1 sm:order-2"
+                className="w-full sm:w-auto"
               >
                 Send Reply
               </LoadingButton>
             </div>
           </div>
-        </ResponsiveModalContent>
-      </ResponsiveModal>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
