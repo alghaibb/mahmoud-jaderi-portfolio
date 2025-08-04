@@ -432,7 +432,10 @@ export function AdminDashboard() {
                               View
                             </Button>
                           </ResponsiveModalTrigger>
-                          <ResponsiveModalContent className="bg-card border-border">
+                          <ResponsiveModalContent
+                            className="bg-card border-border"
+                            side="top"
+                          >
                             <ResponsiveModalHeader>
                               <ResponsiveModalTitle>
                                 Message Details
@@ -441,7 +444,7 @@ export function AdminDashboard() {
                                 From {message.name} ({message.email})
                               </ResponsiveModalDescription>
                             </ResponsiveModalHeader>
-                            <div className="space-y-4 p-6">
+                            <div className="space-y-4 p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
                               <div>
                                 <h4 className="font-medium mb-2">Subject</h4>
                                 <p className="text-sm text-muted-foreground">
@@ -495,14 +498,14 @@ export function AdminDashboard() {
 
       {/* Reply Modal */}
       <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
-        <ResponsiveModalContent className="bg-card border-border">
+        <ResponsiveModalContent className="bg-card border-border" side="top">
           <ResponsiveModalHeader>
             <ResponsiveModalTitle>Reply to Message</ResponsiveModalTitle>
             <ResponsiveModalDescription>
               Send a reply to {selectedMessage?.name} ({selectedMessage?.email})
             </ResponsiveModalDescription>
           </ResponsiveModalHeader>
-          <div className="space-y-4 p-6">
+          <div className="space-y-4 p-4 sm:p-6 max-h-[70vh] overflow-y-auto">
             <div>
               <h4 className="font-medium mb-2">Original Message</h4>
               <div className="bg-muted/50 rounded-lg p-3 text-sm max-h-32 overflow-y-auto">
