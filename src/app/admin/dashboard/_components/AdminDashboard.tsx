@@ -425,14 +425,14 @@ export function AdminDashboard() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-2">
-                        <ResponsiveModal>
-                          <ResponsiveModalTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <Eye className="h-4 w-4 mr-2" />
-                              View
-                            </Button>
-                          </ResponsiveModalTrigger>
-                          <ResponsiveModalContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
+                                                 <ResponsiveModal>
+                           <ResponsiveModalTrigger asChild>
+                             <Button variant="outline" size="sm">
+                               <Eye className="h-4 w-4 mr-2" />
+                               View
+                             </Button>
+                           </ResponsiveModalTrigger>
+                           <ResponsiveModalContent className="w-[95vw] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border mx-auto">
                             <ResponsiveModalHeader>
                               <ResponsiveModalTitle>
                                 Message Details
@@ -494,8 +494,8 @@ export function AdminDashboard() {
       </div>
 
       {/* Reply Modal */}
-      <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
-        <ResponsiveModalContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
+             <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
+         <ResponsiveModalContent className="w-[95vw] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border mx-auto">
           <ResponsiveModalHeader>
             <ResponsiveModalTitle>Reply to Message</ResponsiveModalTitle>
             <ResponsiveModalDescription>
@@ -521,28 +521,28 @@ export function AdminDashboard() {
                 className="min-h-[100px]"
               />
             </div>
-            <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setReplyDialogOpen(false);
-                  setReplyText("");
-                  setSelectedMessage(null);
-                }}
-                className="w-full sm:w-auto"
-              >
-                Cancel
-              </Button>
-              <LoadingButton
-                onClick={handleReply}
-                loading={isPending}
-                loadingText="Sending..."
-                disabled={!replyText.trim()}
-                className="w-full sm:w-auto"
-              >
-                Send Reply
-              </LoadingButton>
-            </div>
+                         <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+               <Button
+                 variant="outline"
+                 onClick={() => {
+                   setReplyDialogOpen(false);
+                   setReplyText("");
+                   setSelectedMessage(null);
+                 }}
+                 className="w-full sm:w-auto order-2 sm:order-1"
+               >
+                 Cancel
+               </Button>
+               <LoadingButton
+                 onClick={handleReply}
+                 loading={isPending}
+                 loadingText="Sending..."
+                 disabled={!replyText.trim()}
+                 className="w-full sm:w-auto order-1 sm:order-2"
+               >
+                 Send Reply
+               </LoadingButton>
+             </div>
           </div>
         </ResponsiveModalContent>
       </ResponsiveModal>
