@@ -8,19 +8,17 @@ interface ConditionalLayoutProps {
   children: React.ReactNode;
 }
 
-export default function ConditionalLayout({
-  children,
-}: ConditionalLayoutProps) {
+export function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
 
-  // Hide navbar and footer for admin pages
-  const isAdminPage = pathname?.startsWith("/admin");
+  // Hide navbar and footer on admin routes
+  const isAdminRoute = pathname?.startsWith("/admin");
 
   return (
-    <div className="flex min-h-screen flex-col">
-      {!isAdminPage && <Navbar />}
-      <main className="flex-1">{children}</main>
-      {!isAdminPage && <Footer />}
-    </div>
+    <>
+      {!isAdminRoute && <Navbar />}
+      <main className="min-h-screen">{children}</main>
+      {!isAdminRoute && <Footer />}
+    </>
   );
 }

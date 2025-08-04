@@ -1,14 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `ContactMessage` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "public"."MessageStatus" AS ENUM ('UNREAD', 'READ', 'REPLIED', 'ARCHIVED');
-
--- DropTable
-DROP TABLE "public"."ContactMessage";
 
 -- CreateTable
 CREATE TABLE "public"."contact_messages" (
@@ -20,7 +11,6 @@ CREATE TABLE "public"."contact_messages" (
     "message" TEXT NOT NULL,
     "status" "public"."MessageStatus" NOT NULL DEFAULT 'UNREAD',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "contact_messages_pkey" PRIMARY KEY ("id")
 );

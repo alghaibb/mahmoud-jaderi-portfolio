@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "linux-musl", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -9,34 +10,37 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model ContactMessage {
-  id        String         @id @default(uuid())
-  name      String
-  email     String
-  phone     String?
-  subject   String?
-  message   String
-  status    MessageStatus  @default(UNREAD)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  replies   ContactReply[]
-
-  @@map("contact_messages")
-}
-
-model ContactReply {
-  id               String         @id @default(uuid())
-  contactMessage   ContactMessage @relation(fields: [contactMessageId], references: [id], onDelete: Cascade)
-  contactMessageId String
-  message          String
-  createdAt        DateTime       @default(now())
-
-  @@map("contact_replies")
-}
-
 enum MessageStatus {
   UNREAD
   READ
   REPLIED
   ARCHIVED
+}
+
+model ContactMessage {
+  id      String        @id @default(uuid())
+  name    String
+  email   String
+  phone   String?
+  subject String?
+  message String
+  status  MessageStatus @default(UNREAD)
+
+  createdAt DateTime @default(now())
+
+  replies ContactReply[]
+
+  @@map("contact_messages")
+}
+
+model ContactReply {
+  id               String @id @default(uuid())
+  contactMessageId String
+  message          String
+
+  createdAt DateTime @default(now())
+
+  contactMessage ContactMessage @relation(fields: [contactMessageId], references: [id], onDelete: Cascade)
+
+  @@map("contact_replies")
 }

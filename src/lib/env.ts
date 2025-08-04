@@ -6,6 +6,7 @@ export const env = createEnv({
     DATABASE_URL: z.url(),
     DIRECT_URL: z.url(),
     RESEND_API_KEY: z.string(),
+    ADMIN_PASSWORD: z.string(),
   },
   client: {
     NEXT_PUBLIC_SUPABASE_URL: z.url(),

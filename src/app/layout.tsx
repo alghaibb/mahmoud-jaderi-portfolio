@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import Navbar from "@/components/sections/navbar/Navbar";
-import Footer from "@/components/sections/Footer";
+import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -42,9 +41,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "bg-background text-foreground")}>
         <ThemeProvider attribute="class" disableTransitionOnChange>
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <ConditionalLayout>{children}</ConditionalLayout>
           <Toaster closeButton theme="light" richColors />
         </ThemeProvider>
       </body>

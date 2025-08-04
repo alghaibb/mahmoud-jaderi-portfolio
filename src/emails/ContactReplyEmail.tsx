@@ -5,7 +5,6 @@ import {
   Head,
   Heading,
   Html,
-  Img,
   Link,
   Preview,
   Section,
@@ -15,7 +14,6 @@ import * as React from "react";
 
 interface ContactReplyEmailProps {
   userName: string;
-  userEmail: string;
   originalSubject: string;
   originalMessage: string;
   replyMessage: string;
@@ -25,7 +23,7 @@ interface ContactReplyEmailProps {
 const baseUrl = env.NEXT_PUBLIC_BASE_URL;
 
 export const ContactReplyEmail = ({
-  userEmail,
+  userName,
   originalSubject,
   originalMessage,
   replyMessage,
@@ -42,7 +40,7 @@ export const ContactReplyEmail = ({
         </Section>
 
         <Section style={content}>
-          <Heading style={h2}>Hello {userEmail},</Heading>
+          <Heading style={h2}>Hello {userName},</Heading>
 
           <Text style={paragraph}>
             Thank you for reaching out to me. I've received your message and I'm

@@ -38,6 +38,11 @@ export const lastNameSchema = z
     }
   );
 
+export const passwordSchema = z
+  .string()
+  .min(8, "Password must be at least 8 characters")
+  .trim();
+
 export const phoneSchema = z
   .string()
   .trim()

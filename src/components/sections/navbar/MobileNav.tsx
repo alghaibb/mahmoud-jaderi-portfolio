@@ -1,9 +1,10 @@
 "use client";
 
+import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { navLinks, socialLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -36,13 +37,13 @@ export function MobileNav({ socialLinks }: MobileNavProps) {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-[320px] sm:w-[380px] p-0 bg-background/95 backdrop-blur-sm border-l"
+        className="w-[320px] sm:w-[380px] p-0 bg-background/95 backdrop-blur-sm border-l border-border"
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b">
+          <div className="flex items-center justify-between p-6 border-b border-border">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center text-background font-bold text-sm">
                 M
               </div>
               <span className="sr-only">Mobile Menu</span>
@@ -112,28 +113,30 @@ export function MobileNav({ socialLinks }: MobileNavProps) {
                 </div>
               </div>
 
-              {/* Contact Info */}
+              {/* User Sign In */}
               <div className="space-y-4 pt-4 border-t">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                  Get In Touch
+                  Account
                 </h3>
-                <div className="space-y-3">
-                  <p className="text-sm text-muted-foreground">
-                    Available for new opportunities
-                  </p>
-                  <a
-                    href="mailto:mahmoudjaderi@gmail.com"
-                    className="flex items-center gap-2 text-primary hover:underline transition-colors duration-200 text-sm font-medium"
+                <SheetTrigger asChild>
+                  <Link
+                    href="/sign-in"
+                    onClick={handleLinkClick}
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "w-full"
+                    )}
                   >
-                    <span>mahmoudjaderi@gmail.com</span>
-                  </a>
-                </div>
+                    <User className="h-4 w-4" />
+                    <span className="text-sm font-medium">Sign In</span>
+                  </Link>
+                </SheetTrigger>
               </div>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="p-6 border-t bg-muted/20">
+          <div className="p-6 border-t border-border bg-muted/20">
             <p className="text-xs text-muted-foreground text-center">
               © {new Date().getFullYear()} Mahmoud Jaderi
             </p>
