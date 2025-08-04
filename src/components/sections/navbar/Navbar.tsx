@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { navLinks, socialLinks } from "@/lib/constants";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { cn } from "@/lib/utils";
@@ -8,7 +7,6 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./MobileNav";
-import { User } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();

@@ -19,13 +19,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+  ResponsiveModalTrigger,
+} from "@/components/ui/responsive-modal";
 import { Textarea } from "@/components/ui/textarea";
 import { LoadingButton } from "@/components/ui/loading-button";
 import {
@@ -40,7 +40,7 @@ import {
   Shield,
   Users,
   TrendingUp,
-  ArrowLeft,
+  Home,
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
@@ -165,36 +165,41 @@ export function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 py-4">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center">
-                <Shield className="h-5 w-5 text-background" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-                <p className="text-sm text-muted-foreground">
-                  Manage contact messages
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Button variant="ghost" asChild>
-                <Link href="/" className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" />
-                  Back to Home
-                </Link>
-              </Button>
-              <Button variant="outline" onClick={() => adminLogout()}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+             {/* Header */}
+       <header className="border-b border-border bg-card">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="flex items-center justify-between h-20 py-4">
+             <div className="flex items-center space-x-4">
+               <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center">
+                 <Shield className="h-5 w-5 text-background" />
+               </div>
+               <div className="hidden sm:block">
+                 <h1 className="text-xl font-bold">Admin Dashboard</h1>
+                 <p className="text-sm text-muted-foreground">
+                   Manage contact messages
+                 </p>
+               </div>
+             </div>
+             <div className="flex items-center space-x-2 sm:space-x-3">
+               <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
+                 <Link href="/" className="flex items-center gap-2">
+                   <Home className="h-4 w-4" />
+                   <span>Home</span>
+                 </Link>
+               </Button>
+               <Button variant="ghost" size="sm" asChild className="sm:hidden">
+                 <Link href="/">
+                   <Home className="h-4 w-4" />
+                 </Link>
+               </Button>
+               <Button variant="outline" size="sm" onClick={() => adminLogout()}>
+                 <LogOut className="h-4 w-4 sm:mr-2" />
+                 <span className="hidden sm:inline">Logout</span>
+               </Button>
+             </div>
+           </div>
+         </div>
+       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
@@ -414,51 +419,51 @@ export function AdminDashboard() {
                         )}
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <Eye className="h-4 w-4 mr-2" />
-                              View
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                            <DialogHeader>
-                              <DialogTitle>Message Details</DialogTitle>
-                              <DialogDescription>
-                                From {message.name} ({message.email})
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="space-y-4">
-                              <div>
-                                <h4 className="font-medium mb-2">Subject</h4>
-                                <p className="text-sm text-muted-foreground">
-                                  {message.subject || "No subject"}
-                                </p>
-                              </div>
-                              <div>
-                                <h4 className="font-medium mb-2">Message</h4>
-                                <p className="text-sm whitespace-pre-wrap">
-                                  {message.message}
-                                </p>
-                              </div>
-                              {message.phone && (
-                                <div>
-                                  <h4 className="font-medium mb-2">Phone</h4>
-                                  <p className="text-sm text-muted-foreground">
-                                    {message.phone}
-                                  </p>
-                                </div>
-                              )}
-                              <div>
-                                <h4 className="font-medium mb-2">Date</h4>
-                                <p className="text-sm text-muted-foreground">
-                                  {new Date(message.createdAt).toLocaleString()}
-                                </p>
-                              </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
+                                             <div className="flex flex-col sm:flex-row gap-2">
+                         <ResponsiveModal>
+                           <ResponsiveModalTrigger asChild>
+                             <Button variant="outline" size="sm">
+                               <Eye className="h-4 w-4 mr-2" />
+                               View
+                             </Button>
+                           </ResponsiveModalTrigger>
+                           <ResponsiveModalContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                             <ResponsiveModalHeader>
+                               <ResponsiveModalTitle>Message Details</ResponsiveModalTitle>
+                               <ResponsiveModalDescription>
+                                 From {message.name} ({message.email})
+                               </ResponsiveModalDescription>
+                             </ResponsiveModalHeader>
+                             <div className="space-y-4">
+                               <div>
+                                 <h4 className="font-medium mb-2">Subject</h4>
+                                 <p className="text-sm text-muted-foreground">
+                                   {message.subject || "No subject"}
+                                 </p>
+                               </div>
+                               <div>
+                                 <h4 className="font-medium mb-2">Message</h4>
+                                 <p className="text-sm whitespace-pre-wrap">
+                                   {message.message}
+                                 </p>
+                               </div>
+                               {message.phone && (
+                                 <div>
+                                   <h4 className="font-medium mb-2">Phone</h4>
+                                   <p className="text-sm text-muted-foreground">
+                                     {message.phone}
+                                   </p>
+                                 </div>
+                               )}
+                               <div>
+                                 <h4 className="font-medium mb-2">Date</h4>
+                                 <p className="text-sm text-muted-foreground">
+                                   {new Date(message.createdAt).toLocaleString()}
+                                 </p>
+                               </div>
+                             </div>
+                           </ResponsiveModalContent>
+                         </ResponsiveModal>
 
                         <Button
                           variant="default"
@@ -481,56 +486,56 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {/* Reply Dialog */}
-      <Dialog open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Reply to Message</DialogTitle>
-            <DialogDescription>
-              Send a reply to {selectedMessage?.name} ({selectedMessage?.email})
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-medium mb-2">Original Message</h4>
-              <div className="bg-muted/50 rounded-lg p-3 text-sm">
-                <p className="whitespace-pre-wrap">
-                  {selectedMessage?.message}
-                </p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-medium mb-2">Your Reply</h4>
-              <Textarea
-                placeholder="Type your reply..."
-                value={replyText}
-                onChange={(e) => setReplyText(e.target.value)}
-                rows={6}
-              />
-            </div>
-            <div className="flex justify-end space-x-2">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setReplyDialogOpen(false);
-                  setReplyText("");
-                  setSelectedMessage(null);
-                }}
-              >
-                Cancel
-              </Button>
-              <LoadingButton
-                onClick={handleReply}
-                loading={isPending}
-                loadingText="Sending..."
-                disabled={!replyText.trim()}
-              >
-                Send Reply
-              </LoadingButton>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+             {/* Reply Modal */}
+       <ResponsiveModal open={replyDialogOpen} onOpenChange={setReplyDialogOpen}>
+         <ResponsiveModalContent className="max-w-2xl">
+           <ResponsiveModalHeader>
+             <ResponsiveModalTitle>Reply to Message</ResponsiveModalTitle>
+             <ResponsiveModalDescription>
+               Send a reply to {selectedMessage?.name} ({selectedMessage?.email})
+             </ResponsiveModalDescription>
+           </ResponsiveModalHeader>
+           <div className="space-y-4">
+             <div>
+               <h4 className="font-medium mb-2">Original Message</h4>
+               <div className="bg-muted/50 rounded-lg p-3 text-sm">
+                 <p className="whitespace-pre-wrap">
+                   {selectedMessage?.message}
+                 </p>
+               </div>
+             </div>
+             <div>
+               <h4 className="font-medium mb-2">Your Reply</h4>
+               <Textarea
+                 placeholder="Type your reply..."
+                 value={replyText}
+                 onChange={(e) => setReplyText(e.target.value)}
+                 rows={6}
+               />
+             </div>
+             <div className="flex justify-end space-x-2">
+               <Button
+                 variant="outline"
+                 onClick={() => {
+                   setReplyDialogOpen(false);
+                   setReplyText("");
+                   setSelectedMessage(null);
+                 }}
+               >
+                 Cancel
+               </Button>
+               <LoadingButton
+                 onClick={handleReply}
+                 loading={isPending}
+                 loadingText="Sending..."
+                 disabled={!replyText.trim()}
+               >
+                 Send Reply
+               </LoadingButton>
+             </div>
+           </div>
+         </ResponsiveModalContent>
+       </ResponsiveModal>
     </div>
   );
 }

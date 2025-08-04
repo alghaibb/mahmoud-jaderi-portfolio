@@ -2,7 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { navLinks, socialLinks } from "@/lib/constants";
+import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Menu, X, User } from "lucide-react";
 import Link from "next/link";

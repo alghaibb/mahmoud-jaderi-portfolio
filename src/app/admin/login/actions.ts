@@ -17,11 +17,11 @@ export async function adminLogin(data: { password: string }) {
     const adminPassword = env.ADMIN_PASSWORD;
 
     if (!adminPassword) {
-      return { error: "Admin password not configured" };
+      throw new Error("Admin password not configured");
     }
 
     if (validatedData.password !== adminPassword) {
-      return { error: "Invalid admin password" };
+      throw new Error("Invalid admin password");
     }
 
     // Set admin session cookie (7 days)
@@ -36,7 +36,7 @@ export async function adminLogin(data: { password: string }) {
     redirect("/admin/dashboard");
   } catch (error) {
     console.error("Admin login error:", error);
-    return { error: "Failed to login" };
+    throw error;
   }
 }
 

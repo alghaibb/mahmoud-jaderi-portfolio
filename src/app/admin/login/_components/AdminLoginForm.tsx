@@ -49,11 +49,10 @@ export function AdminLoginForm() {
     setIsLoading(true);
     try {
       await adminLogin(data);
-      toast.success("Login successful!");
+      // No success toast needed - redirect should happen immediately
     } catch (error) {
       console.error("Admin login error:", error);
       toast.error(error instanceof Error ? error.message : "Invalid password");
-    } finally {
       setIsLoading(false);
     }
   };
