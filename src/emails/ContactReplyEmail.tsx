@@ -43,7 +43,7 @@ export const ContactReplyEmail = ({
           <Heading style={h2}>Hello {userName},</Heading>
 
           <Text style={paragraph}>
-            Thank you for reaching out to me. I've received your message and I'm
+            Thank you for reaching out to me. I&apos;ve received your message and I&apos;m
             happy to provide you with a response.
           </Text>
 
@@ -65,7 +65,7 @@ export const ContactReplyEmail = ({
 
           <Text style={paragraph}>
             If you have any follow-up questions or need further assistance,
-            please don't hesitate to reach out. I'm here to help!
+            please don&apos;t hesitate to reach out. I&apos;m here to help!
           </Text>
 
           <Text style={paragraph}>

@@ -31,13 +31,13 @@ export const WelcomeEmail = ({ userName, userEmail }: WelcomeEmailProps) => (
           <Heading style={h2}>Hello {userName},</Heading>
 
           <Text style={paragraph}>
-            Thank you for reaching out to me through my portfolio! I've received
-            your message and I'm excited to connect with you.
+            Thank you for reaching out to me through my portfolio! I&apos;ve received
+            your message and I&apos;m excited to connect with you.
           </Text>
 
           <Text style={paragraph}>
             I typically respond to all inquiries within 24 hours during business
-            days. In the meantime, I'd love to share a bit more about my work
+            days. In the meantime, I&apos;d love to share a bit more about my work
             and how I can help bring your ideas to life.
           </Text>
 
@@ -65,14 +65,14 @@ export const WelcomeEmail = ({ userName, userEmail }: WelcomeEmailProps) => (
           </Section>
 
           <Text style={paragraph}>
-            I'm passionate about creating clean, maintainable code and
+            I&apos;m passionate about creating clean, maintainable code and
             delivering solutions that exceed expectations. Whether you have a
-            specific project in mind or just want to explore possibilities, I'm
+            specific project in mind or just want to explore possibilities, I&apos;m
             here to help.
           </Text>
 
           <Text style={paragraph}>
-            I'll be in touch soon with a detailed response to your inquiry. In
+            I&apos;ll be in touch soon with a detailed response to your inquiry. In
             the meantime, feel free to explore my portfolio to see examples of
             my work.
           </Text>

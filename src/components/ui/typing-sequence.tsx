@@ -120,7 +120,7 @@ export default function TypingSequence({
       if (before) parts.push(<span key="before-str">{before}</span>);
       parts.push(
         <span key="string" className="text-orange-500">
-          "{stringMatch[1]}"
+          &quot;{stringMatch[1]}&quot;
         </span>
       );
       currentIndex += (stringMatch.index || 0) + stringMatch[0].length;
