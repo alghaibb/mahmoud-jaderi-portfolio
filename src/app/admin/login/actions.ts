@@ -18,12 +18,10 @@ export async function adminLogin(data: { password: string }) {
     const adminPassword = env.ADMIN_PASSWORD;
 
     if (!adminPassword) {
-      console.error("ADMIN_PASSWORD environment variable not set");
-      throw new Error("Admin password not configured - check environment variables");
+      throw new Error("Admin password not configured");
     }
 
     if (validatedData.password !== adminPassword) {
-      console.error("Invalid admin password attempt");
       throw new Error("Invalid admin password");
     }
 
