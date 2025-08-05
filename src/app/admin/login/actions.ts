@@ -49,12 +49,20 @@ export async function adminLogout() {
 }
 
 export async function checkAdminAuth() {
-  const cookieStore = await cookies();
-  const adminSession = cookieStore.get("admin-session");
+  try {
+    const cookieStore = await cookies();
+    const adminSession = cookieStore.get("admin-session");
 
-  if (!adminSession || adminSession.value !== "authenticated") {
+    if (!adminSession || adminSession.value !== "authenticated") {
+      redirect("/admin/login");
+    }
+
+    return true;
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error("Authentication check error:", error);
     redirect("/admin/login");
   }
-
-  return true;
 } 

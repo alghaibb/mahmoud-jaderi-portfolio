@@ -42,7 +42,6 @@ import {
   TrendingUp,
   Home,
   Filter,
-  MoreHorizontal,
   BarChart3,
   Activity,
   Clock,

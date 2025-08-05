@@ -11,9 +11,9 @@ import { MessageStatus } from "@/generated/prisma";
 const resend = new Resend(env.RESEND_API_KEY);
 
 export async function getContactMessages() {
-  await checkAdminAuth();
-
   try {
+    await checkAdminAuth();
+
     const messages = await prisma.contactMessage.findMany({
       include: {
         replies: {
@@ -30,6 +30,12 @@ export async function getContactMessages() {
     return messages;
   } catch (error) {
     console.error("Error fetching contact messages:", error);
+    
+    // Re-throw redirect errors
+    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
+      throw error;
+    }
+    
     throw new Error("Failed to fetch messages");
   }
 }
@@ -108,9 +114,8 @@ export async function updateMessageStatus(messageId: string, status: string) {
 }
 
 export async function getAdminAnalytics() {
-  await checkAdminAuth();
-
   try {
+    await checkAdminAuth();
     const totalMessages = await prisma.contactMessage.count();
     const unreadMessages = await prisma.contactMessage.count({
       where: { status: "UNREAD" },
@@ -175,6 +180,12 @@ export async function getAdminAnalytics() {
     };
   } catch (error) {
     console.error("Error fetching admin analytics:", error);
+    
+    // Re-throw redirect errors
+    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
+      throw error;
+    }
+    
     throw new Error("Failed to fetch analytics");
   }
 }

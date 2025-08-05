@@ -8,6 +8,7 @@ import { AdminProvider } from "./AdminContext";
 import { AdminAnalytics } from "./AdminAnalytics";
 import { AdminControls } from "./AdminControls";
 import { MessageList } from "./MessageList";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 function AdminHeader() {
   return (
@@ -81,8 +82,10 @@ function AdminDashboardContent() {
 
 export function AdminDashboardRefactored() {
   return (
-    <AdminProvider>
-      <AdminDashboardContent />
-    </AdminProvider>
+    <ErrorBoundary>
+      <AdminProvider>
+        <AdminDashboardContent />
+      </AdminProvider>
+    </ErrorBoundary>
   );
 }

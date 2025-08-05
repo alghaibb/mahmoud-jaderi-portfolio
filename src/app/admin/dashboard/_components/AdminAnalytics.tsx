@@ -13,7 +13,46 @@ import { useAdmin } from "./AdminContext";
 
 export function AdminAnalytics() {
   const { state } = useAdmin();
-  const { analytics, messages } = state;
+  const { analytics, messages, loading } = state;
+
+  // Show loading state to prevent hydration mismatch
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-primary" />
+              Analytics Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              <div className="h-6 w-20 bg-muted animate-pulse rounded" />
+              <div className="h-6 w-24 bg-muted animate-pulse rounded" />
+              <div className="h-6 w-28 bg-muted animate-pulse rounded" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Card key={i} className="border-0 shadow-lg">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-2">
+                    <div className="h-3 w-12 bg-muted animate-pulse rounded" />
+                    <div className="h-8 w-8 bg-muted animate-pulse rounded" />
+                  </div>
+                  <div className="h-8 w-8 bg-muted animate-pulse rounded" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   // Enhanced analytics with server data
   const stats = analytics
