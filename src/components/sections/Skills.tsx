@@ -35,9 +35,28 @@ const SkillMeter = ({
 
   useEffect(() => {
     if (isInView) {
+      // Animate progress from 0 to target value
+      let currentProgress = 0;
+      const targetProgress = skill.level;
+      const duration = 1500; // 1.5 seconds
+      const steps = 60; // 60 steps for smooth animation
+      const increment = targetProgress / steps;
+      const stepDuration = duration / steps;
+      
       const timer = setTimeout(() => {
-        setProgress(skill.level);
-      }, index * 200);
+        const interval = setInterval(() => {
+          currentProgress += increment;
+          if (currentProgress >= targetProgress) {
+            setProgress(targetProgress);
+            clearInterval(interval);
+          } else {
+            setProgress(Math.round(currentProgress));
+          }
+        }, stepDuration);
+        
+        return () => clearInterval(interval);
+      }, index * 100 + 200);
+      
       return () => clearTimeout(timer);
     }
   }, [isInView, skill.level, index]);
