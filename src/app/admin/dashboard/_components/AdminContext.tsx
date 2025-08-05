@@ -148,7 +148,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Only load data on client-side after component mounts
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       loadMessages();
       loadAnalytics();
     }
@@ -164,13 +164,13 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "SET_MESSAGES", payload: data });
     } catch (error) {
       console.error("Error loading messages:", error);
-      
+
       // Check if it's an authentication error
-      if (error instanceof Error && error.message.includes('redirect')) {
+      if (error instanceof Error && error.message.includes("redirect")) {
         // Handle redirect error - let it propagate
         return;
       }
-      
+
       toast.error("Failed to load messages");
     } finally {
       dispatch({ type: "SET_LOADING", payload: false });
@@ -183,13 +183,13 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "SET_ANALYTICS", payload: data });
     } catch (error) {
       console.error("Error loading analytics:", error);
-      
+
       // Check if it's an authentication error
-      if (error instanceof Error && error.message.includes('redirect')) {
+      if (error instanceof Error && error.message.includes("redirect")) {
         // Handle redirect error - let it propagate
         return;
       }
-      
+
       toast.error("Failed to load analytics");
     }
   };

@@ -9,20 +9,42 @@ import { renderWelcomeEmail } from "@/lib/email";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
+async function createContactMessageWithRetry(data: any, maxRetries = 2) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // Test connection and create message
+      await prisma.$connect();
+      
+      const contactMessage = await prisma.contactMessage.create({
+        data,
+      });
+      
+      return contactMessage;
+    } catch (error) {
+      console.error(`Database attempt ${attempt} failed:`, error);
+      
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      
+      // Wait before retry (exponential backoff)
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+    }
+  }
+}
+
 export async function submitContactForm(data: ContactFormData) {
   try {
     const validatedData = contactFormSchema.parse(data);
 
-    const contactMessage = await prisma.contactMessage.create({
-      data: {
-        name: validatedData.lastName && validatedData.lastName
-          ? `${validatedData.firstName} ${validatedData.lastName}`
-          : validatedData.firstName,
-        email: validatedData.email,
-        phone: validatedData.phone ? validatedData.phone : null,
-        subject: validatedData.subject ? validatedData.subject : null,
-        message: validatedData.message,
-      },
+    const contactMessage = await createContactMessageWithRetry({
+      name: validatedData.lastName && validatedData.lastName
+        ? `${validatedData.firstName} ${validatedData.lastName}`
+        : validatedData.firstName,
+      email: validatedData.email,
+      phone: validatedData.phone ? validatedData.phone : null,
+      subject: validatedData.subject ? validatedData.subject : null,
+      message: validatedData.message,
     });
 
     // Send welcome email
@@ -61,10 +83,31 @@ export async function submitContactForm(data: ContactFormData) {
       };
     }
 
+    // Handle specific database connection errors
+    if (error instanceof Error) {
+      if (error.message.includes("Can't reach database server") || 
+          error.message.includes("Database connection failed") ||
+          error.name === "PrismaClientInitializationError") {
+        return {
+          success: false,
+          message: "We're experiencing database connectivity issues. Please try again in a few moments.",
+          errors: "Database connection error",
+        };
+      }
+
+      if (error.name === "PrismaClientKnownRequestError") {
+        return {
+          success: false,
+          message: "There was an issue processing your request. Please try again.",
+          errors: "Database request error",
+        };
+      }
+    }
+
     return {
       success: false,
       message: "Something went wrong. Please try again later.",
-      errors: "Database error",
+      errors: "Unknown error",
     };
   }
 } 

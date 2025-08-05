@@ -23,7 +23,7 @@ function DashboardLoading() {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
         <Card className="border-0 shadow-lg">
           <CardContent className="p-6">
@@ -37,7 +37,7 @@ function DashboardLoading() {
             </div>
           </CardContent>
         </Card>
-        
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="border-0 shadow-lg">
