@@ -11,48 +11,15 @@ import {
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import TypingSequence from "@/components/ui/typing-sequence";
-import { ArrowDown, Download, Sparkles, Code2, Zap } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import { ArrowDown, Download, Code2, Zap } from "lucide-react";
+import { useRef } from "react";
 
-// Floating particles component
-const FloatingParticles = () => {
-  const [particles, setParticles] = useState<
-    Array<{ id: number; x: number; y: number; delay: number }>
-  >([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({ length: 6 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 2,
-    }));
-    setParticles(newParticles);
-  }, []);
-
+// Simple background decoration
+const BackgroundDecoration = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute w-2 h-2 bg-primary/20 rounded-full"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.3, 0.8, 0.3],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-primary/3 rounded-full blur-3xl" />
     </div>
   );
 };
@@ -64,21 +31,17 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.4, 0.8, 1],
-    [1, 1, 0.6, 0]
-  );
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0.8]);
 
   return (
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-center py-20 lg:py-32 overflow-hidden"
     >
-      {/* Animated Background */}
+      {/* Simple Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-      <FloatingParticles />
+      <BackgroundDecoration />
 
       {/* Main Content */}
       <motion.div style={{ y, opacity }} className="relative z-10 w-full">
@@ -99,12 +62,11 @@ export default function Hero() {
                 variants={fadeInUp}
                 className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-primary/10 border border-primary/20 rounded-full text-xs sm:text-sm font-medium text-primary"
               >
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
                 <span className="hidden xs:inline">
                   Available for new opportunities
                 </span>
                 <span className="xs:hidden">Available for work</span>
-                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
               </motion.div>
 
               <motion.h1
@@ -112,13 +74,8 @@ export default function Hero() {
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight"
               >
                 Hi, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent relative block sm:inline">
+                <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
                   Mahmoud Jaderi
-                  <motion.div
-                    className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent rounded-lg blur-xl"
-                    animate={{ opacity: [0.5, 0.8, 0.5] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
                 </span>
               </motion.h1>
 
@@ -314,16 +271,12 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 1.5 }}
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-muted-foreground"
-        >
+        <div className="flex flex-col items-center gap-2 text-muted-foreground">
           <span className="text-sm font-medium">Scroll to explore</span>
           <ArrowDown className="w-5 h-5" />
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
