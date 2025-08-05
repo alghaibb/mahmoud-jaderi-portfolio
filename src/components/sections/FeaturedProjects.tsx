@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { featuredProjects } from "@/lib/constants";
-import { staggerContainer, staggerItem } from "@/lib/animations";
 import {
   ArrowRight,
   ExternalLink,
@@ -13,10 +12,9 @@ import {
   Rocket,
   Award,
 } from "lucide-react";
-import { motion, useInView } from "motion/react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 
 // Optimized project card component
 const ProjectCard = ({
@@ -149,11 +147,8 @@ const ProjectCard = ({
 };
 
 export default function FeaturedProjects() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-
   return (
-    <section ref={sectionRef} className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/10 to-background" />
 

@@ -42,21 +42,24 @@ const SkillMeter = ({
       const steps = 60; // 60 steps for smooth animation
       const increment = targetProgress / steps;
       const stepDuration = duration / steps;
-      
-      const timer = setTimeout(() => {
-        const interval = setInterval(() => {
-          currentProgress += increment;
-          if (currentProgress >= targetProgress) {
-            setProgress(targetProgress);
-            clearInterval(interval);
-          } else {
-            setProgress(Math.round(currentProgress));
-          }
-        }, stepDuration);
-        
-        return () => clearInterval(interval);
-      }, index * 100 + 200);
-      
+
+      const timer = setTimeout(
+        () => {
+          const interval = setInterval(() => {
+            currentProgress += increment;
+            if (currentProgress >= targetProgress) {
+              setProgress(targetProgress);
+              clearInterval(interval);
+            } else {
+              setProgress(Math.round(currentProgress));
+            }
+          }, stepDuration);
+
+          return () => clearInterval(interval);
+        },
+        index * 100 + 200
+      );
+
       return () => clearTimeout(timer);
     }
   }, [isInView, skill.level, index]);
@@ -152,14 +155,8 @@ const SkillMeter = ({
 };
 
 export default function Skills() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
-
   return (
-    <section
-      ref={sectionRef}
-      className="py-20 bg-gradient-to-b from-muted/20 via-muted/30 to-background relative overflow-hidden"
-    >
+    <section className="py-20 bg-gradient-to-b from-muted/20 via-muted/30 to-background relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
