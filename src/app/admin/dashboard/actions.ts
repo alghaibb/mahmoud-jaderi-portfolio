@@ -79,7 +79,7 @@ export async function replyToMessage(messageId: string, replyText: string) {
       });
 
       await resend.emails.send({
-        from: "Mahmoud Jaderi <noreply@codewithmj.com>",
+        from: "Mahmoud Jaderi <mahmoud_jaderi@codewithmj.com>",
         to: originalMessage.email,
         subject: `Re: ${originalMessage.subject || "Your message"}`,
         html: emailHtml,
@@ -89,7 +89,7 @@ export async function replyToMessage(messageId: string, replyText: string) {
       console.error("Email error details:", {
         error: emailError instanceof Error ? emailError.message : emailError,
         apiKeyExists: !!env.RESEND_API_KEY,
-        from: "Mahmoud Jaderi <noreply@codewithmj.com>",
+        from: "Mahmoud Jaderi <mahmoud_jaderi@codewithmj.com>",
         to: originalMessage.email,
       });
       // Don't throw error - reply is saved even if email fails
