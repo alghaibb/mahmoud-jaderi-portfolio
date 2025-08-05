@@ -43,9 +43,8 @@ const SkillMeter = ({
   }, [isInView, skill.level, index]);
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      variants={staggerItem}
       className="group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -129,13 +128,13 @@ const SkillMeter = ({
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 };
 
 export default function Skills() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
     <section
@@ -179,16 +178,19 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-12"
-        >
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-12">
           {enhancedSkills.map((skill, index) => (
-            <SkillMeter key={skill.name} skill={skill} index={index} />
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+            >
+              <SkillMeter skill={skill} index={index} />
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Legacy Skills Section */}
         <motion.div
