@@ -86,6 +86,12 @@ export async function replyToMessage(messageId: string, replyText: string) {
       });
     } catch (emailError) {
       console.error("Error sending reply email:", emailError);
+      console.error("Email error details:", {
+        error: emailError instanceof Error ? emailError.message : emailError,
+        apiKeyExists: !!env.RESEND_API_KEY,
+        from: "Mahmoud Jaderi <noreply@codewithmj.com>",
+        to: originalMessage.email,
+      });
       // Don't throw error - reply is saved even if email fails
       console.log("Reply saved to database but email sending failed");
     }
