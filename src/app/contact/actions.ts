@@ -55,7 +55,7 @@ export async function submitContactForm(data: ContactFormData) {
       });
 
       await resend.emails.send({
-        from: "Mahmoud Jaderi <noreply@mahmoudjaderi.com>",
+        from: "Mahmoud Jaderi <noreply@codewithmj.com>",
         to: validatedData.email,
         subject: "Thank you for reaching out - Mahmoud Jaderi",
         html: emailHtml,

@@ -79,7 +79,7 @@ export async function replyToMessage(messageId: string, replyText: string) {
       });
 
       await resend.emails.send({
-        from: "Mahmoud Jaderi <noreply@mahmoudjaderi.com>",
+        from: "Mahmoud Jaderi <noreply@codewithmj.com>",
         to: originalMessage.email,
         subject: `Re: ${originalMessage.subject || "Your message"}`,
         html: emailHtml,
