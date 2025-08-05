@@ -30,12 +30,12 @@ export async function getContactMessages() {
     return messages;
   } catch (error) {
     console.error("Error fetching contact messages:", error);
-    
+
     // Re-throw redirect errors
     if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
       throw error;
     }
-    
+
     throw new Error("Failed to fetch messages");
   }
 }
@@ -79,13 +79,15 @@ export async function replyToMessage(messageId: string, replyText: string) {
       });
 
       await resend.emails.send({
-        from: "Portfolio Contact <noreply@codewithmj.com>",
+        from: "Mahmoud Jaderi <noreply@mahmoudjaderi.com>",
         to: originalMessage.email,
         subject: `Re: ${originalMessage.subject || "Your message"}`,
         html: emailHtml,
       });
     } catch (emailError) {
       console.error("Error sending reply email:", emailError);
+      // Don't throw error - reply is saved even if email fails
+      console.log("Reply saved to database but email sending failed");
     }
 
     revalidatePath("/admin/dashboard");
@@ -180,12 +182,12 @@ export async function getAdminAnalytics() {
     };
   } catch (error) {
     console.error("Error fetching admin analytics:", error);
-    
+
     // Re-throw redirect errors
     if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
       throw error;
     }
-    
+
     throw new Error("Failed to fetch analytics");
   }
 }
