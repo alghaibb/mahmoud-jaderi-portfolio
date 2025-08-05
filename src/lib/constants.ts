@@ -394,7 +394,7 @@ export const siteConfig = {
   ogImage: "/og-image.png",
   links: {
     github: "https://github.com/alghaibb",
-    linkedin: "https://www.linkedin.com/in/mahmoud-jaderi-150316290/",
-    email: "mailto:mahmoudjaderi@gmail.com",
+    linkedin: "https://www.linkedin.com/in/mahmoud-jaderi/",
+    email: "mailto:mjaderi97@gmail.com",
   },
 };
