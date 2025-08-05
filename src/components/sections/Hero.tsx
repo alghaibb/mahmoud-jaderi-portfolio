@@ -237,12 +237,21 @@ export default function Hero() {
                 <div className="space-y-3 font-mono text-sm">
                   <TypingSequence
                     lines={[
-                      "const developer = {",
+                      "interface Developer {",
+                      "  name: string;",
+                      "  role: string;",
+                      "  skills: string[];",
+                      "  passion: string;",
+                      "  status: 'Available' | 'Busy';",
+                      "  location: string;",
+                      "}",
+                      "",
+                      "const developer: Developer = {",
                       '  name: "Mahmoud Jaderi",',
                       '  role: "Full Stack Developer",',
                       '  skills: ["Next.js", "TypeScript", "React"],',
                       '  passion: "Building amazing apps",',
-                      '  status: "Available for hire",',
+                      '  status: "Available",',
                       '  location: "Melbourne, Australia"',
                       "};",
                       "",
