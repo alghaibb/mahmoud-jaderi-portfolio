@@ -10,7 +10,7 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Reply, Mail, MessageSquare } from "lucide-react";
 import { useState } from "react";
@@ -38,7 +38,9 @@ export default function ReplyMessageModal({
   );
 
   const handleSubmitReply = async () => {
-    if (!replyText.trim()) return;
+    // Strip HTML tags for validation, but send full HTML content
+    const textContent = replyText.replace(/<[^>]*>/g, '').trim();
+    if (!textContent) return;
 
     const success = await handleReply(message.id, replyText);
     if (success) {
@@ -91,11 +93,11 @@ export default function ReplyMessageModal({
               <Mail className="h-4 w-4 text-muted-foreground" />
               <label className="text-sm font-medium">Your Reply</label>
             </div>
-            <Textarea
+            <RichTextEditor
               placeholder="Type your reply here..."
               value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-              className="min-h-[120px] resize-none"
+              onChange={setReplyText}
+              className="min-h-[120px]"
               disabled={isPending}
             />
             <p className="text-xs text-muted-foreground">

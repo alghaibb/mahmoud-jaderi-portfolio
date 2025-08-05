@@ -7,6 +7,7 @@ import { env } from "@/lib/env";
 import { renderContactReplyEmail } from "@/lib/email";
 import { revalidatePath } from "next/cache";
 import { MessageStatus } from "@/generated/prisma";
+import { marked } from "marked";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -69,12 +70,15 @@ export async function replyToMessage(messageId: string, replyText: string) {
 
     // Send email reply
     try {
+      // Convert markdown to HTML for email
+      const replyHtml = await marked(replyText);
+      
       const emailHtml = await renderContactReplyEmail({
         userName: originalMessage.name.split(" ")[0], // First name
         userEmail: originalMessage.email,
         originalSubject: originalMessage.subject || "Contact Form Submission",
         originalMessage: originalMessage.message,
-        replyMessage: replyText,
+        replyMessage: replyHtml,
         originalDate: originalMessage.createdAt.toLocaleDateString(),
       });
 

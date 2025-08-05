@@ -49,7 +49,10 @@ export const ContactReplyEmail = ({
 
           <Section style={replySection}>
             <Heading style={h3}>My Reply:</Heading>
-            <Text style={replyText}>{replyMessage}</Text>
+            <div
+              style={replyText}
+              dangerouslySetInnerHTML={{ __html: replyMessage }}
+            />
           </Section>
 
           <Section style={originalSection}>

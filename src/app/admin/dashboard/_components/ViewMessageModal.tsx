@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Eye, Mail, Phone, Calendar, MessageSquare } from "lucide-react";
 import { type ContactMessageWithReplies } from "./AdminContext";
+import { marked } from "marked";
+import { useMemo } from "react";
 
 interface ViewMessageModalProps {
   message: ContactMessageWithReplies;
@@ -37,6 +39,13 @@ export default function ViewMessageModal({
   message,
   trigger,
 }: ViewMessageModalProps) {
+  // Convert markdown replies to HTML
+  const repliesWithHtml = useMemo(() => {
+    return message.replies?.map(reply => ({
+      ...reply,
+      htmlMessage: marked(reply.message)
+    })) || [];
+  }, [message.replies]);
   const defaultTrigger = (
     <Button variant="outline" size="sm">
       <Eye className="h-4 w-4" />
@@ -110,7 +119,7 @@ export default function ViewMessageModal({
                 Replies ({message.replies.length})
               </h3>
               <div className="space-y-4">
-                {message.replies.map((reply) => (
+                {repliesWithHtml.map((reply) => (
                   <div
                     key={reply.id}
                     className="bg-primary/5 border-l-4 border-primary rounded-lg p-4"
@@ -121,9 +130,10 @@ export default function ViewMessageModal({
                         {new Date(reply.createdAt).toLocaleString()}
                       </span>
                     </div>
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">
-                      {reply.message}
-                    </p>
+                    <div 
+                      className="text-sm leading-relaxed prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-pre:bg-muted prose-pre:text-foreground"
+                      dangerouslySetInnerHTML={{ __html: reply.htmlMessage }}
+                    />
                   </div>
                 ))}
               </div>
