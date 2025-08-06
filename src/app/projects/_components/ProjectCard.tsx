@@ -12,6 +12,7 @@ import { cardHover, imageHover } from "@/lib/animations";
 interface ProjectCardProps {
   project: {
     title: string;
+    slug: string;
     description: string;
     tech: string[];
     image: string;
@@ -162,61 +163,60 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           {/* Enhanced Action Buttons */}
-          <div className="flex gap-2 pt-2">
-            {project.demoLink ? (
-              <>
+          <div className="space-y-2 pt-2">
+            {/* Primary Action - Case Study */}
+            <Button
+              asChild
+              size="sm"
+              className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              <Link href={`/projects/${project.slug}`}>
+                <span className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform">
+                  📖
+                </span>
+                View Case Study
+              </Link>
+            </Button>
+
+            {/* Secondary Actions */}
+            <div className="flex gap-2">
+              {project.demoLink && (
                 <div className="flex-1">
                   <Button
                     asChild
                     size="sm"
-                    className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
+                    variant="outline"
+                    className="w-full border-border/50 hover:border-primary/50 hover:bg-primary/5"
                   >
                     <Link
                       href={project.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                      Live Demo
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Demo
                     </Link>
                   </Button>
                 </div>
-                <div className="flex-shrink-0">
-                  <Button
-                    asChild
-                    size="sm"
-                    variant="outline"
-                    className="border-border/50 hover:border-primary/50 hover:bg-primary/5"
-                  >
-                    <Link
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Link>
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="w-full">
+              )}
+              <div className={project.demoLink ? "flex-shrink-0" : "w-full"}>
                 <Button
                   asChild
                   size="sm"
-                  className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
+                  variant="outline"
+                  className={`${project.demoLink ? "" : "w-full"} border-border/50 hover:border-primary/50 hover:bg-primary/5`}
                 >
                   <Link
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Github className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                    View Code
+                    <Github className="w-4 h-4 mr-2" />
+                    Code
                   </Link>
                 </Button>
               </div>
-            )}
+            </div>
           </div>
         </CardContent>
 
