@@ -81,6 +81,15 @@ export function RichTextEditor({
           background: hsl(var(--accent));
         }
 
+        /* Hide fullscreen button */
+        .rich-text-editor
+          .w-md-editor-toolbar
+          ul
+          li
+          button[data-name="fullscreen"] {
+          display: none !important;
+        }
+
         .rich-text-editor .w-md-editor-text-container {
           border-top: none !important;
           border-radius: 0 0 0.5rem 0.5rem !important;
