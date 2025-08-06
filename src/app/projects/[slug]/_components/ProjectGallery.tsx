@@ -3,7 +3,12 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ImageIcon } from "lucide-react";
 
 interface GalleryItem {
@@ -85,22 +90,20 @@ export default function ProjectGallery({ gallery }: ProjectGalleryProps) {
                   </CardContent>
                 </Card>
               </DialogTrigger>
-              <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 bg-transparent border-0 shadow-none">
-                <DialogTitle className="sr-only">
-                  {item.caption}
-                </DialogTitle>
-                <div className="relative w-full h-full bg-black/95 rounded-lg overflow-hidden">
+              <DialogContent className="max-w-none w-screen h-screen p-0 m-0 bg-black border-0 shadow-none rounded-none">
+                <DialogTitle className="sr-only">{item.caption}</DialogTitle>
+                <div className="relative w-full h-full bg-black overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.caption}
                     fill
-                    className="object-contain p-4"
+                    className="object-contain"
                     quality={100}
-                    sizes="(max-width: 768px) 95vw, (max-width: 1200px) 90vw, 85vw"
+                    sizes="100vw"
                     priority
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 z-10">
-                    <p className="text-white text-base leading-relaxed font-medium">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4 z-10">
+                    <p className="text-white text-base leading-relaxed font-medium text-center">
                       {item.caption}
                     </p>
                   </div>
