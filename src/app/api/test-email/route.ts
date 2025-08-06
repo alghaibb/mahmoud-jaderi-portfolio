@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
+import { checkAdminAuth } from "@/app/admin/login/actions";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -16,19 +17,33 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is admin
+    await checkAdminAuth();
+
+    // Log request details for debugging
+    console.log("=== EMAIL TEST REQUEST DEBUG ===");
+    console.log("Headers:", Object.fromEntries(request.headers.entries()));
+    console.log("Method:", request.method);
+    console.log("URL:", request.url);
+
     let to = "test@example.com"; // Default email
+    let rawBody = "";
 
     // Try to parse JSON body, but don't fail if it's invalid
     try {
       const body = await request.json();
+      rawBody = JSON.stringify(body);
+      console.log("Parsed body:", body);
       if (body.to) {
         to = body.to;
       }
     } catch (jsonError) {
       console.log("No valid JSON body provided, using default email");
+      console.log("JSON parse error:", jsonError);
     }
 
-    console.log("to", to);
+    console.log("Final recipient:", to);
+    console.log("Raw body received:", rawBody);
 
     console.log("Testing email configuration:", {
       apiKeyExists: !!env.RESEND_API_KEY,

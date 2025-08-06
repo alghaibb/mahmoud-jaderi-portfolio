@@ -92,14 +92,14 @@ export const WelcomeEmail = ({ userName, userEmail }: WelcomeEmailProps) => (
           </Text>
           <Text style={footerText}>
             Email:{" "}
-            <Link href="mailto:mjaderi97@gmail.com" style={link}>
-              mjaderi97@gmail.com
+            <Link href="mailto:mahmoud_jaderi@codewithmj.com" style={link}>
+              mahmoud_jaderi@codewithmj.com
             </Link>
           </Text>
           <Text style={footerText}>
             Portfolio:{" "}
-            <Link href="https://mahmoudjaderi.com" style={link}>
-              mahmoudjaderi.com
+            <Link href="https://codewithmj.com" style={link}>
+              codewithmj.com
             </Link>
           </Text>
           <Text style={footerText}>
