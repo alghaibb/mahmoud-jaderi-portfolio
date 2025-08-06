@@ -63,7 +63,7 @@ export function MobileNav({ socialLinks }: MobileNavProps) {
                   Navigation
                 </h3>
                 <nav className="space-y-2">
-                  {navLinks.map((link, _index) => (
+                  {navLinks.map((link) => (
                     <SheetTrigger asChild key={link.href}>
                       <Link
                         href={link.href}
@@ -94,7 +94,7 @@ export function MobileNav({ socialLinks }: MobileNavProps) {
                   Connect
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {socialLinks.map((social, _index) => (
+                  {socialLinks.map((social) => (
                     <a
                       key={social.href}
                       href={social.href}

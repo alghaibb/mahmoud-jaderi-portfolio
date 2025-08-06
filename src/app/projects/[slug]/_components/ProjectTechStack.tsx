@@ -95,8 +95,8 @@ export default function ProjectTechStack({
         >
           <h3 className="text-2xl font-bold mb-6">Implementation Details</h3>
           {Object.entries(techDetails)
-            .filter(([_, description]) => description)
-            .map(([category, description], index) => {
+            .filter(([, description]) => description)
+            .map(([category, description]) => {
               const Icon = getIconForCategory(category);
               const color = getColorForCategory(category);
 
@@ -152,7 +152,7 @@ export default function ProjectTechStack({
                   viewport={{ once: true }}
                   className="flex flex-wrap gap-2"
                 >
-                  {technologies.map((tech, index) => (
+                  {technologies.map((tech) => (
                     <motion.div key={tech} variants={fadeInUp}>
                       <Badge
                         variant="secondary"

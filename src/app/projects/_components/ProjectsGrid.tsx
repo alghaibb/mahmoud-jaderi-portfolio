@@ -7,6 +7,7 @@ import ProjectCard from "./ProjectCard";
 interface ProjectsGridProps {
   projects: Array<{
     title: string;
+    slug: string;
     description: string;
     tech: string[];
     image: string;
@@ -46,7 +47,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       animate="visible"
       className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
     >
-      {projects.map((project, _index) => (
+      {projects.map((project) => (
         <motion.div
           key={project.title}
           variants={staggerItem}
