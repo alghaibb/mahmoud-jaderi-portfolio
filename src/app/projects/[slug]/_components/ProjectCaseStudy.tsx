@@ -11,6 +11,9 @@ import ProjectOverview from "./ProjectOverview";
 import ProjectChallenges from "./ProjectChallenges";
 import ProjectTechStack from "./ProjectTechStack";
 import ProjectResults from "./ProjectResults";
+import ProjectLearnings from "./ProjectLearnings";
+import ProjectImpact from "./ProjectImpact";
+import ProjectNextSteps from "./ProjectNextSteps";
 // import ProjectGallery from "./ProjectGallery";
 import ProjectNavigation from "./ProjectNavigation";
 
@@ -30,6 +33,13 @@ interface Project {
     overview: string;
     challenge: string;
     solution: string;
+    keyLearnings?: string[];
+    businessImpact?: {
+      userValue: string;
+      marketGap: string;
+      scalability: string;
+    };
+    nextSteps?: string[];
     techDetails: Record<string, string | undefined>;
     challenges: Array<{
       title: string;
@@ -158,6 +168,18 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             <ProjectChallenges challenges={project.caseStudy.challenges} />
 
             <ProjectResults results={project.caseStudy.results} />
+
+            {project.caseStudy.keyLearnings && (
+              <ProjectLearnings keyLearnings={project.caseStudy.keyLearnings} />
+            )}
+
+            {project.caseStudy.businessImpact && (
+              <ProjectImpact businessImpact={project.caseStudy.businessImpact} />
+            )}
+
+            {project.caseStudy.nextSteps && (
+              <ProjectNextSteps nextSteps={project.caseStudy.nextSteps} />
+            )}
 
             {/* <ProjectGallery gallery={project.caseStudy.gallery} /> */}
           </>

@@ -120,6 +120,23 @@ export const featuredProjects = [
       overview: "Kick Back is a modern event management platform that transforms how people organize and participate in events. Built with cutting-edge technologies, it offers a seamless experience from event creation to attendee management.",
       challenge: "Traditional event management tools are often complex, expensive, and lack modern features like real-time updates and offline support. There was a need for a comprehensive yet user-friendly solution.",
       solution: "I developed a full-stack PWA using Next.js 15 with TypeScript, implementing real-time experience through React Query polling, and comprehensive admin tools. The platform includes push notifications and offline support for seamless event management.",
+      keyLearnings: [
+        "Mastered PWA development including service workers and push notifications",
+        "Learned to implement real-time-like experiences using React Query polling as an alternative to WebSockets",
+        "Gained deep understanding of Next.js 15 features and Server Actions",
+        "Developed skills in creating comprehensive admin dashboards with complex state management"
+      ],
+      businessImpact: {
+        userValue: "Eliminates the need for expensive event management subscriptions",
+        marketGap: "Addresses the gap between simple tools and enterprise solutions",
+        scalability: "Built to handle multiple events and large user bases"
+      },
+      nextSteps: [
+        "Implement WebSocket connections for true real-time collaboration",
+        "Add calendar integrations (Google Calendar, Outlook)",
+        "Develop mobile app using React Native",
+        "Add analytics dashboard for event organizers"
+      ],
       techDetails: {
         frontend: "Next.js 15 with TypeScript for type safety and modern React features",
         backend: "Server Actions and API routes for seamless data handling",
@@ -190,6 +207,23 @@ export const featuredProjects = [
       overview: "Invoico started as a personal project to help my dad avoid paying monthly subscription fees for invoicing software. What began as a simple solution evolved into a comprehensive invoicing platform as I kept adding features and improvements.",
       challenge: "My dad was paying expensive monthly fees for basic invoicing functionality. Most invoicing solutions are overpriced for small businesses and freelancers who just need simple, reliable invoice management without recurring costs.",
       solution: "I built a full-stack invoicing platform using Next.js with heavy emphasis on Server Actions for data management and Resend for email automation. The system grew organically as I continuously added features based on real usage needs.",
+      keyLearnings: [
+        "Mastered Next.js Server Actions for type-safe server-side operations",
+        "Learned email automation and deliverability best practices with Resend",
+        "Gained experience in iterative development based on real user feedback",
+        "Developed skills in PDF generation and document handling"
+      ],
+      businessImpact: {
+        userValue: "Saves $50-100+ monthly subscription fees for small businesses",
+        marketGap: "Provides professional invoicing without recurring costs",
+        scalability: "Designed to support multiple businesses and high invoice volumes"
+      },
+      nextSteps: [
+        "Add payment gateway integration (Stripe, PayPal)",
+        "Implement recurring invoice automation",
+        "Add expense tracking and financial reporting",
+        "Build mobile app for on-the-go invoice management"
+      ],
       techDetails: {
         frontend: "Next.js with TypeScript for a robust and type-safe user interface",
         backend: "Heavy use of Server Actions for seamless data mutations and form handling",
@@ -260,6 +294,23 @@ export const featuredProjects = [
       overview: "CVisionary revolutionizes resume creation by combining AI-powered content generation with real-time preview and auto-save functionality. It helps job seekers create compelling resumes with immediate visual feedback and automatic data persistence.",
       challenge: "Creating professional resumes is time-consuming and frustrating for job seekers. Traditional resume builders lack AI assistance, real-time feedback, and users often lose work due to lack of auto-save functionality.",
       solution: "I developed an AI-powered platform that generates tailored resume content with real-time preview updates and automatic saving. Users can see changes instantly and never lose their work, with print-to-PDF functionality for immediate downloads.",
+      keyLearnings: [
+        "Mastered OpenAI API integration and prompt engineering for content generation",
+        "Learned real-time state synchronization between editor and preview components",
+        "Gained expertise in auto-save implementation with conflict resolution",
+        "Developed understanding of browser print APIs and PDF generation"
+      ],
+      businessImpact: {
+        userValue: "Reduces resume creation time from hours to minutes",
+        marketGap: "Combines AI assistance with professional design in one platform",
+        scalability: "Built to handle thousands of concurrent users and AI requests"
+      },
+      nextSteps: [
+        "Add multiple resume templates and themes",
+        "Implement cover letter generation with AI",
+        "Add LinkedIn profile import functionality",
+        "Build job application tracking system"
+      ],
       techDetails: {
         frontend: "Next.js with TypeScript for a responsive and interactive user experience",
         ai: "OpenAI GPT-4 integration for intelligent content generation",
