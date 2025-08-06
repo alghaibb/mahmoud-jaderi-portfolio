@@ -1,16 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
-import { checkAdminAuth } from "@/app/admin/login/actions";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
+export async function GET() {
+  return NextResponse.json({
+    message:
+      "Email test endpoint - send POST request with { 'to': 'email@example.com' } or just POST without body to test with default email",
+    environment: process.env.NODE_ENV,
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    apiKeyExists: !!env.RESEND_API_KEY,
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
-    // Check if user is admin (optional - you can remove this for testing)
-    await checkAdminAuth();
+    let to = "test@example.com"; // Default email
 
-    const { to } = await request.json();
+    // Try to parse JSON body, but don't fail if it's invalid
+    try {
+      const body = await request.json();
+      if (body.to) {
+        to = body.to;
+      }
+    } catch (jsonError) {
+      console.log("No valid JSON body provided, using default email");
+    }
+
+    console.log("to", to);
 
     console.log("Testing email configuration:", {
       apiKeyExists: !!env.RESEND_API_KEY,
