@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getContactMessages, getAdminAnalytics } from "@/app/admin/dashboard/actions";
 import { ContactMessage, ContactReply } from "@/generated/prisma";
 import { useDataRefresh } from "@/contexts/DataRefreshContext";
 
@@ -27,10 +26,18 @@ export function useAdminAnalytics() {
     const loadData = async () => {
       try {
         setLoading(true);
-        const [messagesData, analyticsData] = await Promise.all([
-          getContactMessages(),
-          getAdminAnalytics()
+        const [messagesResponse, analyticsResponse] = await Promise.all([
+          fetch("/api/contact/get-contact-messages"),
+          fetch("/api/admin/get-admin-analytics")
         ]);
+
+        if (!messagesResponse.ok || !analyticsResponse.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const messagesData = await messagesResponse.json();
+        const analyticsData = await analyticsResponse.json();
+
         setMessages(messagesData as ContactMessageWithReplies[]);
         setAnalytics(analyticsData);
       } catch (error) {

@@ -29,7 +29,7 @@ import { useFilter } from "@/contexts/FilterContext";
 import { useSelection } from "@/contexts/SelectionContext";
 import { useMessageFilter } from "@/hooks/useMessageFilter";
 import { useBulkActions } from "@/hooks/useBulkActions";
-import { getContactMessages, bulkUpdateMessageStatus } from "../actions";
+import { bulkUpdateMessageStatus } from "../actions";
 import { useDataRefresh } from "@/contexts/DataRefreshContext";
 import DeleteMessageModal from "./DeleteMessageModal";
 import ViewMessageModal from "./ViewMessageModal";
@@ -281,7 +281,13 @@ export function MessageListRefactored() {
   const loadMessages = async () => {
     try {
       setLoading(true);
-      const data = await getContactMessages();
+      const response = await fetch("/api/contact/get-contact-messages");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch messages");
+      }
+
+      const data = await response.json();
       setMessages(data as ContactMessageWithReplies[]);
     } catch (error) {
       console.error("Error loading messages:", error);

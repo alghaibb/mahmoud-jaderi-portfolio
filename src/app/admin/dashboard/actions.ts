@@ -11,36 +11,6 @@ import { marked } from "marked";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
-export async function getContactMessages() {
-  try {
-    await checkAdminAuth();
-
-    const messages = await prisma.contactMessage.findMany({
-      include: {
-        replies: {
-          orderBy: {
-            createdAt: "desc",
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    return messages;
-  } catch (error) {
-    console.error("Error fetching contact messages:", error);
-
-    // Re-throw redirect errors
-    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
-      throw error;
-    }
-
-    throw new Error("Failed to fetch messages");
-  }
-}
-
 export async function replyToMessage(messageId: string, replyText: string) {
   await checkAdminAuth();
 
@@ -72,7 +42,7 @@ export async function replyToMessage(messageId: string, replyText: string) {
     try {
       // Convert markdown to HTML for email
       const replyHtml = await marked(replyText);
-      
+
       const emailHtml = await renderContactReplyEmail({
         userName: originalMessage.name.split(" ")[0], // First name
         userEmail: originalMessage.email,
@@ -122,83 +92,6 @@ export async function updateMessageStatus(messageId: string, status: string) {
   } catch (error) {
     console.error("Error updating message status:", error);
     throw new Error("Failed to update status");
-  }
-}
-
-export async function getAdminAnalytics() {
-  try {
-    await checkAdminAuth();
-    const totalMessages = await prisma.contactMessage.count();
-    const unreadMessages = await prisma.contactMessage.count({
-      where: { status: "UNREAD" },
-    });
-    const repliedMessages = await prisma.contactMessage.count({
-      where: { status: "REPLIED" },
-    });
-    const readMessages = await prisma.contactMessage.count({
-      where: { status: "READ" },
-    });
-
-    // Recent activity (last 30 days)
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    const recentMessages = await prisma.contactMessage.count({
-      where: {
-        createdAt: {
-          gte: thirtyDaysAgo,
-        },
-      },
-    });
-
-    // Response time analytics
-    const repliedMessagesWithTime = await prisma.contactMessage.findMany({
-      where: {
-        status: "REPLIED",
-        replies: {
-          some: {},
-        },
-      },
-      include: {
-        replies: {
-          orderBy: { createdAt: "asc" },
-          take: 1,
-        },
-      },
-    });
-
-    let avgResponseTime = 0;
-    if (repliedMessagesWithTime.length > 0) {
-      const responseTimes = repliedMessagesWithTime.map((msg) => {
-        const messageTime = msg.createdAt.getTime();
-        const replyTime = msg.replies[0]?.createdAt.getTime() || messageTime;
-        return replyTime - messageTime;
-      });
-      avgResponseTime =
-        responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length;
-    }
-
-    return {
-      totalMessages,
-      unreadMessages,
-      repliedMessages,
-      readMessages,
-      recentMessages,
-      avgResponseTimeHours: Math.round(avgResponseTime / (1000 * 60 * 60)),
-      responseRate:
-        totalMessages > 0
-          ? Math.round((repliedMessages / totalMessages) * 100)
-          : 0,
-    };
-  } catch (error) {
-    console.error("Error fetching admin analytics:", error);
-
-    // Re-throw redirect errors
-    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
-      throw error;
-    }
-
-    throw new Error("Failed to fetch analytics");
   }
 }
 
