@@ -90,7 +90,7 @@ export default function ProjectGallery({ gallery }: ProjectGalleryProps) {
                   </CardContent>
                 </Card>
               </DialogTrigger>
-              <DialogContent className="max-w-none w-screen h-screen p-0 m-0 bg-black border-0 shadow-none rounded-none">
+              <DialogContent className="max-w-none w-screen h-screen p-0 m-0 bg-black border-0 shadow-none rounded-none data-[state=open]:animate-none">
                 <DialogTitle className="sr-only">{item.caption}</DialogTitle>
                 <div className="relative w-full h-full bg-black overflow-hidden">
                   <Image
