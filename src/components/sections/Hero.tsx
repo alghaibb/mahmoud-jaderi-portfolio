@@ -78,6 +78,15 @@ export default function Hero() {
                   Mahmoud Jaderi
                 </span>
               </motion.h1>
+              
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 rounded-full"
+              >
+                <span className="text-lg font-semibold text-primary">CodeWithMJ</span>
+                <span className="text-sm text-muted-foreground">•</span>
+                <span className="text-sm text-muted-foreground">Full Stack Developer</span>
+              </motion.div>
 
               <motion.div
                 variants={textReveal}

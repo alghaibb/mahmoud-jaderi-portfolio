@@ -678,11 +678,13 @@ export const aboutData = {
 
 // Site Configuration
 export const siteConfig = {
-  name: "Mahmoud Jaderi",
-  title: "Full Stack Developer",
-  description: "Modern web apps built with Next.js, TypeScript, and clean UI.",
+  name: "CodeWithMJ",
+  title: "Mahmoud Jaderi - Full Stack Developer",
+  description: "CodeWithMJ - Modern web apps built with Next.js, TypeScript, and clean UI by Mahmoud Jaderi.",
   url: env.NEXT_PUBLIC_BASE_URL,
   ogImage: "/og-image.png",
+  brand: "CodeWithMJ",
+  alternateName: "Code With MJ",
   links: {
     github: "https://github.com/alghaibb",
     linkedin: "https://www.linkedin.com/in/mahmoud-jaderi",

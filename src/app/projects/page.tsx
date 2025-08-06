@@ -4,8 +4,11 @@ import ProjectsPageClient from "./_components/ProjectsPageClient";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Explore my portfolio of modern web applications built with Next.js, TypeScript, and React. Each project showcases different technologies, problem-solving approaches, and development best practices from a recent bootcamp graduate.",
+    "Explore CodeWithMJ's portfolio of modern web applications by Mahmoud Jaderi, built with Next.js, TypeScript, and React. Each project showcases different technologies, problem-solving approaches, and development best practices from a recent bootcamp graduate.",
   keywords: [
+    "CodeWithMJ",
+    "Code With MJ", 
+    "Mahmoud Jaderi",
     "web development projects",
     "Next.js portfolio",
     "TypeScript applications",

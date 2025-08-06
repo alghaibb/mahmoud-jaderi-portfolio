@@ -39,10 +39,10 @@ export default function Footer() {
                 </div>
                 <div>
                   <h3 className="font-bold text-2xl bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
-                    Mahmoud Jaderi
+                    CodeWithMJ
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Full Stack Developer
+                    Mahmoud Jaderi • Full Stack Developer
                   </p>
                 </div>
               </div>

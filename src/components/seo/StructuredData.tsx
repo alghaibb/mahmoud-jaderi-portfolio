@@ -69,37 +69,42 @@ export default function StructuredData() {
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Mahmoud Jaderi - Full Stack Developer Portfolio",
+    name: "CodeWithMJ - Mahmoud Jaderi Portfolio",
+    alternateName: ["Code With MJ", "MJ Developer", "Mahmoud Jaderi Portfolio"],
     description:
-      "Portfolio website showcasing full stack development projects and skills",
+      "CodeWithMJ - Portfolio website showcasing full stack development projects and skills by Mahmoud Jaderi",
     url: env.NEXT_PUBLIC_BASE_URL,
     author: {
       "@type": "Person",
       name: "Mahmoud Jaderi",
+      alternateName: "CodeWithMJ",
     },
     inLanguage: "en-AU",
     copyrightYear: new Date().getFullYear(),
     copyrightHolder: {
       "@type": "Person",
       name: "Mahmoud Jaderi",
+      alternateName: "CodeWithMJ",
     },
   };
 
   const portfolioStructuredData = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: "Mahmoud Jaderi Portfolio",
+    name: "CodeWithMJ - Mahmoud Jaderi Portfolio",
+    alternateName: "Code With MJ Portfolio",
     description:
-      "A collection of full stack web development projects showcasing modern technologies",
+      "CodeWithMJ - A collection of full stack web development projects showcasing modern technologies by Mahmoud Jaderi",
     author: {
       "@type": "Person",
       name: "Mahmoud Jaderi",
+      alternateName: "CodeWithMJ",
       jobTitle: "Full Stack Developer",
     },
     dateCreated: "2024",
     genre: "Web Development Portfolio",
     keywords:
-      "Next.js, React, TypeScript, Full Stack Development, Web Applications",
+      "CodeWithMJ, codewithmj,Code With MJ, Next.js, React, TypeScript, Full Stack Development, Web Applications, Mahmoud Jaderi",
   };
 
   return (

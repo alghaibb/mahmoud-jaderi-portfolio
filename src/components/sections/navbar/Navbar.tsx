@@ -24,10 +24,10 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:block">
               <span className="font-bold text-xl bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:from-primary group-hover:to-primary/80 transition-all duration-300">
-                Mahmoud Jaderi
+                CodeWithMJ
               </span>
               <div className="text-xs text-muted-foreground font-medium">
-                Full Stack Developer
+                Mahmoud Jaderi • Full Stack Developer
               </div>
             </div>
           </Link>

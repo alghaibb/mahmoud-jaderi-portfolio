@@ -8,7 +8,7 @@ import AnimatedAboutCTA from "./_components/AnimatedAboutCTA";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about my journey as a full-stack developer, my expertise, and what drives me to create exceptional web applications.",
+    "Learn about CodeWithMJ - Mahmoud Jaderi's journey as a full-stack developer, my expertise, and what drives me to create exceptional web applications.",
 };
 
 export default function AboutPage() {

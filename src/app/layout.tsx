@@ -13,12 +13,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Mahmoud Jaderi - Full Stack Developer",
-    default: "Mahmoud Jaderi | Full Stack Developer - Modern Web Applications",
+    template: "%s | Mahmoud Jaderi - CodeWithMJ",
+    default: "CodeWithMJ | Mahmoud Jaderi - Full Stack Developer",
   },
   description:
-    "Experienced Full Stack Developer specializing in Next.js, TypeScript, and React. Building modern, scalable web applications with exceptional user experiences. Available for hire in Melbourne, Australia.",
+    "CodeWithMJ - Mahmoud Jaderi, experienced Full Stack Developer specializing in Next.js, TypeScript, and React. Building modern, scalable web applications with exceptional user experiences. Available for hire in Melbourne, Australia.",
   keywords: [
+    "codewithmj",
+    "CodeWithMJ",
+    "Code With MJ",
+    "Mahmoud Jaderi",
     "Full Stack Developer",
     "Next.js Developer",
     "React Developer",
@@ -38,6 +42,8 @@ export const metadata: Metadata = {
     "Database Design",
     "UI/UX Development",
     "Freelance Developer",
+    "CodeWithMJ Portfolio",
+    "MJ Developer",
   ],
   authors: [{ name: "Mahmoud Jaderi", url: env.NEXT_PUBLIC_BASE_URL }],
   creator: "Mahmoud Jaderi",
