@@ -64,17 +64,30 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between gap-2">
-            <Button asChild variant="ghost" size="sm" className="group flex-shrink-0">
-              <Link href="/projects" className="flex items-center gap-1 sm:gap-2">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="group flex-shrink-0"
+            >
+              <Link
+                href="/projects"
+                className="flex items-center gap-1 sm:gap-2"
+              >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 <span className="hidden sm:inline">Back to Projects</span>
                 <span className="sm:hidden">Back</span>
               </Link>
             </Button>
 
-            <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+            <div className="flex items-center gap-2  md:gap-3">
               {project.demoLink && (
-                <Button asChild size="sm" variant="outline" className="flex-shrink-0">
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="flex-shrink-0"
+                >
                   <Link
                     href={project.demoLink}
                     target="_blank"

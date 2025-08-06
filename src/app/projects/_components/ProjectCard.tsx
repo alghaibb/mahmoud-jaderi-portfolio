@@ -33,7 +33,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       className="group h-full"
     >
       <Card className="h-full overflow-hidden border-0 bg-gradient-to-br from-background via-background to-muted/20 hover:shadow-2xl transition-all duration-500 relative">
-        {/* Project Image */}
         <div className="relative h-52 overflow-hidden">
           <motion.div variants={imageHover} className="h-full w-full">
             <Image
@@ -44,10 +43,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             />
           </motion.div>
 
-          {/* Enhanced Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-          {/* Top Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
             {project.featured && (
               <motion.div
@@ -68,7 +65,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </Badge>
           </div>
 
-          {/* Year Badge */}
           <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Badge
               variant="outline"
@@ -97,7 +93,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </CardHeader>
 
         <CardContent className="space-y-5">
-          {/* Enhanced Tech Stack */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-primary/10 rounded flex items-center justify-center">
@@ -131,7 +126,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </div>
           </div>
 
-          {/* Enhanced Features */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-primary/10 rounded flex items-center justify-center">
@@ -162,23 +156,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </ul>
           </div>
 
-          {/* Enhanced Action Buttons */}
           <div className="space-y-2 pt-2">
-            {/* Primary Action - Case Study */}
             <Button
               asChild
               size="sm"
               className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              <Link href={`/projects/${project.slug}`}>
-                <span className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform">
-                  📖
-                </span>
-                View Case Study
-              </Link>
+              <Link href={`/projects/${project.slug}`}>View Full Project</Link>
             </Button>
 
-            {/* Secondary Actions */}
             <div className="flex gap-2">
               {project.demoLink && (
                 <div className="flex-1">
@@ -220,7 +206,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </CardContent>
 
-        {/* Animated Border */}
         <div className="absolute inset-0 rounded-xl border-2 border-primary/0 group-hover:border-primary/20 transition-colors duration-300 pointer-events-none" />
       </Card>
     </motion.div>
