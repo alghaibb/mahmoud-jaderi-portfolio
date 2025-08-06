@@ -73,7 +73,8 @@ export default function Navbar() {
             <ModeToggle />
           </div>
 
-          <div className="lg:hidden">
+          <div className="lg:hidden flex items-center gap-2">
+            <ModeToggle />
             <MobileNav socialLinks={socialLinks} />
           </div>
         </div>

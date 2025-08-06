@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 import StructuredData from "@/components/seo/StructuredData";
+import { PWAInstall } from "@/components/ui/pwa-install";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -44,6 +45,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
   alternates: {
     canonical: env.NEXT_PUBLIC_BASE_URL,
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "MJ Portfolio",
+    startupImage: [
+      {
+        url: "/icon-192x192.png",
+        media: "(device-width: 768px) and (device-height: 1024px)",
+      },
+    ],
+  },
+  formatDetection: {
+    telephone: false,
   },
   openGraph: {
     type: "website",
@@ -95,11 +111,40 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <StructuredData />
+        <meta name="application-name" content="MJ Portfolio" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="MJ Portfolio" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-TileColor" content="#1e40af" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#1e40af" />
+
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/icon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/icon-16x16.png"
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/icon-192x192.png" color="#1e40af" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={cn(inter.className, "bg-background text-foreground")}>
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <ConditionalLayout>{children}</ConditionalLayout>
           <Toaster closeButton theme="light" richColors />
+          <PWAInstall />
         </ThemeProvider>
       </body>
     </html>

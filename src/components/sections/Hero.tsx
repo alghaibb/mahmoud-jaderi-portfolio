@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen flex items-center py-20 lg:py-32 overflow-hidden"
+      className="relative min-h-[90vh] sm:min-h-screen flex items-center py-16 sm:py-20 lg:py-32 overflow-hidden"
     >
       {/* Simple Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
@@ -234,7 +234,7 @@ export default function Hero() {
                 </div>
 
                 {/* Code Content */}
-                <div className="space-y-3 font-mono text-sm min-h-[320px] sm:min-h-[360px]">
+                <div className="space-y-3 font-mono text-sm h-[280px] sm:h-[320px] md:h-[360px] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full">
                   <TypingSequence
                     lines={[
                       "interface Developer {",
@@ -257,8 +257,8 @@ export default function Hero() {
                       "",
                       "// Ready to create something amazing?",
                     ]}
-                    speed={60}
-                    delayBetweenLines={600}
+                    speed={25}
+                    delayBetweenLines={200}
                     className="space-y-1"
                   />
                 </div>

@@ -40,7 +40,7 @@ export function MobileNav({ socialLinks }: MobileNavProps) {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-border/50">
+          <div className="flex items-center justify-center p-6 border-b border-border/50">
             <div className="flex items-center space-x-3">
               <div className="w-9 h-9 bg-gradient-to-br from-primary via-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-base">M</span>
