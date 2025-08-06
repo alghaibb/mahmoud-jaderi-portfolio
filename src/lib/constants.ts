@@ -27,7 +27,7 @@ export const socialLinks = [
     label: "GitHub",
   },
   {
-    href: "https://www.linkedin.com/in/mahmoud-jaderi-150316290/",
+    href: "https://www.linkedin.com/in/mahmoud-jaderi",
     icon: Linkedin,
     label: "LinkedIn",
   },
@@ -634,7 +634,7 @@ export const siteConfig = {
   ogImage: "/og-image.png",
   links: {
     github: "https://github.com/alghaibb",
-    linkedin: "https://www.linkedin.com/in/mahmoud-jaderi/",
+    linkedin: "https://www.linkedin.com/in/mahmoud-jaderi",
     email: "mailto:mahmoud_jaderi@codewithmj.com",
   },
 };
