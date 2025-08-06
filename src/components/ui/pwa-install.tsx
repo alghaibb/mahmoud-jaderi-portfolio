@@ -31,6 +31,7 @@ export function PWAInstall({
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [isInstalling, setIsInstalling] = useState(false);
   const [dontRemindAgain, setDontRemindAgain] = useState(false);
+  const [isDismissedPermanently, setIsDismissedPermanently] = useState(false);
 
   useEffect(() => {
     // Check if already running as PWA
@@ -40,6 +41,8 @@ export function PWAInstall({
 
     // Check if user has dismissed the prompt permanently
     const isDismissed = localStorage.getItem(PWA_DISMISS_KEY) === "true";
+    setIsDismissedPermanently(isDismissed);
+    
     if (isDismissed) {
       return;
     }
@@ -47,6 +50,14 @@ export function PWAInstall({
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
+      
+      // Double-check if user has dismissed (in case localStorage changed)
+      const currentDismissed = localStorage.getItem(PWA_DISMISS_KEY) === "true";
+      if (currentDismissed) {
+        setIsDismissedPermanently(true);
+        return;
+      }
+      
       setDeferredPrompt(e);
 
       if (autoShow && !showAsButton) {
@@ -96,12 +107,13 @@ export function PWAInstall({
   const handleDismiss = () => {
     if (dontRemindAgain) {
       localStorage.setItem(PWA_DISMISS_KEY, "true");
+      setIsDismissedPermanently(true);
     }
     setShowInstallPrompt(false);
   };
 
-  // Don't show anything if not installable
-  if (!isInstallable(deferredPrompt)) {
+  // Don't show anything if dismissed permanently or not installable
+  if (isDismissedPermanently || !isInstallable(deferredPrompt)) {
     return null;
   }
 
@@ -120,8 +132,8 @@ export function PWAInstall({
     );
   }
 
-  // Banner variant
-  if (!showInstallPrompt) {
+  // Banner variant - don't show if dismissed permanently or not prompted
+  if (!showInstallPrompt || isDismissedPermanently) {
     return null;
   }
 
