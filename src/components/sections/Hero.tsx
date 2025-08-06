@@ -50,7 +50,7 @@ export default function Hero() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[600px] lg:min-h-[500px]"
           >
             {/* Content */}
             <motion.div
@@ -111,7 +111,7 @@ export default function Hero() {
 
               <motion.div
                 variants={staggerItem}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center lg:items-start"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center lg:items-start min-h-[120px] sm:min-h-[60px]"
               >
                 <Button
                   asChild
@@ -234,7 +234,7 @@ export default function Hero() {
                 </div>
 
                 {/* Code Content */}
-                <div className="space-y-3 font-mono text-sm">
+                <div className="space-y-3 font-mono text-sm min-h-[320px] sm:min-h-[360px]">
                   <TypingSequence
                     lines={[
                       "interface Developer {",

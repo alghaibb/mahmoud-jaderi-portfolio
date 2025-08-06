@@ -15,6 +15,7 @@ interface ProjectsGridProps {
     features: string[];
     category: string;
     featured: boolean;
+    year: number;
   }>;
 }
 

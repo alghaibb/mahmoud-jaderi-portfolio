@@ -15,6 +15,7 @@ import {
   Heart,
   Zap as Lightning,
   Shield,
+  Wrench,
 } from "lucide-react";
 import { env } from "./env";
 
@@ -31,7 +32,7 @@ export const socialLinks = [
     label: "LinkedIn",
   },
   {
-    href: "mailto:mjaderi97@gmail.com",
+    href: "mailto:mahmoud_jaderi@codewithmj.com",
     icon: Mail,
     label: "Email",
   },
@@ -169,6 +170,31 @@ export const featuredProjects = [
     year: 2025,
   },
   {
+    title: "Nextjs Auth Starter",
+    description:
+      "A robust Next.js starter kit with built-in authentication and database integration. Includes features like email/password login, email verification, and password reset functionality.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "Tailwind CSS",
+      "Shadcn UI",
+      "Auth.js",
+      "PostgresSQL",
+    ],
+    image: "/nextjs-auth-starter.png",
+    demoLink: "",
+    githubLink: "https://github.com/alghaibb/nextjs-auth-starter",
+    features: [
+      "Email/Password Authentication",
+      "Email Verification",
+      "Password Reset",
+    ],
+    category: "Full-Stack",
+    featured: false,
+    year: 2024,
+  },
+  {
     title: "Sumz",
     description:
       "An open-source article summarizer powered by OpenAI GPT-4 that condenses lengthy articles into clear, concise overviews. Features include URL input, history tracking, and intelligent content analysis.",
@@ -192,7 +218,7 @@ export const featuredProjects = [
       "Fast Processing",
     ],
     category: "AI/ML",
-    featured: true,
+    featured: false,
     year: 2022,
   },
 ];
@@ -242,7 +268,7 @@ export const technologies = [
 
 // Contact Information
 export const contactInfo = {
-  email: "mjaderi97@gmail.com",
+  email: "mahmoud_jaderi@codewithmj.com",
   location: "Remote / Worldwide",
   availability: "Available for new opportunities",
 };
@@ -321,37 +347,38 @@ export const aboutData = {
   // Timeline
   timeline: [
     {
-      year: "2021",
-      title: "Started Coding Journey",
+      year: "2022",
+      title: "Curiosity Sparked",
       description:
-        "Began exploring web development, starting with pre-made templates",
+        "Discovered a passion for web development and began learning by experimenting with templates and tutorials.",
       icon: Code,
     },
     {
-      year: "2022",
-      title: "Web Development Bootcamp",
-      description: "Completed 6-month intensive web development program",
+      year: "2023",
+      title: "Formal Learning",
+      description:
+        "Completed a 6-month full-time web development bootcamp, gaining hands-on experience in both frontend and backend technologies.",
       icon: GraduationCap,
     },
     {
-      year: "2023",
-      title: "Full-Stack Projects",
+      year: "2024",
+      title: "Project-Based Learning",
       description:
-        "Built comprehensive applications with Next.js and modern tech stack",
+        "Built real-world full-stack applications using Next.js, Prisma, and modern development tools to solidify core skills.",
       icon: Globe,
     },
     {
-      year: "2024",
-      title: "Portfolio & Growth",
+      year: "2025",
+      title: "Sharpening the Craft",
       description:
-        "Focusing on professional development and seeking opportunities",
-      icon: Target,
+        "Focused on refining best practices, writing clean code, and mastering advanced concepts in preparation for professional work.",
+      icon: Wrench,
     },
     {
-      year: "2025",
-      title: "Professional Development",
+      year: "2026",
+      title: "Professional Growth",
       description:
-        "Building a professional portfolio and seeking new opportunities in the industry",
+        "Building a professional portfolio and seeking new opportunities in the industry to further develop my skills and contribute to impactful projects.",
       icon: Target,
     },
   ],
@@ -395,6 +422,6 @@ export const siteConfig = {
   links: {
     github: "https://github.com/alghaibb",
     linkedin: "https://www.linkedin.com/in/mahmoud-jaderi/",
-    email: "mailto:mjaderi97@gmail.com",
+    email: "mailto:mahmoud_jaderi@codewithmj.com",
   },
 };

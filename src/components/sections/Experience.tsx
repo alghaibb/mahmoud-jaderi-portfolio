@@ -19,78 +19,83 @@ import {
 const experiences = [
   {
     id: 1,
-    type: "education",
-    title: "Web Development Bootcamp",
-    company: "Coding Academy",
-    location: "Melbourne, Australia",
+    type: "milestone",
+    title: "Curiosity Sparked",
+    company: "",
+    location: "",
     period: "2022",
-    duration: "6 months",
+    duration: "",
     status: "completed",
     description:
-      "Intensive full-stack web development program covering modern technologies and best practices.",
-    achievements: [
-      "Completed 500+ hours of hands-on coding",
-      "Built 4 full-stack projects during bootcamp",
-      "Learned React, Node.js, and database management",
-      "Graduated successfully with strong foundation",
-    ],
-    technologies: ["JavaScript", "React", "Node.js", "MongoDB", "HTML/CSS"],
-    icon: GraduationCap,
+      "Discovered a passion for web development and began learning by experimenting with templates and tutorials.",
+    achievements: [],
+    technologies: [],
+    icon: Code2,
     color: "blue",
   },
   {
     id: 2,
-    type: "project",
-    title: "Personal Project Development",
-    company: "Self-Directed Learning",
-    location: "Melbourne, Australia",
-    period: "2022 - Present",
-    duration: "2+ years",
-    status: "current",
+    type: "education",
+    title: "Formal Learning",
+    company: "",
+    location: "",
+    period: "2023",
+    duration: "",
+    status: "completed",
     description:
-      "Building personal projects to showcase skills and learn modern web development technologies. Actively seeking first professional opportunity.",
-    achievements: [
-      "Built 5 comprehensive full-stack projects",
-      "Developed modern applications with Next.js and TypeScript",
-      "Created AI-powered and PWA applications",
-      "Implemented complex features like authentication and real-time updates",
-    ],
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "Tailwind CSS",
-    ],
-    icon: Code2,
+      "Completed a 6-month full-time web development bootcamp, gaining hands-on experience in both frontend and backend technologies.",
+    achievements: [],
+    technologies: [],
+    icon: GraduationCap,
     color: "green",
   },
   {
     id: 3,
+    type: "project",
+    title: "Project-Based Learning",
+    company: "",
+    location: "",
+    period: "2024",
+    duration: "",
+    status: "completed",
+    description:
+      "Built real-world full-stack applications using Next.js, Prisma, and modern development tools to solidify core skills.",
+    achievements: [],
+    technologies: [],
+    icon: Briefcase,
+    color: "purple",
+  },
+  {
+    id: 4,
     type: "milestone",
-    title: "Advanced Skill Development",
-    company: "Continuous Learning",
-    location: "Remote",
-    period: "2023 - Present",
-    duration: "Ongoing",
+    title: "Sharpening the Craft",
+    company: "",
+    location: "",
+    period: "2025",
+    duration: "",
     status: "current",
     description:
-      "Continuously expanding skills in modern web development, focusing on industry best practices and cutting-edge technologies.",
-    achievements: [
-      "Mastered TypeScript and advanced React patterns",
-      "Implemented complex authentication systems with Auth.js",
-      "Built PWAs with offline capabilities and push notifications",
-      "Learned modern deployment and CI/CD practices",
-    ],
-    technologies: [
-      "Next.js 15",
-      "TypeScript",
-      "Auth.js",
-      "PWA",
-      "AI Integration",
-    ],
+      "Focused on refining best practices, writing clean code, and mastering advanced concepts in preparation for professional work.",
+    achievements: [],
+    technologies: [],
     icon: Rocket,
-    color: "purple",
+    color: "orange",
+  },
+  {
+    id: 5,
+    type: "milestone",
+    title: "Professional Growth",
+    company: "",
+    location: "",
+    period: "2026",
+    duration: "",
+    status: "current",
+    description:
+      "Building a professional portfolio and seeking new opportunities in the industry to further develop my skills and contribute to impactful projects.",
+    achievements: [],
+    technologies: [],
+    icon: TrendingUp,
+    color: "red",
   },
 ];
 
@@ -183,22 +188,26 @@ const ExperienceCard = ({
               </Badge>
             </div>
 
-            {/* Meta Information */}
+            {/* Meta Information - Only show if data exists */}
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
                 <span>{experience.period}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                <span>{experience.location}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="w-4 h-4 flex items-center justify-center">
-                  ⏱
-                </span>
-                <span>{experience.duration}</span>
-              </div>
+              {experience.location && (
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-4 h-4" />
+                  <span>{experience.location}</span>
+                </div>
+              )}
+              {experience.duration && (
+                <div className="flex items-center gap-1">
+                  <span className="w-4 h-4 flex items-center justify-center">
+                    ⏱
+                  </span>
+                  <span>{experience.duration}</span>
+                </div>
+              )}
             </div>
 
             {/* Description */}
@@ -206,56 +215,62 @@ const ExperienceCard = ({
               {experience.description}
             </p>
 
-            {/* Achievements */}
-            <div className="space-y-3">
-              <h4 className="font-semibold text-foreground">
-                Key Achievements
-              </h4>
-              <ul className="space-y-2">
-                {experience.achievements.map(
-                  (achievement, achievementIndex) => (
-                    <motion.li
-                      key={achievementIndex}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={
-                        isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                      }
-                      transition={{
-                        delay: index * 0.2 + achievementIndex * 0.1,
-                      }}
-                      className="flex items-start gap-2 text-sm text-muted-foreground"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      <span>{achievement}</span>
-                    </motion.li>
-                  )
-                )}
-              </ul>
-            </div>
-
-            {/* Technologies */}
-            <div className="space-y-3">
-              <h4 className="font-semibold text-foreground">
-                Technologies Used
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {experience.technologies.map((tech, techIndex) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={
-                      isInView
-                        ? { opacity: 1, scale: 1 }
-                        : { opacity: 0, scale: 0.8 }
-                    }
-                    transition={{ delay: index * 0.2 + techIndex * 0.05 }}
-                    className="px-3 py-1 bg-muted hover:bg-primary/10 text-xs font-medium rounded-full border border-border/50 hover:border-primary/30 transition-all cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+            {/* Achievements - Only show if there are achievements */}
+            {experience.achievements.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  Key Achievements
+                </h4>
+                <ul className="space-y-2">
+                  {experience.achievements.map(
+                    (achievement, achievementIndex) => (
+                      <motion.li
+                        key={achievementIndex}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={
+                          isInView
+                            ? { opacity: 1, x: 0 }
+                            : { opacity: 0, x: -20 }
+                        }
+                        transition={{
+                          delay: index * 0.2 + achievementIndex * 0.1,
+                        }}
+                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        <span>{achievement}</span>
+                      </motion.li>
+                    )
+                  )}
+                </ul>
               </div>
-            </div>
+            )}
+
+            {/* Technologies - Only show if there are technologies */}
+            {experience.technologies.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-semibold text-foreground">
+                  Technologies Used
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {experience.technologies.map((tech, techIndex) => (
+                    <motion.span
+                      key={tech}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={
+                        isInView
+                          ? { opacity: 1, scale: 1 }
+                          : { opacity: 0, scale: 0.8 }
+                      }
+                      transition={{ delay: index * 0.2 + techIndex * 0.05 }}
+                      className="px-3 py-1 bg-muted hover:bg-primary/10 text-xs font-medium rounded-full border border-border/50 hover:border-primary/30 transition-all cursor-default"
+                    >
+                      {tech}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

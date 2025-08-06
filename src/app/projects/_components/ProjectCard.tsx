@@ -20,6 +20,7 @@ interface ProjectCardProps {
     features: string[];
     category: string;
     featured: boolean;
+    year: number;
   };
 }
 
@@ -68,19 +69,35 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Floating Action Buttons */}
           <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {project.demoLink && (
+              <Button
+                asChild
+                size="sm"
+                variant="secondary"
+                className="backdrop-blur-sm bg-white/20 hover:bg-white/30 text-white border-white/20"
+              >
+                <Link
+                  href={project.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </Link>
+              </Button>
+            )}
             <Button
+              asChild
               size="sm"
               variant="secondary"
               className="backdrop-blur-sm bg-white/20 hover:bg-white/30 text-white border-white/20"
             >
-              <ExternalLink className="w-4 h-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              className="backdrop-blur-sm bg-white/20 hover:bg-white/30 text-white border-white/20"
-            >
-              <Github className="w-4 h-4" />
+              <Link
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-4 h-4" />
+              </Link>
             </Button>
           </div>
 
@@ -88,11 +105,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center justify-between text-white text-sm">
               <div className="flex items-center gap-2">
-                <span className="px-2 py-1 bg-green-500/80 rounded text-xs font-medium">
-                  Live
-                </span>
+                {project.demoLink && (
+                  <span className="px-2 py-1 bg-green-500/80 rounded text-xs font-medium">
+                    Live
+                  </span>
+                )}
                 <span className="px-2 py-1 bg-blue-500/80 rounded text-xs font-medium">
-                  2024
+                  {project.year}
                 </span>
               </div>
             </div>
@@ -184,39 +203,60 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Enhanced Action Buttons */}
           <div className="flex gap-2 pt-2">
-            <motion.div variants={buttonHover} className="flex-1">
-              <Button
-                asChild
-                size="sm"
-                className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                <Link
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+            {project.demoLink ? (
+              <>
+                <motion.div variants={buttonHover} className="flex-1">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
+                  >
+                    <Link
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                      Live Demo
+                    </Link>
+                  </Button>
+                </motion.div>
+                <motion.div variants={buttonHover}>
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="border-border/50 hover:border-primary/50 hover:bg-primary/5"
+                  >
+                    <Link
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="w-4 h-4 mr-2" />
+                      Code
+                    </Link>
+                  </Button>
+                </motion.div>
+              </>
+            ) : (
+              <motion.div variants={buttonHover} className="w-full">
+                <Button
+                  asChild
+                  size="sm"
+                  className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200"
                 >
-                  <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                  Live Demo
-                </Link>
-              </Button>
-            </motion.div>
-            <motion.div variants={buttonHover}>
-              <Button
-                asChild
-                size="sm"
-                variant="outline"
-                className="border-border/50 hover:border-primary/50 hover:bg-primary/5"
-              >
-                <Link
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  Code
-                </Link>
-              </Button>
-            </motion.div>
+                  <Link
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                    View Code
+                  </Link>
+                </Button>
+              </motion.div>
+            )}
           </div>
         </CardContent>
 
