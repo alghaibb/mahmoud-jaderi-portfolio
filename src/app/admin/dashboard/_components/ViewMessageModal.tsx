@@ -63,7 +63,7 @@ export default function ViewMessageModal({
       <DialogTrigger asChild>{trigger || defaultTrigger}</DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 mt-4">
             <DialogTitle className="text-xl font-semibold">
               Message Details
             </DialogTitle>
@@ -77,28 +77,56 @@ export default function ViewMessageModal({
         </DialogHeader>
 
         <div className="space-y-8">
-          <div className="bg-muted/50 rounded-lg p-4">
-            <h3 className="font-semibold mb-3 flex items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
+          <div className="bg-gradient-to-r from-muted/30 to-muted/50 rounded-lg p-6 border border-border/50">
+            <h3 className="font-semibold mb-4 flex items-center gap-2 text-base">
+              <MessageSquare className="h-5 w-5 text-primary" />
               Contact Information
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">Email:</span>
-                <span className="break-all">{message.email}</span>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 p-3 bg-background/60 rounded-md border border-border/30">
+                <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <span className="text-sm font-medium text-muted-foreground block mb-1">
+                    Email Address
+                  </span>
+                  <span className="text-sm font-mono break-all text-foreground">
+                    {message.email}
+                  </span>
+                </div>
               </div>
+
               {message.phone && (
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">Phone:</span>
-                  <span>{message.phone}</span>
+                <div className="flex items-start gap-3 p-3 bg-background/60 rounded-md border border-border/30">
+                  <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <span className="text-sm font-medium text-muted-foreground block mb-1">
+                      Phone Number
+                    </span>
+                    <span className="text-sm font-mono text-foreground">
+                      {message.phone}
+                    </span>
+                  </div>
                 </div>
               )}
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">Received:</span>
-                <span>{new Date(message.createdAt).toLocaleString()}</span>
+
+              <div className="flex items-start gap-3 p-3 bg-background/60 rounded-md border border-border/30">
+                <Calendar className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <span className="text-sm font-medium text-muted-foreground block mb-1">
+                    Date Received
+                  </span>
+                  <span className="text-sm text-foreground">
+                    {new Intl.DateTimeFormat("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    }).format(new Date(message.createdAt))}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -133,7 +161,14 @@ export default function ViewMessageModal({
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium">Admin Reply</span>
                       <span className="text-xs text-muted-foreground">
-                        {new Date(reply.createdAt).toLocaleString()}
+                        {new Intl.DateTimeFormat('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: true
+                        }).format(new Date(reply.createdAt))}
                       </span>
                     </div>
                     <div
