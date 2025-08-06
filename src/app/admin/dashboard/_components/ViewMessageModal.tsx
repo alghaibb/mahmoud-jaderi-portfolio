@@ -161,13 +161,13 @@ export default function ViewMessageModal({
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium">Admin Reply</span>
                       <span className="text-xs text-muted-foreground">
-                        {new Intl.DateTimeFormat('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true
+                        {new Intl.DateTimeFormat("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
                         }).format(new Date(reply.createdAt))}
                       </span>
                     </div>

@@ -82,7 +82,8 @@ export default function ReplyMessageModal({
             Reply to Message
           </DialogTitle>
           <DialogDescription className="text-base mt-2">
-            Send a reply to <span className="font-medium">{message.name}</span> at{" "}
+            Send a reply to <span className="font-medium">{message.name}</span>{" "}
+            at{" "}
             <span className="font-mono text-sm bg-muted px-2 py-1 rounded">
               {message.email}
             </span>
@@ -97,7 +98,9 @@ export default function ReplyMessageModal({
             </div>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-muted-foreground">Subject:</span>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Subject:
+                </span>
                 <span className="text-sm font-medium">{message.subject}</span>
               </div>
               <div className="bg-background/60 rounded-md p-4 border border-border/30">
@@ -115,7 +118,7 @@ export default function ReplyMessageModal({
               </div>
               <label className="text-base font-semibold">Your Reply</label>
             </div>
-            
+
             <div className="bg-gradient-to-br from-background to-muted/20 rounded-lg p-4 border border-border/50">
               <RichTextEditor
                 placeholder="Type your reply here... You can use markdown formatting for rich text."
@@ -125,20 +128,22 @@ export default function ReplyMessageModal({
                 disabled={isPending}
               />
             </div>
-            
+
             <div className="flex items-center gap-2 px-2">
               <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
               <p className="text-sm text-muted-foreground">
                 This reply will be sent to{" "}
-                <span className="font-medium text-foreground">{message.email}</span>
+                <span className="font-medium text-foreground">
+                  {message.email}
+                </span>
               </p>
             </div>
           </div>
         </div>
 
         <DialogFooter className="flex gap-3 pt-4 border-t border-border/50 mt-auto">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="flex-1 h-11"
             onClick={() => setIsOpen(false)}
             disabled={isPending}
