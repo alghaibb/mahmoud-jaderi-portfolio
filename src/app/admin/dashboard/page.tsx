@@ -5,6 +5,8 @@ import { AdminProviders } from "@/contexts/AdminProviders";
 import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Manage contact messages and portfolio administration.",
