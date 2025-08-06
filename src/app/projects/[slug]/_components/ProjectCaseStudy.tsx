@@ -11,7 +11,7 @@ import ProjectOverview from "./ProjectOverview";
 import ProjectChallenges from "./ProjectChallenges";
 import ProjectTechStack from "./ProjectTechStack";
 import ProjectResults from "./ProjectResults";
-import ProjectGallery from "./ProjectGallery";
+// import ProjectGallery from "./ProjectGallery";
 import ProjectNavigation from "./ProjectNavigation";
 
 interface Project {
@@ -159,7 +159,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
             <ProjectResults results={project.caseStudy.results} />
 
-            <ProjectGallery gallery={project.caseStudy.gallery} />
+            {/* <ProjectGallery gallery={project.caseStudy.gallery} /> */}
           </>
         ) : (
           <motion.div

@@ -154,7 +154,7 @@ export const featuredProjects = [
       gallery: [
         { image: "/kick-back-dashboard.png", caption: "Main dashboard with event overview" },
         { image: "/kick-back-create.png", caption: "Event creation with smart scheduling" },
-        { image: "/kick-back-mobile.png", caption: "Mobile PWA interface" }
+        { image: "/kick-back-mobile.jpg", caption: "Mobile PWA interface" }
       ]
     }
   },
