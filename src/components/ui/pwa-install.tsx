@@ -42,7 +42,7 @@ export function PWAInstall({
     // Check if user has dismissed the prompt permanently
     const isDismissed = localStorage.getItem(PWA_DISMISS_KEY) === "true";
     setIsDismissedPermanently(isDismissed);
-    
+
     if (isDismissed) {
       return;
     }
@@ -50,14 +50,14 @@ export function PWAInstall({
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
-      
+
       // Double-check if user has dismissed (in case localStorage changed)
       const currentDismissed = localStorage.getItem(PWA_DISMISS_KEY) === "true";
       if (currentDismissed) {
         setIsDismissedPermanently(true);
         return;
       }
-      
+
       setDeferredPrompt(e);
 
       if (autoShow && !showAsButton) {
@@ -183,10 +183,7 @@ export function PWAInstall({
               <Download className="h-3 w-3 mr-1" />
               {isInstalling ? "Installing..." : "Install"}
             </Button>
-            <Button
-              variant="outline"
-              onClick={handleDismiss}
-            >
+            <Button variant="outline" onClick={handleDismiss}>
               Later
             </Button>
           </div>
