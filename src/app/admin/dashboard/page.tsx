@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { checkAdminAuth } from "../login/actions";
 import { AdminDashboardRefactored } from "./_components/AdminDashboardRefactored";
+import { AdminProviders } from "@/contexts/AdminProviders";
 import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -63,8 +64,10 @@ export default async function AdminDashboardPage() {
   await checkAdminAuth();
 
   return (
-    <Suspense fallback={<DashboardLoading />}>
-      <AdminDashboardRefactored />
-    </Suspense>
+    <AdminProviders>
+      <Suspense fallback={<DashboardLoading />}>
+        <AdminDashboardRefactored />
+      </Suspense>
+    </AdminProviders>
   );
 }

@@ -21,30 +21,50 @@ import {
   Eye,
   Trash2,
 } from "lucide-react";
-import { useAdmin } from "./AdminContext";
+import { useFilter } from "@/contexts/FilterContext";
+import { useSelection } from "@/contexts/SelectionContext";
+import { useBulkActions } from "@/hooks/useBulkActions";
+import { bulkUpdateMessageStatus, exportMessages } from "../actions";
+import { toast } from "sonner";
+import { useDataRefresh } from "@/contexts/DataRefreshContext";
 import BulkDeleteModal from "./BulkDeleteModal";
 
 export function AdminControls() {
-  const { state, dispatch, actions } = useAdmin();
-  const {
-    searchTerm,
-    statusFilter,
-    selectedMessages,
-    showBulkActions,
-    isPending,
-    filteredMessages,
-  } = state;
+  const { filters, setSearchTerm, setStatusFilter } = useFilter();
+  const { selectedItems, getSelectedCount, deselectAll } = useSelection();
+  const { triggerRefresh } = useDataRefresh();
+  const { bulkUpdate, isPending } = useBulkActions({
+    onSuccess: async () => {
+      triggerRefresh();
+    },
+  });
 
-  const handleSearchChange = (value: string) => {
-    dispatch({ type: "SET_SEARCH_TERM", payload: value });
+  const handleBulkStatusUpdate = async (status: string) => {
+    await bulkUpdate(async (selectedIds) => {
+      await bulkUpdateMessageStatus(selectedIds, status);
+    }, `Updated ${getSelectedCount()} messages to ${status.toLowerCase()}`);
   };
 
-  const handleStatusFilterChange = (value: string) => {
-    dispatch({ type: "SET_STATUS_FILTER", payload: value });
-  };
+  const handleExport = async (format: "csv" | "json") => {
+    try {
+      const result = await exportMessages(format);
 
-  const toggleBulkActions = () => {
-    dispatch({ type: "SET_SHOW_BULK_ACTIONS", payload: !showBulkActions });
+      // Create download link
+      const blob = new Blob([result.data], { type: result.contentType });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = result.filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success(`Messages exported as ${format.toUpperCase()}`);
+    } catch (error) {
+      console.error("Error exporting messages:", error);
+      toast.error("Failed to export messages");
+    }
   };
 
   return (
@@ -57,15 +77,15 @@ export function AdminControls() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   placeholder="Search messages..."
-                  value={searchTerm}
-                  onChange={(e) => handleSearchChange(e.target.value)}
+                  value={filters.searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
 
               <Select
-                value={statusFilter}
-                onValueChange={handleStatusFilterChange}
+                value={filters.statusFilter}
+                onValueChange={setStatusFilter}
               >
                 <SelectTrigger className="w-full sm:w-48">
                   <Filter className="h-4 w-4 mr-2" />
@@ -85,7 +105,7 @@ export function AdminControls() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => actions.loadMessages()}
+                onClick={() => triggerRefresh()}
                 disabled={isPending}
                 className="w-full sm:w-auto"
               >
@@ -98,7 +118,7 @@ export function AdminControls() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => actions.handleExportMessages("csv")}
+                onClick={() => handleExport("csv")}
                 className="w-full sm:w-auto"
               >
                 <Download className="h-4 w-4 mr-2" />
@@ -108,61 +128,40 @@ export function AdminControls() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => actions.handleExportMessages("json")}
+                onClick={() => handleExport("json")}
                 className="w-full sm:w-auto"
               >
                 <Download className="h-4 w-4 mr-2" />
                 Export JSON
-              </Button>
-
-              <Button
-                variant={showBulkActions ? "default" : "outline"}
-                size="sm"
-                onClick={toggleBulkActions}
-                className="w-full sm:w-auto"
-              >
-                <CheckCircle className="h-4 w-4 mr-2" />
-                Bulk Actions
               </Button>
             </div>
           </div>
 
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Badge variant="outline">
-                {filteredMessages.length} message
-                {filteredMessages.length !== 1 ? "s" : ""} found
-              </Badge>
-              {selectedMessages.length > 0 && (
-                <Badge variant="default">
-                  {selectedMessages.length} selected
-                </Badge>
+              <Badge variant="outline">Messages</Badge>
+              {selectedItems.length > 0 && (
+                <Badge variant="default">{selectedItems.length} selected</Badge>
               )}
             </div>
 
-            {selectedMessages.length > 0 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={actions.selectAllMessages}
-              >
-                {selectedMessages.length === filteredMessages.length
-                  ? "Deselect All"
-                  : "Select All"}
+            {selectedItems.length > 0 && (
+              <Button variant="ghost" size="sm" onClick={deselectAll}>
+                Clear Selection
               </Button>
             )}
           </div>
         </CardContent>
       </Card>
 
-      {showBulkActions && selectedMessages.length > 0 && (
+      {selectedItems.length > 0 && (
         <Card className="border-0 shadow-lg bg-gradient-to-r from-primary/5 to-primary/10">
           <CardContent className="p-4">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <Badge variant="default">
-                  {selectedMessages.length} message
-                  {selectedMessages.length !== 1 ? "s" : ""} selected
+                  {selectedItems.length} message
+                  {selectedItems.length !== 1 ? "s" : ""} selected
                 </Badge>
                 <span className="text-sm text-muted-foreground">
                   Choose an action to apply to selected messages:
@@ -173,7 +172,7 @@ export function AdminControls() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => actions.handleBulkStatusUpdate("READ")}
+                  onClick={() => handleBulkStatusUpdate("READ")}
                   disabled={isPending}
                   className="w-full sm:w-auto"
                 >
@@ -184,7 +183,7 @@ export function AdminControls() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => actions.handleBulkStatusUpdate("REPLIED")}
+                  onClick={() => handleBulkStatusUpdate("REPLIED")}
                   disabled={isPending}
                   className="w-full sm:w-auto"
                 >
@@ -195,7 +194,7 @@ export function AdminControls() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => actions.handleBulkStatusUpdate("ARCHIVED")}
+                  onClick={() => handleBulkStatusUpdate("ARCHIVED")}
                   disabled={isPending}
                   className="w-full sm:w-auto"
                 >
@@ -205,16 +204,15 @@ export function AdminControls() {
 
                 <div className="w-full sm:w-auto">
                   <BulkDeleteModal
-                    selectedCount={selectedMessages.length}
                     trigger={
                       <Button
                         variant="destructive"
                         size="sm"
-                        disabled={selectedMessages.length === 0}
+                        disabled={selectedItems.length === 0}
                         className="w-full gap-2"
                       >
                         <Trash2 className="h-4 w-4" />
-                        Delete Selected ({selectedMessages.length})
+                        Delete Selected ({selectedItems.length})
                       </Button>
                     }
                   />

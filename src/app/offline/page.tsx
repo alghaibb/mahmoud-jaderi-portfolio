@@ -15,10 +15,10 @@ export default function OfflinePage() {
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
           <WifiOff className="h-24 w-24 mx-auto text-muted-foreground mb-6" />
-          <h1 className="text-3xl font-bold mb-4">You're Offline</h1>
+          <h1 className="text-3xl font-bold mb-4">You&apos;re Offline</h1>
           <p className="text-muted-foreground text-lg mb-6">
-            It looks like you've lost your internet connection. Don't worry,
-            some content may still be available.
+            It looks like you&apos;ve lost your internet connection. Don&apos;t
+            worry, some content may still be available.
           </p>
         </div>
 
@@ -40,10 +40,10 @@ export default function OfflinePage() {
         </div>
 
         <div className="mt-8 p-4 bg-muted/50 rounded-lg">
-          <h2 className="font-semibold mb-2">While you're offline:</h2>
+          <h2 className="font-semibold mb-2">While you&apos;re offline:</h2>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li>• Previously viewed pages may still work</li>
-            <li>• Your data is safe and will sync when you're back online</li>
+            <li>• Your data is safe and will sync when you&apos;re back online</li>
             <li>• Check your internet connection and try again</li>
           </ul>
         </div>

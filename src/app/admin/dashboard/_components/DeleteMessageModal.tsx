@@ -12,7 +12,15 @@ import {
 } from "@/components/ui/dialog";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Trash2, AlertTriangle } from "lucide-react";
-import { useAdmin, type ContactMessageWithReplies } from "./AdminContext";
+import { ContactMessage, ContactReply } from "@/generated/prisma";
+import { deleteMessage } from "../actions";
+import { toast } from "sonner";
+import { useState, useTransition } from "react";
+import { useDataRefresh } from "@/contexts/DataRefreshContext";
+
+type ContactMessageWithReplies = ContactMessage & {
+  replies: ContactReply[];
+};
 
 interface DeleteMessageModalProps {
   message: ContactMessageWithReplies;
@@ -23,12 +31,23 @@ export default function DeleteMessageModal({
   message,
   trigger,
 }: DeleteMessageModalProps) {
-  const { state, actions } = useAdmin();
-  const { isPending } = state;
-  const { handleDeleteMessage } = actions;
+  const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
+  const { triggerRefresh } = useDataRefresh();
 
   const handleDelete = async () => {
-    await handleDeleteMessage(message.id);
+    startTransition(async () => {
+      try {
+        await deleteMessage(message.id);
+        toast.success("Message deleted successfully");
+        setIsOpen(false);
+        // Trigger data refresh instead of page reload
+        triggerRefresh();
+      } catch (error) {
+        console.error("Error deleting message:", error);
+        toast.error("Failed to delete message");
+      }
+    });
   };
 
   const defaultTrigger = (
@@ -42,7 +61,7 @@ export default function DeleteMessageModal({
   );
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger || defaultTrigger}</DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader className="text-center">

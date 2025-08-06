@@ -16,13 +16,10 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 
-// Optimized project card component
 const ProjectCard = ({
   project,
-  index,
 }: {
   project: (typeof featuredProjects)[0];
-  index: number;
 }) => {
   return (
     <div className="group h-full">
@@ -189,7 +186,7 @@ export default function FeaturedProjects() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
               >
-                <ProjectCard project={project} index={index} />
+                <ProjectCard project={project} />
               </motion.div>
             ))}
         </div>

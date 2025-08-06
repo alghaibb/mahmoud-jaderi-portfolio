@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Eye, Mail, Phone, Calendar, MessageSquare } from "lucide-react";
-import { type ContactMessageWithReplies } from "./AdminContext";
+import { ContactMessage, ContactReply } from "@/generated/prisma";
+
+type ContactMessageWithReplies = ContactMessage & {
+  replies: ContactReply[];
+};
 import { marked } from "marked";
 import { useMemo } from "react";
 
@@ -41,10 +45,12 @@ export default function ViewMessageModal({
 }: ViewMessageModalProps) {
   // Convert markdown replies to HTML
   const repliesWithHtml = useMemo(() => {
-    return message.replies?.map(reply => ({
-      ...reply,
-      htmlMessage: marked(reply.message)
-    })) || [];
+    return (
+      message.replies?.map((reply) => ({
+        ...reply,
+        htmlMessage: marked(reply.message),
+      })) || []
+    );
   }, [message.replies]);
   const defaultTrigger = (
     <Button variant="outline" size="sm">
@@ -130,7 +136,7 @@ export default function ViewMessageModal({
                         {new Date(reply.createdAt).toLocaleString()}
                       </span>
                     </div>
-                    <div 
+                    <div
                       className="text-sm leading-relaxed prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-pre:bg-muted prose-pre:text-foreground"
                       dangerouslySetInnerHTML={{ __html: reply.htmlMessage }}
                     />

@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Home } from "lucide-react";
 import Link from "next/link";
 import { adminLogout } from "../../login/actions";
-import { AdminProvider } from "./AdminContext";
+
 import { AdminAnalytics } from "./AdminAnalytics";
 import { AdminControls } from "./AdminControls";
-import { MessageList } from "./MessageList";
+import { MessageListRefactored } from "./MessageListRefactored";
 import { ErrorBoundary } from "./ErrorBoundary";
+import { AdminProviders } from "@/contexts/AdminProviders";
 
 function AdminHeader() {
   return (
@@ -73,7 +74,7 @@ function AdminDashboardContent() {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">Messages</h2>
           </div>
-          <MessageList />
+          <MessageListRefactored />
         </div>
       </div>
     </div>
@@ -83,9 +84,9 @@ function AdminDashboardContent() {
 export function AdminDashboardRefactored() {
   return (
     <ErrorBoundary>
-      <AdminProvider>
+      <AdminProviders>
         <AdminDashboardContent />
-      </AdminProvider>
+      </AdminProviders>
     </ErrorBoundary>
   );
 }

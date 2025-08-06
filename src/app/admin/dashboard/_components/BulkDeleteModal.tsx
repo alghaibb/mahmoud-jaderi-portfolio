@@ -12,39 +12,61 @@ import {
 } from "@/components/ui/dialog";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Trash2, AlertTriangle, Users } from "lucide-react";
-import { useAdmin } from "./AdminContext";
+import { useSelection } from "@/contexts/SelectionContext";
+import { deleteMessage } from "../actions";
+import { toast } from "sonner";
+import { useState } from "react";
+import { useDataRefresh } from "@/contexts/DataRefreshContext";
 
 interface BulkDeleteModalProps {
-  selectedCount: number;
   trigger?: React.ReactNode;
 }
 
-export default function BulkDeleteModal({
-  selectedCount,
-  trigger,
-}: BulkDeleteModalProps) {
-  const { state, actions } = useAdmin();
-  const { isPending } = state;
-  const { handleBulkDelete } = actions;
+export default function BulkDeleteModal({ trigger }: BulkDeleteModalProps) {
+  const { selectedItems, deselectAll } = useSelection();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { triggerRefresh } = useDataRefresh();
 
   const defaultTrigger = (
     <Button
       variant="destructive"
       size="sm"
-      disabled={selectedCount === 0}
+      disabled={selectedItems.length === 0}
       className="gap-2"
     >
       <Trash2 className="h-4 w-4" />
-      Delete Selected ({selectedCount})
+      Delete Selected ({selectedItems.length})
     </Button>
   );
 
   const handleDelete = async () => {
-    await handleBulkDelete();
+    if (selectedItems.length === 0) return;
+
+    setIsDeleting(true);
+    try {
+      // Delete messages one by one
+      for (const messageId of selectedItems) {
+        await deleteMessage(messageId);
+      }
+
+      toast.success(
+        `Deleted ${selectedItems.length} message${selectedItems.length !== 1 ? "s" : ""} successfully`
+      );
+      deselectAll();
+      setIsOpen(false);
+      // Trigger data refresh instead of page reload
+      triggerRefresh();
+    } catch (error) {
+      console.error("Error deleting messages:", error);
+      toast.error("Failed to delete messages");
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger || defaultTrigger}</DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader className="text-center">
@@ -57,7 +79,8 @@ export default function BulkDeleteModal({
           <DialogDescription className="text-muted-foreground mt-2">
             Are you sure you want to delete{" "}
             <span className="font-medium text-foreground">
-              {selectedCount} message{selectedCount !== 1 ? "s" : ""}
+              {selectedItems.length} message
+              {selectedItems.length !== 1 ? "s" : ""}
             </span>
             ? This action cannot be undone and will also delete any associated
             replies.
@@ -69,7 +92,8 @@ export default function BulkDeleteModal({
             <div className="flex items-center gap-2 text-sm">
               <Users className="h-4 w-4 text-muted-foreground" />
               <span className="font-medium">
-                {selectedCount} message{selectedCount !== 1 ? "s" : ""} selected
+                {selectedItems.length} message
+                {selectedItems.length !== 1 ? "s" : ""} selected
               </span>
             </div>
             <div className="text-xs text-muted-foreground mt-1">
@@ -86,12 +110,13 @@ export default function BulkDeleteModal({
           </DialogTrigger>
           <LoadingButton
             onClick={handleDelete}
-            loading={isPending}
+            loading={isDeleting}
             variant="destructive"
             className="flex-1"
           >
             <Trash2 className="h-4 w-4 mr-2" />
-            Delete {selectedCount} Message{selectedCount !== 1 ? "s" : ""}
+            Delete {selectedItems.length} Message
+            {selectedItems.length !== 1 ? "s" : ""}
           </LoadingButton>
         </DialogFooter>
       </DialogContent>

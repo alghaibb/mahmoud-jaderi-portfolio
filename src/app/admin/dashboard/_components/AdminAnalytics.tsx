@@ -9,11 +9,10 @@ import {
   CheckCircle,
   Activity,
 } from "lucide-react";
-import { useAdmin } from "./AdminContext";
+import { useAdminAnalytics } from "@/hooks/useAdminAnalytics";
 
 export function AdminAnalytics() {
-  const { state } = useAdmin();
-  const { analytics, messages, loading } = state;
+  const { stats, loading } = useAdminAnalytics();
 
   // Show loading state to prevent hydration mismatch
   if (loading) {
@@ -34,7 +33,7 @@ export function AdminAnalytics() {
             </div>
           </CardContent>
         </Card>
-        
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="border-0 shadow-lg">
@@ -53,42 +52,6 @@ export function AdminAnalytics() {
       </div>
     );
   }
-
-  // Enhanced analytics with server data
-  const stats = analytics
-    ? {
-        total: analytics.totalMessages,
-        unread: analytics.unreadMessages,
-        replied: analytics.repliedMessages,
-        read: analytics.readMessages,
-        recent: analytics.recentMessages,
-        responseRate: analytics.responseRate,
-        avgResponseTime:
-          analytics.avgResponseTimeHours > 0
-            ? `${analytics.avgResponseTimeHours}h`
-            : "< 1h",
-      }
-    : {
-        total: messages.length,
-        unread: messages.filter((m) => m.status === "UNREAD").length,
-        replied: messages.filter((m) => m.status === "REPLIED").length,
-        read: messages.filter((m) => m.status === "READ").length,
-        recent: messages.filter((m) => {
-          const messageDate = new Date(m.createdAt);
-          const weekAgo = new Date();
-          weekAgo.setDate(weekAgo.getDate() - 7);
-          return messageDate >= weekAgo;
-        }).length,
-        responseRate:
-          messages.length > 0
-            ? Math.round(
-                (messages.filter((m) => m.status === "REPLIED").length /
-                  messages.length) *
-                  100
-              )
-            : 0,
-        avgResponseTime: "< 24h",
-      };
 
   return (
     <div className="space-y-6">

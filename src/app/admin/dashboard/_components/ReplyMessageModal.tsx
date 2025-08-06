@@ -13,8 +13,15 @@ import {
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Reply, Mail, MessageSquare } from "lucide-react";
-import { useState } from "react";
-import { useAdmin, type ContactMessageWithReplies } from "./AdminContext";
+import { useState, useTransition } from "react";
+import { ContactMessage, ContactReply } from "@/generated/prisma";
+import { replyToMessage } from "../actions";
+import { toast } from "sonner";
+import { useDataRefresh } from "@/contexts/DataRefreshContext";
+
+type ContactMessageWithReplies = ContactMessage & {
+  replies: ContactReply[];
+};
 
 interface ReplyMessageModalProps {
   message: ContactMessageWithReplies;
@@ -25,11 +32,10 @@ export default function ReplyMessageModal({
   message,
   trigger,
 }: ReplyMessageModalProps) {
-  const { state, actions } = useAdmin();
-  const { isPending } = state;
-  const { handleReply } = actions;
+  const [isPending, startTransition] = useTransition();
   const [replyText, setReplyText] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const { triggerRefresh } = useDataRefresh();
 
   const defaultTrigger = (
     <Button variant="outline" size="sm">
@@ -39,14 +45,22 @@ export default function ReplyMessageModal({
 
   const handleSubmitReply = async () => {
     // Strip HTML tags for validation, but send full HTML content
-    const textContent = replyText.replace(/<[^>]*>/g, '').trim();
+    const textContent = replyText.replace(/<[^>]*>/g, "").trim();
     if (!textContent) return;
 
-    const success = await handleReply(message.id, replyText);
-    if (success) {
-      setReplyText("");
-      setIsOpen(false);
-    }
+    startTransition(async () => {
+      try {
+        await replyToMessage(message.id, replyText);
+        toast.success("Reply sent successfully");
+        setReplyText("");
+        setIsOpen(false);
+        // Trigger data refresh instead of page reload
+        triggerRefresh();
+      } catch (error) {
+        console.error("Error sending reply:", error);
+        toast.error("Failed to send reply");
+      }
+    });
   };
 
   const handleOpenChange = (open: boolean) => {
