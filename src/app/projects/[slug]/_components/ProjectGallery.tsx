@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ImageIcon } from "lucide-react";
 
 interface GalleryItem {
@@ -15,6 +16,7 @@ interface ProjectGalleryProps {
 }
 
 export default function ProjectGallery({ gallery }: ProjectGalleryProps) {
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -56,31 +58,51 @@ export default function ProjectGallery({ gallery }: ProjectGalleryProps) {
       >
         {gallery.map((item, index) => (
           <motion.div key={index} variants={fadeInUp}>
-            <Card className="group border-0 bg-gradient-to-br from-background via-background to-muted/20 hover:shadow-xl transition-all duration-500 overflow-hidden">
-              <CardContent className="p-0">
-                <div className="relative aspect-video overflow-hidden">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Card className="group border-0 bg-gradient-to-br from-background via-background to-muted/20 hover:shadow-xl transition-all duration-500 overflow-hidden cursor-pointer">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.caption}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
+                          <ImageIcon className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-4">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.caption}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              <DialogContent className="max-w-5xl w-full p-0 bg-transparent border-0 shadow-none">
+                <div className="relative w-full h-[80vh] bg-black/90 rounded-lg overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.caption}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-contain"
+                    quality={100}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
-                      <ImageIcon className="w-6 h-6 text-white" />
-                    </div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <p className="text-white text-sm leading-relaxed">
+                      {item.caption}
+                    </p>
                   </div>
                 </div>
-
-                <div className="p-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.caption}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+              </DialogContent>
+            </Dialog>
           </motion.div>
         ))}
       </motion.div>
