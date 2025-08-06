@@ -62,9 +62,14 @@ export async function replyToMessage(messageId: string, replyText: string) {
       console.error("Error sending reply email:", emailError);
       console.error("Email error details:", {
         error: emailError instanceof Error ? emailError.message : emailError,
+        stack: emailError instanceof Error ? emailError.stack : undefined,
         apiKeyExists: !!env.RESEND_API_KEY,
+        apiKeyLength: env.RESEND_API_KEY?.length || 0,
         from: "Mahmoud Jaderi <mahmoud_jaderi@codewithmj.com>",
         to: originalMessage.email,
+        subject: `Re: ${originalMessage.subject || "Your message"}`,
+        environment: process.env.NODE_ENV,
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
       });
       // Don't throw error - reply is saved even if email fails
       console.log("Reply saved to database but email sending failed");
