@@ -7,7 +7,7 @@ import { ExternalLink, Github } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { cardHover, imageHover, buttonHover } from "@/lib/animations";
+import { cardHover, imageHover } from "@/lib/animations";
 
 interface ProjectCardProps {
   project: {
@@ -47,74 +47,34 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
           {/* Top Badges */}
-          <div className="absolute top-4 left-4 flex gap-2">
+          <div className="absolute top-4 left-4 flex flex-col gap-2">
             {project.featured && (
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 shadow-lg">
+                <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 shadow-lg w-fit">
                   ⭐ Featured
                 </Badge>
               </motion.div>
             )}
             <Badge
               variant="outline"
-              className="bg-background/90 backdrop-blur-sm border-white/20 text-foreground"
+              className="bg-background/90 backdrop-blur-sm border-white/20 text-foreground w-fit"
             >
               {project.category}
             </Badge>
           </div>
 
-          {/* Floating Action Buttons */}
-          <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            {project.demoLink && (
-              <Button
-                asChild
-                size="sm"
-                variant="secondary"
-                className="backdrop-blur-sm bg-white/20 hover:bg-white/30 text-white border-white/20"
-              >
-                <Link
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </Link>
-              </Button>
-            )}
-            <Button
-              asChild
-              size="sm"
-              variant="secondary"
-              className="backdrop-blur-sm bg-white/20 hover:bg-white/30 text-white border-white/20"
+          {/* Year Badge */}
+          <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Badge
+              variant="outline"
+              className="bg-background/90 backdrop-blur-sm border-white/20 text-foreground text-xs"
             >
-              <Link
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-
-          {/* Bottom Overlay with Quick Info */}
-          <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center justify-between text-white text-sm">
-              <div className="flex items-center gap-2">
-                {project.demoLink && (
-                  <span className="px-2 py-1 bg-green-500/80 rounded text-xs font-medium">
-                    Live
-                  </span>
-                )}
-                <span className="px-2 py-1 bg-blue-500/80 rounded text-xs font-medium">
-                  {project.year}
-                </span>
-              </div>
-            </div>
+              {project.year}
+            </Badge>
           </div>
         </div>
 
@@ -205,7 +165,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <div className="flex gap-2 pt-2">
             {project.demoLink ? (
               <>
-                <motion.div variants={buttonHover} className="flex-1">
+                <div className="flex-1">
                   <Button
                     asChild
                     size="sm"
@@ -220,8 +180,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                       Live Demo
                     </Link>
                   </Button>
-                </motion.div>
-                <motion.div variants={buttonHover}>
+                </div>
+                <div className="flex-shrink-0">
                   <Button
                     asChild
                     size="sm"
@@ -237,10 +197,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                       Code
                     </Link>
                   </Button>
-                </motion.div>
+                </div>
               </>
             ) : (
-              <motion.div variants={buttonHover} className="w-full">
+              <div className="w-full">
                 <Button
                   asChild
                   size="sm"
@@ -255,7 +215,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     View Code
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
             )}
           </div>
         </CardContent>
