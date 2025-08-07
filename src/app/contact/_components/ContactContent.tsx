@@ -263,8 +263,8 @@ export default function ContactContent() {
             Why Work With Me?
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Fresh perspective, modern skills, and genuine passion for creating
-            amazing web experiences
+            Fresh expertise, modern development practices, and a results-driven
+            approach to building scalable web solutions
           </p>
         </div>
 
@@ -277,10 +277,10 @@ export default function ContactContent() {
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-semibold">Fresh Graduate</h3>
+              <h3 className="text-xl font-semibold">Fresh Expertise</h3>
               <p className="text-muted-foreground">
-                Recently completed intensive bootcamp with latest technologies
-                and best practices
+                Recent intensive training in current industry standards and
+                modern development practices
               </p>
             </div>
           </motion.div>

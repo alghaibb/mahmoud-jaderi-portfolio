@@ -78,14 +78,18 @@ export default function Hero() {
                   Mahmoud Jaderi
                 </span>
               </motion.h1>
-              
+
               <motion.div
                 variants={fadeInUp}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 rounded-full"
               >
-                <span className="text-lg font-semibold text-primary">CodeWithMJ</span>
+                <span className="text-lg font-semibold text-primary">
+                  CodeWithMJ
+                </span>
                 <span className="text-sm text-muted-foreground">•</span>
-                <span className="text-sm text-muted-foreground">Full Stack Developer</span>
+                <span className="text-sm text-muted-foreground">
+                  Full Stack Developer
+                </span>
               </motion.div>
 
               <motion.div
@@ -93,12 +97,12 @@ export default function Hero() {
                 className="space-y-4 lg:space-y-6"
               >
                 <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed">
-                  Full Stack Developer crafting{" "}
+                  Full Stack Developer building{" "}
                   <span className="text-foreground font-semibold">
-                    modern web applications
+                    scalable web solutions
                   </span>{" "}
-                  with cutting-edge technologies and exceptional user
-                  experiences.
+                  that drive business results with modern technologies and
+                  performance-focused architecture.
                 </p>
 
                 {/* Key Skills Highlight */}
