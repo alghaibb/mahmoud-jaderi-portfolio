@@ -117,63 +117,81 @@ export const featuredProjects = [
     year: 2025,
     // Case Study Details
     caseStudy: {
-      overview: "Kick Back is a modern event management platform that transforms how people organize and participate in events. Built with cutting-edge technologies, it offers a seamless experience from event creation to attendee management.",
-      challenge: "Traditional event management tools are often complex, expensive, and lack modern features like real-time updates and offline support. There was a need for a comprehensive yet user-friendly solution.",
-      solution: "I developed a full-stack PWA using Next.js 15 with TypeScript, implementing real-time experience through React Query polling, and comprehensive admin tools. The platform includes push notifications and offline support for seamless event management.",
+      overview:
+        "Kick Back is a modern event management platform that transforms how people organize and participate in events. Built with cutting-edge technologies, it offers a seamless experience from event creation to attendee management.",
+      challenge:
+        "Traditional event management tools are often complex, expensive, and lack modern features like real-time updates and offline support. There was a need for a comprehensive yet user-friendly solution.",
+      solution:
+        "I developed a full-stack PWA using Next.js 15 with TypeScript, implementing real-time experience through React Query polling, and comprehensive admin tools. The platform includes push notifications and offline support for seamless event management.",
       keyLearnings: [
         "Mastered PWA development including service workers and push notifications",
         "Learned to implement real-time-like experiences using React Query polling as an alternative to WebSockets",
         "Gained deep understanding of Next.js 15 features and Server Actions",
-        "Developed skills in creating comprehensive admin dashboards with complex state management"
+        "Developed skills in creating comprehensive admin dashboards with complex state management",
       ],
       businessImpact: {
-        userValue: "Eliminates the need for expensive event management subscriptions",
-        marketGap: "Addresses the gap between simple tools and enterprise solutions",
-        scalability: "Built to handle multiple events and large user bases"
+        userValue:
+          "Eliminates the need for expensive event management subscriptions",
+        marketGap:
+          "Addresses the gap between simple tools and enterprise solutions",
+        scalability: "Built to handle multiple events and large user bases",
       },
       nextSteps: [
         "Implement WebSocket connections for true real-time collaboration",
         "Add calendar integrations (Google Calendar, Outlook)",
         "Develop mobile app using React Native",
-        "Add analytics dashboard for event organizers"
+        "Add analytics dashboard for event organizers",
       ],
       techDetails: {
-        frontend: "Next.js 15 with TypeScript for type safety and modern React features",
+        frontend:
+          "Next.js 15 with TypeScript for type safety and modern React features",
         backend: "Server Actions and API routes for seamless data handling",
         database: "PostgreSQL with Prisma ORM for robust data management",
         auth: "Auth.js for secure authentication with multiple providers",
         realtime: "Using react-query's polling to fetch data",
-        pwa: "Service Workers for offline functionality and push notifications"
+        pwa: "Service Workers for offline functionality and push notifications",
       },
       challenges: [
         {
           title: "Real-time Experience",
-          description: "Ensuring all participants see live updates when event details change without complex WebSocket setup",
-          solution: "Implemented React Query with intelligent polling intervals to provide real-time-like experience with automatic refetching"
+          description:
+            "Ensuring all participants see live updates when event details change without complex WebSocket setup",
+          solution:
+            "Implemented React Query with intelligent polling intervals to provide real-time-like experience with automatic refetching",
         },
         {
           title: "PWA Performance",
-          description: "Maintaining fast performance while supporting offline functionality",
-          solution: "Used strategic caching with service workers and lazy loading for optimal performance"
+          description:
+            "Maintaining fast performance while supporting offline functionality",
+          solution:
+            "Used strategic caching with service workers and lazy loading for optimal performance",
         },
         {
           title: "Cross-platform Compatibility",
-          description: "Ensuring consistent experience across desktop, mobile, and tablet devices",
-          solution: "Responsive design with Tailwind CSS and extensive testing across devices"
-        }
+          description:
+            "Ensuring consistent experience across desktop, mobile, and tablet devices",
+          solution:
+            "Responsive design with Tailwind CSS and extensive testing across devices",
+        },
       ],
       results: [
         "50% reduction in event setup time compared to traditional tools",
         "95% user satisfaction rating from beta testers",
         "100% mobile responsiveness across all major devices",
-        "React Query polling provides smooth real-time-like experience"
+        "React Query polling provides smooth real-time-like experience",
       ],
       gallery: [
-        { image: "/kick-back-dashboard.png", caption: "Main dashboard with event overview" },
-        { image: "/kick-back-create.png", caption: "Event creation with smart scheduling" },
-        { image: "/kick-back-mobile.jpg", caption: "Mobile PWA interface" }
-      ]
-    }
+        {
+          image: "/kick-back-dashboard.png",
+          caption: "Main dashboard with event overview",
+        },
+        {
+          image: "/kick-back-create.png",
+          caption: "Event creation with smart scheduling",
+        },
+        { image: "/kick-back-mobile.jpg", caption: "Mobile PWA interface" },
+      ],
+    },
   },
   {
     title: "Invoico",
@@ -204,63 +222,83 @@ export const featuredProjects = [
     featured: true,
     year: 2025,
     caseStudy: {
-      overview: "Invoico started as a personal project to help my dad avoid paying monthly subscription fees for invoicing software. What began as a simple solution evolved into a comprehensive invoicing platform as I kept adding features and improvements.",
-      challenge: "My dad was paying expensive monthly fees for basic invoicing functionality. Most invoicing solutions are overpriced for small businesses and freelancers who just need simple, reliable invoice management without recurring costs.",
-      solution: "I built a full-stack invoicing platform using Next.js with heavy emphasis on Server Actions for data management and Resend for email automation. The system grew organically as I continuously added features based on real usage needs.",
+      overview:
+        "Invoico started as a personal project to help my dad avoid paying monthly subscription fees for invoicing software. What began as a simple solution evolved into a comprehensive invoicing platform as I kept adding features and improvements.",
+      challenge:
+        "My dad was paying expensive monthly fees for basic invoicing functionality. Most invoicing solutions are overpriced for small businesses and freelancers who just need simple, reliable invoice management without recurring costs.",
+      solution:
+        "I built a full-stack invoicing platform using Next.js with heavy emphasis on Server Actions for data management and Resend for email automation. The system grew organically as I continuously added features based on real usage needs.",
       keyLearnings: [
         "Mastered Next.js Server Actions for type-safe server-side operations",
         "Learned email automation and deliverability best practices with Resend",
         "Gained experience in iterative development based on real user feedback",
-        "Developed skills in PDF generation and document handling"
+        "Developed skills in PDF generation and document handling",
       ],
       businessImpact: {
-        userValue: "Saves $50-100+ monthly subscription fees for small businesses",
+        userValue:
+          "Saves $50-100+ monthly subscription fees for small businesses",
         marketGap: "Provides professional invoicing without recurring costs",
-        scalability: "Designed to support multiple businesses and high invoice volumes"
+        scalability:
+          "Designed to support multiple businesses and high invoice volumes",
       },
       nextSteps: [
         "Add payment gateway integration (Stripe, PayPal)",
         "Implement recurring invoice automation",
         "Add expense tracking and financial reporting",
-        "Build mobile app for on-the-go invoice management"
+        "Build mobile app for on-the-go invoice management",
       ],
       techDetails: {
-        frontend: "Next.js with TypeScript for a robust and type-safe user interface",
-        backend: "Heavy use of Server Actions for seamless data mutations and form handling",
+        frontend:
+          "Next.js with TypeScript for a robust and type-safe user interface",
+        backend:
+          "Heavy use of Server Actions for seamless data mutations and form handling",
         database: "Prisma ORM with PostgreSQL for reliable data management",
-        email: "Resend API integration for automated invoice delivery and payment reminders",
+        email:
+          "Resend API integration for automated invoice delivery and payment reminders",
         pdf: "Dynamic PDF generation for professional invoice documents",
-        ui: "Shadcn UI components with Tailwind CSS for consistent design"
+        ui: "Shadcn UI components with Tailwind CSS for consistent design",
       },
       challenges: [
         {
           title: "PDF Generation",
-          description: "Creating professional, customizable PDF invoices with dynamic content",
-          solution: "Implemented React-PDF with custom templates and dynamic data binding"
+          description:
+            "Creating professional, customizable PDF invoices with dynamic content",
+          solution:
+            "Implemented React-PDF with custom templates and dynamic data binding",
         },
         {
           title: "Server Actions Implementation",
-          description: "Managing complex data operations and form submissions efficiently",
-          solution: "Leveraged Next.js Server Actions extensively for type-safe server-side operations and seamless form handling"
+          description:
+            "Managing complex data operations and form submissions efficiently",
+          solution:
+            "Leveraged Next.js Server Actions extensively for type-safe server-side operations and seamless form handling",
         },
         {
           title: "Email Reliability",
-          description: "Ensuring invoice emails are delivered reliably without being marked as spam",
-          solution: "Integrated Resend API with proper domain authentication and email templates for professional delivery"
-        }
+          description:
+            "Ensuring invoice emails are delivered reliably without being marked as spam",
+          solution:
+            "Integrated Resend API with proper domain authentication and email templates for professional delivery",
+        },
       ],
       results: [
         "Eliminated monthly subscription costs for my dad's business",
         "Server Actions provide seamless, type-safe data operations",
         "Resend integration ensures reliable email delivery",
-        "Continuous feature additions based on real-world usage feedback"
+        "Continuous feature additions based on real-world usage feedback",
       ],
       gallery: [
-        { image: "/invoico-dashboard.png", caption: "Analytics dashboard with business insights" },
-        { image: "/invoico-invoice.png", caption: "Professional invoice creation interface" },
-        { image: "/invoico-clients.png", caption: "Client management system" }
-      ]
-    }
+        {
+          image: "/invoico-dashboard.png",
+          caption: "Analytics dashboard with business insights",
+        },
+        {
+          image: "/invoico-invoice.png",
+          caption: "Professional invoice creation interface",
+        },
+        { image: "/invoico-clients.png", caption: "Client management system" },
+      ],
+    },
   },
   {
     title: "CVisionary",
@@ -291,63 +329,85 @@ export const featuredProjects = [
     featured: true,
     year: 2025,
     caseStudy: {
-      overview: "CVisionary revolutionizes resume creation by combining AI-powered content generation with real-time preview and auto-save functionality. It helps job seekers create compelling resumes with immediate visual feedback and automatic data persistence.",
-      challenge: "Creating professional resumes is time-consuming and frustrating for job seekers. Traditional resume builders lack AI assistance, real-time feedback, and users often lose work due to lack of auto-save functionality.",
-      solution: "I developed an AI-powered platform that generates tailored resume content with real-time preview updates and automatic saving. Users can see changes instantly and never lose their work, with print-to-PDF functionality for immediate downloads.",
+      overview:
+        "CVisionary revolutionizes resume creation by combining AI-powered content generation with real-time preview and auto-save functionality. It helps job seekers create compelling resumes with immediate visual feedback and automatic data persistence.",
+      challenge:
+        "Creating professional resumes is time-consuming and frustrating for job seekers. Traditional resume builders lack AI assistance, real-time feedback, and users often lose work due to lack of auto-save functionality.",
+      solution:
+        "I developed an AI-powered platform that generates tailored resume content with real-time preview updates and automatic saving. Users can see changes instantly and never lose their work, with print-to-PDF functionality for immediate downloads.",
       keyLearnings: [
         "Mastered OpenAI API integration and prompt engineering for content generation",
         "Learned real-time state synchronization between editor and preview components",
         "Gained expertise in auto-save implementation with conflict resolution",
-        "Developed understanding of browser print APIs and PDF generation"
+        "Developed understanding of browser print APIs and PDF generation",
       ],
       businessImpact: {
         userValue: "Reduces resume creation time from hours to minutes",
-        marketGap: "Combines AI assistance with professional design in one platform",
-        scalability: "Built to handle thousands of concurrent users and AI requests"
+        marketGap:
+          "Combines AI assistance with professional design in one platform",
+        scalability:
+          "Built to handle thousands of concurrent users and AI requests",
       },
       nextSteps: [
         "Add multiple resume templates and themes",
         "Implement cover letter generation with AI",
         "Add LinkedIn profile import functionality",
-        "Build job application tracking system"
+        "Build job application tracking system",
       ],
       techDetails: {
-        frontend: "Next.js with TypeScript for a responsive and interactive user experience",
+        frontend:
+          "Next.js with TypeScript for a responsive and interactive user experience",
         ai: "OpenAI GPT-4 integration for intelligent content generation",
         pdf: "Browser's print-to-PDF functionality for instant document generation",
         database: "Prisma with PostgreSQL for user data and resume storage",
         autosave: "Automatic saving functionality to prevent data loss",
-        realtime: "Real-time preview system with instant visual updates as users type"
+        realtime:
+          "Real-time preview system with instant visual updates as users type",
       },
       challenges: [
         {
           title: "AI Content Quality",
-          description: "Ensuring AI-generated content is relevant, professional, and tailored",
-          solution: "Implemented context-aware prompts and content validation algorithms"
+          description:
+            "Ensuring AI-generated content is relevant, professional, and tailored",
+          solution:
+            "Implemented context-aware prompts and content validation algorithms",
         },
         {
           title: "Real-time Preview Synchronization",
-          description: "Ensuring the preview updates instantly as users make changes without performance issues",
-          solution: "Implemented efficient state management with debounced updates and optimized rendering cycles"
+          description:
+            "Ensuring the preview updates instantly as users make changes without performance issues",
+          solution:
+            "Implemented efficient state management with debounced updates and optimized rendering cycles",
         },
         {
           title: "Auto-save Implementation",
-          description: "Automatically saving user progress without interrupting the editing experience",
-          solution: "Built intelligent auto-save system that triggers on content changes with proper loading states and conflict resolution"
-        }
+          description:
+            "Automatically saving user progress without interrupting the editing experience",
+          solution:
+            "Built intelligent auto-save system that triggers on content changes with proper loading states and conflict resolution",
+        },
       ],
       results: [
         "Real-time preview provides instant visual feedback for better user experience",
         "Auto-save functionality eliminates data loss and user frustration",
         "Print-to-PDF integration allows immediate document generation",
-        "AI-generated content saves 2+ hours of writing time"
+        "AI-generated content saves 2+ hours of writing time",
       ],
       gallery: [
-        { image: "/cvisionary-editor.png", caption: "Real-time resume editor with auto-save functionality" },
-        { image: "/cvisionary-preview.png", caption: "Live preview with instant updates" },
-        { image: "/cvisionary-ai.png", caption: "AI content generation interface" }
-      ]
-    }
+        {
+          image: "/cvisionary-editor.png",
+          caption: "Real-time resume editor with auto-save functionality",
+        },
+        {
+          image: "/cvisionary-preview.png",
+          caption: "Live preview with instant updates",
+        },
+        {
+          image: "/cvisionary-ai.png",
+          caption: "AI content generation interface",
+        },
+      ],
+    },
   },
   {
     title: "Nextjs Auth Starter",
@@ -375,46 +435,64 @@ export const featuredProjects = [
     featured: false,
     year: 2024,
     caseStudy: {
-      overview: "A production-ready Next.js starter template that eliminates the time-consuming setup of authentication systems. It provides a solid foundation for building secure web applications with modern best practices.",
-      challenge: "Setting up authentication in Next.js applications requires significant boilerplate code, security considerations, and integration complexity. Developers spend valuable time on repetitive setup instead of core features.",
-      solution: "I created a comprehensive starter kit with pre-configured authentication, database integration, and modern UI components, allowing developers to focus on building their unique application features.",
+      overview:
+        "A production-ready Next.js starter template that eliminates the time-consuming setup of authentication systems. It provides a solid foundation for building secure web applications with modern best practices.",
+      challenge:
+        "Setting up authentication in Next.js applications requires significant boilerplate code, security considerations, and integration complexity. Developers spend valuable time on repetitive setup instead of core features.",
+      solution:
+        "I created a comprehensive starter kit with pre-configured authentication, database integration, and modern UI components, allowing developers to focus on building their unique application features.",
       techDetails: {
         auth: "Auth.js (NextAuth) with multiple provider support and session management",
         database: "Prisma ORM with PostgreSQL for robust data persistence",
         ui: "Shadcn UI components with Tailwind CSS for modern design",
-        security: "Built-in CSRF protection, secure session handling, and input validation",
+        security:
+          "Built-in CSRF protection, secure session handling, and input validation",
         email: "Email verification and password reset workflows",
-        typescript: "Full TypeScript support with strict type checking"
+        typescript: "Full TypeScript support with strict type checking",
       },
       challenges: [
         {
           title: "Security Best Practices",
-          description: "Implementing comprehensive security measures for authentication",
-          solution: "Integrated CSRF protection, secure cookies, and input sanitization"
+          description:
+            "Implementing comprehensive security measures for authentication",
+          solution:
+            "Integrated CSRF protection, secure cookies, and input sanitization",
         },
         {
           title: "Email Integration",
-          description: "Setting up reliable email verification and password reset flows",
-          solution: "Built modular email system with template support and error handling"
+          description:
+            "Setting up reliable email verification and password reset flows",
+          solution:
+            "Built modular email system with template support and error handling",
         },
         {
           title: "Developer Experience",
           description: "Creating an intuitive setup process for developers",
-          solution: "Comprehensive documentation and environment configuration templates"
-        }
+          solution:
+            "Comprehensive documentation and environment configuration templates",
+        },
       ],
       results: [
         "500+ GitHub stars from developer community",
         "95% reduction in authentication setup time",
         "Zero security vulnerabilities in security audit",
-        "Used as foundation for 50+ production applications"
+        "Used as foundation for 50+ production applications",
       ],
       gallery: [
-        { image: "/auth-starter-login.png", caption: "Modern login interface with multiple providers" },
-        { image: "/auth-starter-dashboard.png", caption: "Protected dashboard with user management" },
-        { image: "/auth-starter-setup.png", caption: "Easy configuration and setup process" }
-      ]
-    }
+        {
+          image: "/auth-starter-login.png",
+          caption: "Modern login interface with multiple providers",
+        },
+        {
+          image: "/auth-starter-dashboard.png",
+          caption: "Protected dashboard with user management",
+        },
+        {
+          image: "/auth-starter-setup.png",
+          caption: "Easy configuration and setup process",
+        },
+      ],
+    },
   },
   {
     title: "Sumz",
@@ -444,46 +522,64 @@ export const featuredProjects = [
     featured: false,
     year: 2022,
     caseStudy: {
-      overview: "Sumz addresses information overload by using AI to create concise, accurate summaries of lengthy articles. It helps users quickly understand key points without reading entire articles.",
-      challenge: "In today's information-rich environment, people struggle to keep up with the volume of articles and content. Reading everything thoroughly is time-consuming and often unnecessary.",
-      solution: "I built an AI-powered summarization tool using OpenAI's GPT-4 that can process any article URL and generate intelligent summaries while maintaining key insights and context.",
+      overview:
+        "Sumz addresses information overload by using AI to create concise, accurate summaries of lengthy articles. It helps users quickly understand key points without reading entire articles.",
+      challenge:
+        "In today's information-rich environment, people struggle to keep up with the volume of articles and content. Reading everything thoroughly is time-consuming and often unnecessary.",
+      solution:
+        "I built an AI-powered summarization tool using OpenAI's GPT-4 that can process any article URL and generate intelligent summaries while maintaining key insights and context.",
       techDetails: {
-        frontend: "React with Vite for fast development and optimal performance",
+        frontend:
+          "React with Vite for fast development and optimal performance",
         ai: "OpenAI GPT-4 API for advanced natural language processing",
         parsing: "Web scraping and content extraction for article processing",
         storage: "Local storage for summary history and user preferences",
         ui: "Tailwind CSS for clean, responsive design",
-        optimization: "Lazy loading and efficient API usage for performance"
+        optimization: "Lazy loading and efficient API usage for performance",
       },
       challenges: [
         {
           title: "Content Extraction",
-          description: "Reliably extracting clean article content from various websites",
-          solution: "Implemented robust parsing algorithms with fallback methods"
+          description:
+            "Reliably extracting clean article content from various websites",
+          solution:
+            "Implemented robust parsing algorithms with fallback methods",
         },
         {
           title: "Summary Quality",
-          description: "Ensuring AI summaries capture the most important information",
-          solution: "Fine-tuned prompts and implemented content validation checks"
+          description:
+            "Ensuring AI summaries capture the most important information",
+          solution:
+            "Fine-tuned prompts and implemented content validation checks",
         },
         {
           title: "Performance Optimization",
-          description: "Managing API costs while maintaining fast response times",
-          solution: "Implemented caching and optimized prompt engineering"
-        }
+          description:
+            "Managing API costs while maintaining fast response times",
+          solution: "Implemented caching and optimized prompt engineering",
+        },
       ],
       results: [
         "75% reduction in reading time for users",
         "90% accuracy in capturing key article points",
         "Open-source project with 200+ GitHub stars",
-        "Processes articles in under 10 seconds"
+        "Processes articles in under 10 seconds",
       ],
       gallery: [
-        { image: "/sumz-interface.png", caption: "Clean interface for URL input and summary display" },
-        { image: "/sumz-history.png", caption: "Summary history with search and organization" },
-        { image: "/sumz-mobile.png", caption: "Mobile-optimized reading experience" }
-      ]
-    }
+        {
+          image: "/sumz-interface.png",
+          caption: "Clean interface for URL input and summary display",
+        },
+        {
+          image: "/sumz-history.png",
+          caption: "Summary history with search and organization",
+        },
+        {
+          image: "/sumz-mobile.png",
+          caption: "Mobile-optimized reading experience",
+        },
+      ],
+    },
   },
 ];
 
@@ -618,14 +714,14 @@ export const aboutData = {
       icon: Code,
     },
     {
-      year: "2023",
-      title: "Formal Learning",
+      year: "Aug 2023 - Feb 2024",
+      title: "Web Development Bootcamp",
       description:
         "Completed a 6-month full-time web development bootcamp, gaining hands-on experience in both frontend and backend technologies.",
       icon: GraduationCap,
     },
     {
-      year: "2024",
+      year: "Feb 2024 - Present",
       title: "Project-Based Learning",
       description:
         "Built real-world full-stack applications using Next.js, Prisma, and modern development tools to solidify core skills.",
@@ -680,7 +776,8 @@ export const aboutData = {
 export const siteConfig = {
   name: "CodeWithMJ",
   title: "Mahmoud Jaderi - Full Stack Developer",
-  description: "CodeWithMJ - Modern web apps built with Next.js, TypeScript, and clean UI by Mahmoud Jaderi.",
+  description:
+    "CodeWithMJ - Modern web apps built with Next.js, TypeScript, and clean UI by Mahmoud Jaderi.",
   url: env.NEXT_PUBLIC_BASE_URL,
   ogImage: "/og-image.png",
   brand: "CodeWithMJ",

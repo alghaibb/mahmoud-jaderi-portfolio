@@ -39,7 +39,7 @@ const experiences = [
     title: "Formal Learning",
     company: "",
     location: "",
-    period: "2023",
+    period: "Aug 2023 - Feb 2024",
     duration: "",
     status: "completed",
     description:
@@ -55,7 +55,7 @@ const experiences = [
     title: "Project-Based Learning",
     company: "",
     location: "",
-    period: "2024",
+    period: "Feb 2024 - Present",
     duration: "",
     status: "completed",
     description:
@@ -71,7 +71,7 @@ const experiences = [
     title: "Sharpening the Craft",
     company: "",
     location: "",
-    period: "2025",
+    period: "2024 - Present",
     duration: "",
     status: "current",
     description:
@@ -87,7 +87,7 @@ const experiences = [
     title: "Professional Growth",
     company: "",
     location: "",
-    period: "2026",
+    period: "2024 - Present",
     duration: "",
     status: "current",
     description:
