@@ -6,7 +6,7 @@ import {
   contactInfo,
 } from "@/lib/constants";
 import Link from "next/link";
-import { Mail, MapPin, Calendar, Code2, Heart, ArrowUp } from "lucide-react";
+import { Mail, MapPin, Calendar, Code2, Heart, ArrowUp, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -72,6 +72,15 @@ export default function Footer() {
                     <social.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>
                 ))}
+                <Button variant="ghost" size="lg" className="group" asChild>
+                  <Link
+                    href="/mahmoud-jaderi-resume.pdf"
+                    download="mahmoud-jaderi-resume.pdf"
+                  >
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Resume
+                  </Link>
+                </Button>
               </div>
             </div>
 
