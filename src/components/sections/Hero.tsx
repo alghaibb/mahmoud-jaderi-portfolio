@@ -161,9 +161,14 @@ export default function Hero() {
                   </Link>
                 </Button>
 
-                <Button variant="ghost" size="lg" className="group">
-                  <Download className="mr-2 h-5 w-5" />
-                  Download CV
+                <Button variant="ghost" size="lg" className="group" asChild>
+                  <Link
+                    href="/mahmoud-jaderi-resume.pdf"
+                    download="mahmoud-jaderi-resume.pdf"
+                  >
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Resume
+                  </Link>
                 </Button>
               </motion.div>
 
@@ -251,21 +256,21 @@ export default function Hero() {
                   <TypingSequence
                     lines={[
                       "interface Developer {",
-                      "  name: string;",
-                      "  role: string;",
-                      "  skills: string[];",
-                      "  passion: string;",
-                      "  status: 'Available' | 'Busy';",
-                      "  location: string;",
+                      "\tname: string;",
+                      "\trole: string;",
+                      "\tskills: string[];",
+                      "\tpassion: string;",
+                      "\tstatus: 'Available' | 'Busy';",
+                      "\tlocation: string;",
                       "}",
                       "",
                       "const developer: Developer = {",
-                      '  name: "Mahmoud Jaderi",',
-                      '  role: "Full Stack Developer",',
-                      '  skills: ["Next.js", "TypeScript", "React"],',
-                      '  passion: "Building amazing apps",',
-                      '  status: "Available",',
-                      '  location: "Melbourne, Australia"',
+                      '\tname: "Mahmoud Jaderi",',
+                      '\trole: "Full Stack Developer",',
+                      '\tskills: ["Next.js", "TypeScript", "React"],',
+                      '\tpassion: "Building amazing apps",',
+                      '\tstatus: "Available",',
+                      '\tlocation: "Melbourne, Australia"',
                       "};",
                       "",
                       "// Ready to create something amazing?",

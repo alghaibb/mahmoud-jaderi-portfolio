@@ -137,14 +137,17 @@ export default function TypingSequence({
     <div className={className}>
       {/* Completed lines */}
       {lines.slice(0, currentLineIndex).map((line, index) => (
-        <div key={index} className="text-blue-500">
+        <div
+          key={index}
+          className="text-blue-500 whitespace-pre-wrap font-mono text-sm"
+        >
           {renderHighlightedText(line)}
         </div>
       ))}
 
       {/* Currently typing line */}
       {isTyping && (
-        <div className="text-blue-500">
+        <div className="text-blue-500 whitespace-pre-wrap font-mono text-sm">
           {renderHighlightedText(displayText)}
           <motion.span
             animate={{ opacity: [1, 0] }}
